@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="display_top_testbench_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="display_top_testbench" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="68994506200fs"></ZoomStartTime>
+      <ZoomEndTime time="68994765201fs"></ZoomEndTime>
+      <Cursor1Time time="68994580000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="259"></NameColumnWidth>
+      <ValueColumnWidth column_width="114"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="10" />
+   <wvobject fp_name="/display_top_testbench/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/display_top_testbench/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="group127" type="group">
+      <obj_property name="label">bcm module</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_bcm_unit/bcm_go" type="logic">
+         <obj_property name="ElementShortName">bcm_go</obj_property>
+         <obj_property name="ObjectShortName">bcm_go</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_bcm_unit/bcm_done" type="logic">
+         <obj_property name="ElementShortName">bcm_done</obj_property>
+         <obj_property name="ObjectShortName">bcm_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_bcm_unit/display_row" type="other">
+         <obj_property name="ElementShortName">display_row</obj_property>
+         <obj_property name="ObjectShortName">display_row</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_bcm_unit/display_bit" type="other">
+         <obj_property name="ElementShortName">display_bit</obj_property>
+         <obj_property name="ObjectShortName">display_bit</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_bcm_unit/display_buffer" type="other">
+         <obj_property name="ElementShortName">display_buffer</obj_property>
+         <obj_property name="ObjectShortName">display_buffer</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_bcm_unit/state" type="other">
+         <obj_property name="ElementShortName">state</obj_property>
+         <obj_property name="ObjectShortName">state</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group132" type="group">
+      <obj_property name="label">blanking</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_blanking_unit/blank_go" type="logic">
+         <obj_property name="ElementShortName">blank_go</obj_property>
+         <obj_property name="ObjectShortName">blank_go</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_blanking_unit/latch_rdy" type="logic">
+         <obj_property name="ElementShortName">latch_rdy</obj_property>
+         <obj_property name="ObjectShortName">latch_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_blanking_unit/blank_timer" type="other">
+         <obj_property name="ElementShortName">blank_timer</obj_property>
+         <obj_property name="ObjectShortName">blank_timer</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group46" type="group">
+      <obj_property name="label">Converter</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/bram_convert_unit/convert_go" type="logic">
+         <obj_property name="ElementShortName">convert_go</obj_property>
+         <obj_property name="ObjectShortName">convert_go</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/bram_convert_unit/convert_done" type="logic">
+         <obj_property name="ElementShortName">convert_done</obj_property>
+         <obj_property name="ObjectShortName">convert_done</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group91" type="group">
+      <obj_property name="label">Pattern Gen</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/pattern_gen_unit/pattern_go" type="logic">
+         <obj_property name="ElementShortName">pattern_go</obj_property>
+         <obj_property name="ObjectShortName">pattern_go</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/pattern_gen_unit/pattern_done" type="logic">
+         <obj_property name="ElementShortName">pattern_done</obj_property>
+         <obj_property name="ObjectShortName">pattern_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/pattern_gen_unit/state" type="other">
+         <obj_property name="ElementShortName">state</obj_property>
+         <obj_property name="ObjectShortName">state</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/pattern_gen_unit/write_col" type="other">
+         <obj_property name="ElementShortName">write_col</obj_property>
+         <obj_property name="ObjectShortName">write_col</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group141" type="group">
+      <obj_property name="label">contoller</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_contoller_unit/bcm_go" type="logic">
+         <obj_property name="ElementShortName">bcm_go</obj_property>
+         <obj_property name="ObjectShortName">bcm_go</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_contoller_unit/bcm_done" type="logic">
+         <obj_property name="ElementShortName">bcm_done</obj_property>
+         <obj_property name="ObjectShortName">bcm_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_contoller_unit/blank_go" type="logic">
+         <obj_property name="ElementShortName">blank_go</obj_property>
+         <obj_property name="ObjectShortName">blank_go</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_contoller_unit/latch_rdy" type="logic">
+         <obj_property name="ElementShortName">latch_rdy</obj_property>
+         <obj_property name="ObjectShortName">latch_rdy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_contoller_unit/pattern_go" type="logic">
+         <obj_property name="ElementShortName">pattern_go</obj_property>
+         <obj_property name="ObjectShortName">pattern_go</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_contoller_unit/pattern_done" type="logic">
+         <obj_property name="ElementShortName">pattern_done</obj_property>
+         <obj_property name="ObjectShortName">pattern_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_contoller_unit/pattern_gen_sequence" type="logic">
+         <obj_property name="ElementShortName">pattern_gen_sequence</obj_property>
+         <obj_property name="ObjectShortName">pattern_gen_sequence</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_contoller_unit/convert_go" type="logic">
+         <obj_property name="ElementShortName">convert_go</obj_property>
+         <obj_property name="ObjectShortName">convert_go</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_contoller_unit/convert_done" type="logic">
+         <obj_property name="ElementShortName">convert_done</obj_property>
+         <obj_property name="ObjectShortName">convert_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_contoller_unit/display_buffer" type="other">
+         <obj_property name="ElementShortName">display_buffer</obj_property>
+         <obj_property name="ObjectShortName">display_buffer</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_contoller_unit/display_row" type="other">
+         <obj_property name="ElementShortName">display_row</obj_property>
+         <obj_property name="ObjectShortName">display_row</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_contoller_unit/bit_num" type="other">
+         <obj_property name="ElementShortName">bit_num</obj_property>
+         <obj_property name="ObjectShortName">bit_num</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_contoller_unit/row_num" type="other">
+         <obj_property name="ElementShortName">row_num</obj_property>
+         <obj_property name="ObjectShortName">row_num</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/display_contoller_unit/state" type="other">
+         <obj_property name="ElementShortName">state</obj_property>
+         <obj_property name="ObjectShortName">state</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group148" type="group">
+      <obj_property name="label">Display</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/display_top_testbench/display_clk_out" type="logic">
+         <obj_property name="ElementShortName">display_clk_out</obj_property>
+         <obj_property name="ObjectShortName">display_clk_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_blank_out" type="logic">
+         <obj_property name="ElementShortName">display_blank_out</obj_property>
+         <obj_property name="ObjectShortName">display_blank_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_latch_out" type="logic">
+         <obj_property name="ElementShortName">display_latch_out</obj_property>
+         <obj_property name="ObjectShortName">display_latch_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_address_out" type="array">
+         <obj_property name="ElementShortName">display_address_out[4:0]</obj_property>
+         <obj_property name="ObjectShortName">display_address_out[4:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/R0_out" type="logic">
+         <obj_property name="ElementShortName">R0_out</obj_property>
+         <obj_property name="ObjectShortName">R0_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/G0_out" type="logic">
+         <obj_property name="ElementShortName">G0_out</obj_property>
+         <obj_property name="ObjectShortName">G0_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/B0_out" type="logic">
+         <obj_property name="ElementShortName">B0_out</obj_property>
+         <obj_property name="ObjectShortName">B0_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/R1_out" type="logic">
+         <obj_property name="ElementShortName">R1_out</obj_property>
+         <obj_property name="ObjectShortName">R1_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/G1_out" type="logic">
+         <obj_property name="ElementShortName">G1_out</obj_property>
+         <obj_property name="ObjectShortName">G1_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/B1_out" type="logic">
+         <obj_property name="ElementShortName">B1_out</obj_property>
+         <obj_property name="ObjectShortName">B1_out</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group102" type="group">
+      <obj_property name="label">framebuffer</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/framebuffer_unit/write_en" type="logic">
+         <obj_property name="ElementShortName">write_en</obj_property>
+         <obj_property name="ObjectShortName">write_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/framebuffer_unit/write_addr" type="array">
+         <obj_property name="ElementShortName">write_addr[14:0]</obj_property>
+         <obj_property name="ObjectShortName">write_addr[14:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/framebuffer_unit/write_data" type="array">
+         <obj_property name="ElementShortName">write_data[5:0]</obj_property>
+         <obj_property name="ObjectShortName">write_data[5:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/framebuffer_unit/read_addr" type="array">
+         <obj_property name="ElementShortName">read_addr[14:0]</obj_property>
+         <obj_property name="ObjectShortName">read_addr[14:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/framebuffer_unit/read_data" type="array">
+         <obj_property name="ElementShortName">read_data[5:0]</obj_property>
+         <obj_property name="ObjectShortName">read_data[5:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/framebuffer_unit/addr_reg" type="array">
+         <obj_property name="ElementShortName">addr_reg[14:0]</obj_property>
+         <obj_property name="ObjectShortName">addr_reg[14:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group103" type="group">
+      <obj_property name="label">patternbuffer</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/patternbuffer_unit/write_clk" type="logic">
+         <obj_property name="ElementShortName">write_clk</obj_property>
+         <obj_property name="ObjectShortName">write_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/patternbuffer_unit/write_en" type="logic">
+         <obj_property name="ElementShortName">write_en</obj_property>
+         <obj_property name="ObjectShortName">write_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/patternbuffer_unit/write_addr" type="array">
+         <obj_property name="ElementShortName">write_addr[11:0]</obj_property>
+         <obj_property name="ObjectShortName">write_addr[11:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/patternbuffer_unit/write_data" type="array">
+         <obj_property name="ElementShortName">write_data[23:0]</obj_property>
+         <obj_property name="ObjectShortName">write_data[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/patternbuffer_unit/read_clk" type="logic">
+         <obj_property name="ElementShortName">read_clk</obj_property>
+         <obj_property name="ObjectShortName">read_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/patternbuffer_unit/read_addr" type="array">
+         <obj_property name="ElementShortName">read_addr[11:0]</obj_property>
+         <obj_property name="ObjectShortName">read_addr[11:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/patternbuffer_unit/read_data" type="array">
+         <obj_property name="ElementShortName">read_data[23:0]</obj_property>
+         <obj_property name="ObjectShortName">read_data[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/patternbuffer_unit/addr_reg" type="array">
+         <obj_property name="ElementShortName">addr_reg[11:0]</obj_property>
+         <obj_property name="ObjectShortName">addr_reg[11:0]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
