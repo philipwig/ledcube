@@ -85,21 +85,15 @@ begin
                                         top_line <= top_line + 1;
                                     end if;
                                 end if;
-                                
---                                if current_col > left_line and current_col < n_cols - left_line - 1 then
---                                    if current_row = top_line or current_row = n_rows - top_line - 1 then
---                                        mem_write_data <= x"00FF00"; -- Draw top and bottom lines of square
---                                    else
---                                        mem_write_data <= x"000000";
---                                    end if;
-                                if current_row >= top_line and current_row <= n_rows - top_line - 1 then
-                                    if current_col = left_line or current_col = n_cols - left_line - 1 then
-                                        mem_write_data <= x"00FF00"; -- Draw left and right lines of square
+
+                                if current_col >= left_line and current_col <= n_cols - left_line - 1 then
+                                    if current_row >= top_line and current_row <= n_rows - top_line - 1 then
+                                        mem_write_data <= x"00FF00"; -- Write green pixel
                                     else
-                                        mem_write_data <= x"000000";
+                                        mem_write_data <= x"000000"; -- Write black pixel
                                     end if;
                                 else
-                                    mem_write_data <= x"000000"; -- Fill in other pixels with blue
+                                    mem_write_data <= x"000000";
                                 end if;
                         end case;
                        

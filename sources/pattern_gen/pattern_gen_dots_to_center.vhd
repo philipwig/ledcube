@@ -28,8 +28,8 @@ architecture cool of pattern_gen is
     signal state : state_type := erase_pixels;
     signal generating_pattern : std_logic := '1';
 
-    signal top_line : integer range 0 to n_rows - 1 := 0;
-    signal left_line : integer range 0 to n_cols - 1 := 0;        
+    variable top_line : integer range 0 to n_rows - 1 := 0;
+    variable left_line : integer range 0 to n_cols - 1 := 0;        
 begin
 
     pattern_done <= not generating_pattern;
@@ -85,21 +85,15 @@ begin
                                         top_line <= top_line + 1;
                                     end if;
                                 end if;
-                                
---                                if current_col > left_line and current_col < n_cols - left_line - 1 then
---                                    if current_row = top_line or current_row = n_rows - top_line - 1 then
---                                        mem_write_data <= x"00FF00"; -- Draw top and bottom lines of square
---                                    else
---                                        mem_write_data <= x"000000";
---                                    end if;
-                                if current_row >= top_line and current_row <= n_rows - top_line - 1 then
-                                    if current_col = left_line or current_col = n_cols - left_line - 1 then
-                                        mem_write_data <= x"00FF00"; -- Draw left and right lines of square
+
+                                if current_col = left_line or current_col = n_cols - left_line - 1 then
+                                    if current_row = top_line or current_row = n_rows - top_line - 1 then
+                                        mem_write_data <= x"FFFFFF"; -- Write white pixel
                                     else
-                                        mem_write_data <= x"000000";
+                                        mem_write_data <= x"000000"; -- Write black pixel
                                     end if;
                                 else
-                                    mem_write_data <= x"000000"; -- Fill in other pixels with blue
+                                    mem_write_data <= x"000000";
                                 end if;
                         end case;
                        
