@@ -109,12 +109,12 @@ begin
                             row_num <= 0;
                             bit_num <= 0;
 
-                            if timer = timer_max - 1 then
+--                            if timer = timer_max - 1 then
                                 pattern_go <= '1'; -- Start the pattern generator to write a new patternbuffer
-                                timer <= 0;
-                            else
-                                timer <= timer + 1;
-                            end if;
+--                                timer <= 0;
+--                            else
+--                                timer <= timer + 1;
+--                            end if;
                             
                             -- pattern_go <= '1'; 
                             -- convert_go <= '1'; -- Start the covnersion module to write into the old framebuffer

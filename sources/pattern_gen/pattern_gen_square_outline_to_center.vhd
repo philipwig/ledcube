@@ -29,16 +29,17 @@ architecture cool of pattern_gen is
     signal generating_pattern : std_logic := '1';
 
     signal top_line : integer range 0 to n_rows - 1 := 0;
-    signal left_line : integer range 0 to n_cols - 1 := 0;        
+    signal left_line : integer range 0 to n_cols - 1 := 0;  
+    
+    signal current_row : integer range 0 to n_rows - 1 :=  n_rows - 1;
+    signal current_col : integer range 0 to n_cols - 1 := n_cols - 1;   
+    
 begin
 
     pattern_done <= not generating_pattern;
 
     process (clk)
     
-    variable current_row : integer range 0 to n_rows - 1 :=  n_rows - 1;
-    variable current_col : integer range 0 to n_cols - 1 := n_cols - 1;   
-        
     begin
         if (rising_edge(clk)) then
             if rst = '1' then
@@ -52,16 +53,16 @@ begin
                 elsif generating_pattern = '1' then
                         if current_row = n_rows - 1 and current_col = n_cols - 1 then
                             -- Done generating pattern
-                            current_row := 0;
-                            current_col := 0;
+                            current_row <= 0;
+                            current_col <= 0;
 
                         elsif current_col = n_cols - 1 then
                             -- Go to next row
-                            current_row := current_row + 1;
-                            current_col := 0;
+                            current_row <= current_row + 1;
+                            current_col <= 0;
                         else 
                             -- Go to next col
-                            current_col := current_col + 1;
+                            current_col <= current_col + 1;
                         end if;
 
                         case state is
@@ -85,15 +86,21 @@ begin
                                         top_line <= top_line + 1;
                                     end if;
                                 end if;
-
-                                if current_col = left_line or current_col = n_cols - left_line - 1 then
-                                    if current_row = top_line or current_row = n_rows - top_line - 1 then
-                                        mem_write_data <= x"FFFFFF"; -- Write white pixel
+                                
+                               if current_col > left_line and current_col < n_cols - left_line - 1 then
+                                   if current_row = top_line or current_row = n_rows - top_line - 1 then
+                                       mem_write_data <= x"00FF00"; -- Draw top and bottom lines of square
+                                   else
+                                       mem_write_data <= x"000000";
+                                   end if;
+                                elsif current_row >= top_line and current_row <= n_rows - top_line - 1 then
+                                    if current_col = left_line or current_col = n_cols - left_line - 1 then
+                                        mem_write_data <= x"00FF00"; -- Draw left and right lines of square
                                     else
-                                        mem_write_data <= x"000000"; -- Write black pixel
+                                        mem_write_data <= x"000000";
                                     end if;
                                 else
-                                    mem_write_data <= x"000000";
+                                    mem_write_data <= x"000000"; -- Fill in other pixels with blue
                                 end if;
                         end case;
                        

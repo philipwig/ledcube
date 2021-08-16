@@ -10,13 +10,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="68994506200fs"></ZoomStartTime>
-      <ZoomEndTime time="68994765201fs"></ZoomEndTime>
-      <Cursor1Time time="68994580000fs"></Cursor1Time>
+      <ZoomStartTime time="25030500000fs"></ZoomStartTime>
+      <ZoomEndTime time="89980500001fs"></ZoomEndTime>
+      <Cursor1Time time="31009300000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="259"></NameColumnWidth>
-      <ValueColumnWidth column_width="114"></ValueColumnWidth>
+      <ValueColumnWidth column_width="110"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="10" />
    <wvobject fp_name="/display_top_testbench/clk" type="logic">
@@ -100,9 +100,17 @@
          <obj_property name="ElementShortName">state</obj_property>
          <obj_property name="ObjectShortName">state</obj_property>
       </wvobject>
-      <wvobject fp_name="/display_top_testbench/display_top_unit/pattern_gen_unit/write_col" type="other">
-         <obj_property name="ElementShortName">write_col</obj_property>
-         <obj_property name="ObjectShortName">write_col</obj_property>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/pattern_gen_unit/current_pattern" type="other">
+         <obj_property name="ElementShortName">current_pattern</obj_property>
+         <obj_property name="ObjectShortName">current_pattern</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/pattern_gen_unit/current_display_frame" type="other">
+         <obj_property name="ElementShortName">current_display_frame</obj_property>
+         <obj_property name="ObjectShortName">current_display_frame</obj_property>
+      </wvobject>
+      <wvobject fp_name="/display_top_testbench/display_top_unit/pattern_gen_unit/current_animation_frame" type="other">
+         <obj_property name="ElementShortName">current_animation_frame</obj_property>
+         <obj_property name="ObjectShortName">current_animation_frame</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group141" type="group">

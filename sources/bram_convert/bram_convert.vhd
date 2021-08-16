@@ -38,17 +38,21 @@ architecture fast of bram_convert is
     signal current_row_debug : integer range 0 to n_rows - 1 := 0;
     signal current_col_debug : integer range 0 to n_cols - 1 := 0;
     signal current_bit_debug : integer range 0 to bitdepth - 1 := 0;
+    
+    signal current_buffer : integer range 0 to 1;
 
 begin
 
+    current_buffer <= 1 when display_buffer = 0 else
+                      0;
+
     process (clk)
-        variable current_buffer : integer range 0 to 1;
         variable current_row : integer range 0 to n_rows - 1 := 0;
         variable current_col : integer range 0 to n_cols - 1 := 0;
         variable current_bit : integer range 0 to bitdepth - 1 := 0;
 
     begin
-        if(rising_edge(clk)) then            
+        if(rising_edge(clk)) then
             if rst = '1' then
                 state <= idle;
                 mem_read_addr <= (others => '0');
@@ -97,15 +101,9 @@ begin
 
                     when write_line =>
 
-                        if display_buffer = 0 then
-                            current_buffer := 1;
-                        else
-                            current_buffer := 0;
-                        end if;
-
                         -- Write the temp line into the memory at the correct address
                         mem_write_addr <= std_logic_vector(to_unsigned( (n_rows * n_cols * bitdepth * current_buffer) + (n_cols * bitdepth * current_row) + (n_cols * current_bit) + current_col, mem_write_addr'length));
-                        mem_write_data <= top_pixel(current_bit + 2 * bitdepth) & top_pixel(current_bit + bitdepth) & top_pixel(current_bit) & bottom_pixel(current_bit + 2 * bitdepth) & bottom_pixel(current_bit + bitdepth) & bottom_pixel(current_bit);
+                        mem_write_data <= top_pixel(2 * bitdepth + current_bit) & top_pixel(bitdepth + current_bit) & top_pixel(current_bit) & bottom_pixel(2 * bitdepth + current_bit) & bottom_pixel(bitdepth + current_bit) & bottom_pixel(current_bit);
                         mem_write_en <= '1';
                         
                         if current_row = n_rows - 1 and current_col = n_cols - 1 and current_bit = bitdepth - 1 then
