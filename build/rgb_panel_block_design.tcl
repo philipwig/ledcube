@@ -712,9 +712,9 @@ proc create_root_design { parentCell } {
 
   # Create port connections
   connect_bd_net -net display_top_0_B0_out [get_bd_ports B0_out_0] [get_bd_ports B0_out_1] [get_bd_pins display_top_0/B0_out]
-  connect_bd_net -net display_top_0_B1_out [get_bd_ports B1_out_0] [get_bd_ports G1_out_1] [get_bd_pins display_top_0/B1_out]
+  connect_bd_net -net display_top_0_B1_out [get_bd_ports B1_out_0] [get_bd_ports B1_out_1] [get_bd_pins display_top_0/B1_out]
   connect_bd_net -net display_top_0_G0_out [get_bd_ports G0_out_0] [get_bd_ports G0_out_1] [get_bd_pins display_top_0/G0_out]
-  connect_bd_net -net display_top_0_G1_out [get_bd_ports B1_out_1] [get_bd_ports G1_out_0] [get_bd_pins display_top_0/G1_out]
+  connect_bd_net -net display_top_0_G1_out [get_bd_ports G1_out_0] [get_bd_ports G1_out_1] [get_bd_pins display_top_0/G1_out]
   connect_bd_net -net display_top_0_R0_out [get_bd_ports R0_out_0] [get_bd_ports R0_out_1] [get_bd_pins display_top_0/R0_out]
   connect_bd_net -net display_top_0_R1_out [get_bd_ports R1_out_0] [get_bd_ports R1_out_1] [get_bd_pins display_top_0/R1_out]
   connect_bd_net -net display_top_0_display_address_out [get_bd_ports display_address_out_0] [get_bd_ports display_address_out_1] [get_bd_pins display_top_0/display_address_out]

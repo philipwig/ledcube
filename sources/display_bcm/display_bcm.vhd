@@ -40,12 +40,12 @@ architecture fast of display_bcm is
 begin
     mem_read_addr <= ram_read_addr;
     
-    R0_out <= mem_read_data(0);
+    R0_out <= mem_read_data(2);
     G0_out <= mem_read_data(1);
-    B0_out <= mem_read_data(2);
-    R1_out <= mem_read_data(3);
+    B0_out <= mem_read_data(0);
+    R1_out <= mem_read_data(5);
     G1_out <= mem_read_data(4);
-    B1_out <= mem_read_data(5);
+    B1_out <= mem_read_data(3);
 
 
     process (clk)

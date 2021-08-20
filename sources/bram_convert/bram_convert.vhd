@@ -50,8 +50,11 @@ begin
         variable current_row : integer range 0 to n_rows - 1 := 0;
         variable current_col : integer range 0 to n_cols - 1 := 0;
         variable current_bit : integer range 0 to bitdepth - 1 := 0;
-
     begin
+        current_row_debug <= current_row;
+        current_col_debug <= current_col;
+        current_bit_debug <= current_bit;
+        
         if(rising_edge(clk)) then
             if rst = '1' then
                 state <= idle;
