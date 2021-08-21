@@ -2,3 +2,5 @@ work/
 build/.Xil/
 *.log
 *.jou
+python/*.mp4
+python/.*
