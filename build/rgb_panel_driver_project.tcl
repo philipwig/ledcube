@@ -51,6 +51,7 @@
 #    "${origin_dir}/../testbenches/display_blanking/display_blanking_testbench.vhd"
 #    "${origin_dir}/../sources/display_bcm/display_bcm.vhd"
 #    "${origin_dir}/../testbenches/display_bcm/display_bcm_testbench.vhd"
+#    "${origin_dir}/../testbenches/display_bcm/display_bcm_testbench_behav.wcfg"
 #    "${origin_dir}/../sources/bram_convert/bram_convert.vhd"
 #    "${origin_dir}/../testbenches/bram_convert/bram_convert_testbench.vhd"
 #    "${origin_dir}/../testbenches/bram_convert/bram_convert_testbench_behav.wcfg"
@@ -87,6 +88,7 @@ proc checkRequiredFiles { origin_dir} {
    "${origin_dir}/../testbenches/display_blanking/display_blanking_testbench.vhd" \
    "${origin_dir}/../sources/display_bcm/display_bcm.vhd" \
    "${origin_dir}/../testbenches/display_bcm/display_bcm_testbench.vhd" \
+   "${origin_dir}/../testbenches/display_bcm/display_bcm_testbench_behav.wcfg" \
    "${origin_dir}/../sources/bram_convert/bram_convert.vhd" \
    "${origin_dir}/../testbenches/bram_convert/bram_convert_testbench.vhd" \
    "${origin_dir}/../testbenches/bram_convert/bram_convert_testbench_behav.wcfg" \
@@ -491,6 +493,7 @@ set obj [get_filesets display_bcm]
 set files [list \
  [file normalize "${origin_dir}/../sources/display_bcm/display_bcm.vhd"] \
  [file normalize "${origin_dir}/../testbenches/display_bcm/display_bcm_testbench.vhd"] \
+ [file normalize "${origin_dir}/../testbenches/display_bcm/display_bcm_testbench_behav.wcfg"] \
 ]
 add_files -norecurse -fileset $obj $files
 

@@ -129,7 +129,7 @@ begin
     begin
         wait on mem_read_addr;
         wait for T;
-        mem_read_data <= mem_read_addr(mem_read_data'length downto 0);
+        mem_read_data <= mem_read_addr(mem_read_data'length - 1 downto 0);
     end process;
 
 end tb;
