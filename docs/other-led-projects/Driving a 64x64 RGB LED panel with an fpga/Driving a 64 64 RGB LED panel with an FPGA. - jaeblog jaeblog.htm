@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-US" class="no-js"><!--<![endif]-->
+
+<!-- head -->
+<head>
+	<meta charset="utf-8">
+	<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/><![endif]-->
+	<title>Driving a 64*64 RGB LED panel with an FPGA. - jaeblog jaeblog</title>
+	<meta name="viewport" content="width=device-width">
+            <meta name="keywords" content="" />
+        <meta name="description" content="" />
+    	<!-- stylesheet -->
+	<link rel="stylesheet" media="all" href="https://justanotherelectronicsblog.com/wp-content/themes/focused/style.css"/>
+	<!-- stylesheet -->
+
+	
+    <!-- custom typography-->
+         
+  		  			<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,700,400' rel='stylesheet' type='text/css'>  		                    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,700,400' rel='stylesheet' type='text/css'>                            <link href='https://fonts.googleapis.com/css?family=Raleway:900,800' rel='stylesheet' type='text/css'>              <style type="text/css" media="all">
+	
+	/* Body Font face */
+	body {
+		   		font-family: 'Open Sans', sans-serif;   		;
+    }
+
+    .logo h1 {
+    	   			font-family: 'Raleway', sans-serif;   		;
+	}	
+
+	/* Headings Font face */
+	h1,h2,h3,h4,h5,h6, .main h1, #intro {
+		   		font-family: 'Open Sans', sans-serif;   		;
+    }
+	
+</style>        <!-- //custom typography -->
+    <!-- custom colors -->
+    <style type="text/css" media="all">
+	
+	/* Body Text Color */
+	
+    /* Body Links Color */
+        a{
+    	color:#06066e;
+	}
+			a:hover {
+	    color:#06066e;
+	}
+	
+	/* Logo Text Color */
+	
+   	/* Headings Color */
+   	
+	/* Sidebar Headings Color */
+   	
+	/* Post Title Link Color */
+		
+	/* Post Format Icon Back Color */
+		article .postmeta .icon  {
+		 background-color:#06066e;
+	}
+	
+	/* Navigation Link Color */
+		
+	
+</style>    <!-- //custom colors -->
+<!-- wp_head -->
+<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v16.3 - https://yoast.com/wordpress/plugins/seo/ -->
+	<link rel="canonical" href="https://justanotherelectronicsblog.com/?p=636" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Driving a 64*64 RGB LED panel with an FPGA. - jaeblog" />
+	<meta property="og:description" content="Browsing Ali-express is dangerous business. Before you know it you end up ordering strange things like a 64&#215;64 pixel RGB LED matrix. These matrices (called HUB75 or HUB75E) are meant for use for the big outside LED displays. There are several projects already involving these displays, but I wanted to do more FPGA stuff and [&hellip;]" />
+	<meta property="og:url" content="https://justanotherelectronicsblog.com/?p=636" />
+	<meta property="og:site_name" content="jaeblog" />
+	<meta property="article:published_time" content="2020-04-27T14:40:57+00:00" />
+	<meta property="article:modified_time" content="2020-04-27T14:40:58+00:00" />
+	<meta property="og:image" content="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/ebay.jpg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:label1" content="Written by">
+	<meta name="twitter:data1" content="riktw">
+	<meta name="twitter:label2" content="Est. reading time">
+	<meta name="twitter:data2" content="8 minutes">
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://justanotherelectronicsblog.com/#website","url":"https://justanotherelectronicsblog.com/","name":"jaeblog","description":"","potentialAction":[{"@type":"SearchAction","target":"https://justanotherelectronicsblog.com/?s={search_term_string}","query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","@id":"https://justanotherelectronicsblog.com/?p=636#primaryimage","inLanguage":"en-US","url":"https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/ebay.jpg","contentUrl":"https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/ebay.jpg","width":800,"height":800},{"@type":"WebPage","@id":"https://justanotherelectronicsblog.com/?p=636#webpage","url":"https://justanotherelectronicsblog.com/?p=636","name":"Driving a 64*64 RGB LED panel with an FPGA. - jaeblog","isPartOf":{"@id":"https://justanotherelectronicsblog.com/#website"},"primaryImageOfPage":{"@id":"https://justanotherelectronicsblog.com/?p=636#primaryimage"},"datePublished":"2020-04-27T14:40:57+00:00","dateModified":"2020-04-27T14:40:58+00:00","author":{"@id":"https://justanotherelectronicsblog.com/#/schema/person/d77e39721321c4a472b49909a8f1982b"},"breadcrumb":{"@id":"https://justanotherelectronicsblog.com/?p=636#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://justanotherelectronicsblog.com/?p=636"]}]},{"@type":"BreadcrumbList","@id":"https://justanotherelectronicsblog.com/?p=636#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"WebPage","@id":"https://justanotherelectronicsblog.com/","url":"https://justanotherelectronicsblog.com/","name":"Home"}},{"@type":"ListItem","position":2,"item":{"@id":"https://justanotherelectronicsblog.com/?p=636#webpage"}}]},{"@type":"Person","@id":"https://justanotherelectronicsblog.com/#/schema/person/d77e39721321c4a472b49909a8f1982b","name":"riktw","url":"https://justanotherelectronicsblog.com/?author=1"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="jaeblog &raquo; Feed" href="https://justanotherelectronicsblog.com/?feed=rss2" />
+<link rel="alternate" type="application/rss+xml" title="jaeblog &raquo; Comments Feed" href="https://justanotherelectronicsblog.com/?feed=comments-rss2" />
+<link rel="alternate" type="application/rss+xml" title="jaeblog &raquo; Driving a 64*64 RGB LED panel with an FPGA. Comments Feed" href="https://justanotherelectronicsblog.com/?feed=rss2&#038;p=636" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/justanotherelectronicsblog.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.7.2"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([55357,56424,8205,55356,57212],[55357,56424,8203,55356,57212])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='prettyphoto-css-css'  href='https://justanotherelectronicsblog.com/wp-content/themes/focused/lib/prettyphoto/css/prettyPhoto.css?ver=5.7.2' type='text/css' media='all' />
+<link rel='stylesheet' id='jplayer-css-css'  href='https://justanotherelectronicsblog.com/wp-content/themes/focused/lib/jplayer/jplayer.css?ver=1.0' type='text/css' media='' />
+<link rel='stylesheet' id='wp-block-library-css'  href='https://justanotherelectronicsblog.com/wp-includes/css/dist/block-library/style.min.css?ver=5.7.2' type='text/css' media='all' />
+<style id='wp-block-library-inline-css' type='text/css'>
+.has-text-align-justify{text-align:justify;}
+</style>
+<!-- `jetpack-subscriptions` is included in the concatenated jetpack.css -->
+<link rel='stylesheet' id='tablepress-default-css'  href='https://justanotherelectronicsblog.com/wp-content/plugins/tablepress/css/default.min.css?ver=1.13' type='text/css' media='all' />
+<link rel='stylesheet' id='enlighterjs-css'  href='https://justanotherelectronicsblog.com/wp-content/plugins/enlighter/cache/enlighterjs.min.css?ver=UKo0r4JOtrHwBmN' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css'  href='https://justanotherelectronicsblog.com/wp-content/plugins/jetpack/css/jetpack.css?ver=9.7' type='text/css' media='all' />
+<script type='text/javascript' src='https://justanotherelectronicsblog.com/wp-includes/js/jquery/jquery.min.js?ver=3.5.1' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://justanotherelectronicsblog.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'></script>
+<script type='text/javascript' src='https://justanotherelectronicsblog.com/wp-content/themes/focused/js/vendor/modernizr-2.6.1-respond-1.1.0.min.js?ver=2.6.1' id='modernizr-js'></script>
+<script type='text/javascript' src='https://justanotherelectronicsblog.com/wp-content/themes/focused/lib/prettyphoto/jquery.prettyPhoto.js?ver=3.1.4' id='prettyphoto-js-js'></script>
+<link rel="https://api.w.org/" href="https://justanotherelectronicsblog.com/index.php?rest_route=/" /><link rel="alternate" type="application/json" href="https://justanotherelectronicsblog.com/index.php?rest_route=/wp/v2/posts/636" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://justanotherelectronicsblog.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://justanotherelectronicsblog.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.7.2" />
+<link rel='shortlink' href='https://justanotherelectronicsblog.com/?p=636' />
+<link rel="alternate" type="application/json+oembed" href="https://justanotherelectronicsblog.com/index.php?rest_route=%2Foembed%2F1.0%2Fembed&#038;url=https%3A%2F%2Fjustanotherelectronicsblog.com%2F%3Fp%3D636" />
+<link rel="alternate" type="text/xml+oembed" href="https://justanotherelectronicsblog.com/index.php?rest_route=%2Foembed%2F1.0%2Fembed&#038;url=https%3A%2F%2Fjustanotherelectronicsblog.com%2F%3Fp%3D636&#038;format=xml" />
+<style type='text/css'>img#wpstats{display:none}</style>
+		<link rel="shortcut icon" href="https://justanotherelectronicsblog.com/wp-content/themes/focused/favicon.ico" type="image/ico" />
+	<style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url("https://justanotherelectronicsblog.com/wp-content/themes/focused/img/tiny_grid.png"); background-position: left top; background-size: auto; background-repeat: repeat; background-attachment: scroll; }
+</style>
+			<style type="text/css" id="wp-custom-css">
+			a {
+color: #2626CE;
+}		</style>
+		<!-- //wp_head -->
+
+</head>
+<!-- head -->
+
+	<body data-rsssl=1 class="post-template-default single single-post postid-636 single-format-standard custom-background"                >
+        
+		<!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+                <!-- begin header -->
+        <header id="pageheader" class="default clearfix">
+            <div class="logo">
+               <h1> 
+                    <a href="https://justanotherelectronicsblog.com">
+                                            <img src="https://justanotherelectronicsblog.com/wp-content/uploads/2014/12/imagtest1-195x300.png" alt="jaeblog" class="styled " />                        <div class="text">
+                            Just another electronics blog                            <span></span>
+                        </div>
+                                        </a>
+                </h1>
+            </div>
+            <!-- Main Menu -->
+                        
+        </header>
+        <div class="header-placeholder"></div>
+        <!-- end header -->	
+        <!-- begin #main-wrapper -->
+        <div id="main-wrapper" class="clearfix">	
+
+<!-- begin #main -->
+        <div id="main">
+        	<!-- Main Menu -->
+						<section id="content">
+						<!-- begin article -->
+				<article class="post-636 post type-post status-publish format-standard hentry category-uncategorized">
+					<div class="postmeta">
+						<div class="icon"></div>
+							<div class="meta-text">
+								Apr 27, 2020								&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+								<img src="https://justanotherelectronicsblog.com/wp-content/themes/focused/img/ico_comments.png"> &nbsp;&nbsp;<a href="https://justanotherelectronicsblog.com/?p=636#comments"> 6 comments</a>							</div>
+						</div>
+						<h2><a href="https://justanotherelectronicsblog.com/?p=636">Driving a 64*64 RGB LED panel with an FPGA.</a></h2>
+						<div class="entry-content clearfix">
+														
+<p>Browsing Ali-express is dangerous business. Before you know it you end up ordering strange things like a 64&#215;64 pixel RGB LED matrix. These matrices (called HUB75 or HUB75E) are meant for use for the big outside LED displays.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="800" height="800" src="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/ebay.jpg" alt="" class="wp-image-650" srcset="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/ebay.jpg 800w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/ebay-300x300.jpg 300w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/ebay-150x150.jpg 150w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/ebay-768x768.jpg 768w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/ebay-100x100.jpg 100w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/ebay-336x336.jpg 336w" sizes="(max-width: 800px) 100vw, 800px" /></figure>
+
+
+
+<p></p>
+
+
+
+<p>There are several projects already involving these displays, but I wanted to do more FPGA stuff and this seems like a great excuse. A fast microcontroller can drive these displays. However, an FPGA is much better suited for this. The reason is that these displays do not have on board memory but need to be constantly refreshed to display an image. But when you get them up and running with an FPGA, the results are mighty fun</p>
+
+
+
+<figure class="wp-block-image size-large is-resized"><img loading="lazy" src="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/file1.gif" alt="" class="wp-image-664" width="496" height="483"/></figure>
+
+
+
+<span id="more-636"></span>
+
+
+
+<h2>The RGB matrix</h2>
+
+
+
+<p>The RGB matrix just has 16 pins, with the pinout being as follows:</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="723" height="430" src="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/image-2.png" alt="" class="wp-image-651" srcset="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/image-2.png 723w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/image-2-300x178.png 300w" sizes="(max-width: 723px) 100vw, 723px" /></figure>
+
+
+
+<p></p>
+
+
+
+<p>It has 2 R, G and B pins, 5 address pins and 3 control pins (Clock, Latch and Blank). The display only shows 2 lines at any time, which is done to save pins most likely.  It&#8217;s controlled like this:<br><br>1. Select which line to display using the 5 address bytes, giving 32 lines to pick from.<br>2. Turn the display off by making the Blank pin high. This helps against glitches.<br>3. Clock 64 bits of data using the Clock pin and the RGB pins.<br>4. Toggle the Latch pin High -&gt; Low to load the data to the row.<br>5. Turn the display on by making the Blank pin low.<br></p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="740" height="180" src="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/matrix_wave-1.png" alt="" class="wp-image-653" srcset="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/matrix_wave-1.png 740w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/matrix_wave-1-300x73.png 300w" sizes="(max-width: 740px) 100vw, 740px" /><figcaption>Or as a nice waveform for clarity.</figcaption></figure>
+
+
+
+<p>There are 2 R, G and B pins. If address 0 is selected, R0, G0, B0 write data to the first line and R1, G1, B1 write data to the 32th line. Address 1 for the second and 33th line, and so on. <br>But this just displays 2 lines. to show an image you need to write a line, wait a bit to display it, write the next line, and so on. For an acceptable image, 64 lines need to be written and shown every 1/60s second, or faster for a nice frame-rate. To make it worse, when writing a line this way, LEDs are either off or on. With RGB this makes for 8 different colours to show, not exactly a pretty image.</p>
+
+
+
+<h2>More colours</h2>
+
+
+
+<p>Getting more colours means PWMing the display. The only way to PWM this display is by writing a line a lot of times before going to the next line:<br><br>1. Shift data to a line as above<br>2. wait a bit of time<br>3. Shift the next value in the same line<br>4. wait a bit of time<br>5. repeat this N times, for 4 bit PWM 16 times, for 8 bit PWM 256 times.<br>6. Move on to the next line</p>
+
+
+
+<p>A way to make this a bit easier is to use<a href="http://www.batsocks.co.uk/readme/art_bcm_1.htm"> Binary Coded Modulation</a> (BCM) With BCM, the process would be as follows<br><br>1. Shift data to a line<br>2. Wait x time<br>3. Shift the next value in the same line<br>4. Wait x*2 time<br>3. Shift the next value in the same line<br>5. Wait x*4 time.<br>6. Repeat N times, for 4 bit PWM 4 times, and for 8 bit PWM 8 times.<br>7. Move on to the next line</p>
+
+
+
+<h2>Driving the matrix</h2>
+
+
+
+<p>The FPGA code can be fairly simple. Read data from a framebuffer and transmit to the RGB matrix. <br></p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="618" height="156" src="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/image-5.png" alt="" class="wp-image-657" srcset="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/image-5.png 618w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/image-5-300x76.png 300w" sizes="(max-width: 618px) 100vw, 618px" /><figcaption>Let&#8217;s assume the data to display arrived by magic for now</figcaption></figure>
+
+
+
+<p>To make displaying easier, I decided to organize the frame buffer memory in the format to send. Instead of the data being stored as RGB values, I split them out in 64 bit row data. This way, the Data transmitter block just needs to read data, clock it out and wait the required time.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="440" height="390" src="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/Memory-in-FB-1.png" alt="" class="wp-image-642" srcset="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/Memory-in-FB-1.png 440w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/Memory-in-FB-1-300x266.png 300w" sizes="(max-width: 440px) 100vw, 440px" /><figcaption>This is for 4 bits of BCM, but an image for 8 would be a bit big.</figcaption></figure>
+
+
+
+<p>This way the FPGA code to transmit is a simple state machine. firstly, it fetches data. Secondly, it transmits it and waits the correct time before the next row can be send. </p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="544" height="752" src="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/image-3.png" alt="" class="wp-image-655" srcset="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/image-3.png 544w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/image-3-217x300.png 217w" sizes="(max-width: 544px) 100vw, 544px" /></figure>
+
+
+
+<p></p>
+
+
+
+<p>The code for this part can be found <a href="https://github.com/riktw/HUB75E_ICE40/blob/master/Gateware/src/main/scala/mylib/WishboneToRgbMatrix.scala">here</a>.</p>
+
+
+
+<h2>Framebuffer problems</h2>
+
+
+
+<p>Of course, to display data you need to have data to display. The FPGA could generate this. For example, a <a href="https://en.wikipedia.org/wiki/Mandelbrot_set">Mandelbrot</a>  is something an FPGA could generate. But I wanted to see how it would look to display animated GIFs on it. In other words, I needed to get data from a PC to the FPGA.</p>
+
+
+
+<p>I am a fan of the <a href="https://en.wikipedia.org/wiki/Wishbone_(computer_bus)">Wishbone bus</a>, it&#8217;s simple to use, free and there are plenty of examples and <a href="https://github.com/litex-hub/wishbone-utils">tools</a> for it already. The framebuffer should have a Wishbone interface!</p>
+
+
+
+<p>I say framebuffer, but it&#8217;s much better to have two framebuffers. The display shows framebuffer X, while the PC sends data to buffer Y. After the data is transferred, the buffers are switched. The Wishbone bus just needs to have a command to switch the buffers. </p>
+
+
+
+<p>The framebuffer code deals with a few quirks. The Ice40 FPGA I want to use has plenty of memory. However, it is Single port memory. In other words, you can only read or write, not simultaneously. The memory blocks are also 16 bit wide and there are just 4 of them. On other words, with 2 framebuffers I can concatenate 2 to get a 32 bit wide buffer. This is not enough for the 64 bit rows. Therefor data is read in 2 cycles, lower 32 bits first, then the upper 32 bits. </p>
+
+
+
+<p>The framebuffer code can be found <a href="https://github.com/riktw/HUB75E_ICE40/blob/master/Gateware/src/main/scala/mylib/WishboneToRgbMatrix.scala">here</a>.</p>
+
+
+
+<h2>A bit about SpinalHDL</h2>
+
+
+
+<p>If you look at the code, you will notice it&#8217;s not VHDL or Verilog, the two main FPGA languages. However, the code is written in SpinalHDL.  I have used <a href="https://justanotherelectronicsblog.com/?p=543">SpinalHDL</a> before and find it much quicker then VHDL/Verilog. </p>
+
+
+
+<p>For example, adding a Wishbone bus and a register to write to to switch framebuffers is just a few lines:</p>
+
+
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">class WishboneFrameBuffer(config : WishboneConfig, debug : Boolean) extends Component {
+    val io = new Bundle {
+        val wb = slave(Wishbone(config))
+        //Other IO not shown for clarity
+    }
+
+    val wishboneFactory = WishboneSlaveFactory(io.wb)
+
+    val brightnessReg = Reg(UInt(8 bits)) init (0)
+    wishboneFactory.driveAndRead(brightnessReg, 0)
+
+    wishboneFactory.onWrite(4)(frameBufferSelected := !frameBufferSelected)
+}</pre>
+
+
+
+<p>This block of code generates a wishBoneFactory and whenever data is written to address 4, it executes the code to toggle frameBufferSelected. <br>An 8 bit brightness register that can be written to and read on address 0 is also added. Brightness is controlled by PWMing the Blank pin. <mark class="annotation-text annotation-text-yoast" id="annotation-text-43fe57dc-7cfd-4bfa-b510-b7c67189aea9"></mark></p>
+
+
+
+<p>In conclusion, SpinalHDL continues to be fun to work with. I just wish the documentation was more up to date. Luckily the folks from SpinalHDL respond quickly on their <a href="https://gitter.im/SpinalHDL/SpinalHDL">Gitter</a>.</p>
+
+
+
+<h2>PC to Wishbone</h2>
+
+
+
+<p>Having the framebuffers connected to a wishbone bus is nice and handy, but you still need to get data in them. One of the reasons I chose for the wishbone bus is because of a small <a href="https://github.com/litex-hub/wishbone-utils/tree/master/wishbone-tool">tool</a> that runs on a PC and can talk to wishbone. It supports different protocols. For instance UART.  The wishbone-tool supports 32 bit data and 32 bit address and sends out data in a simple protocol:</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="560" height="60" src="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/wb.png" alt="" class="wp-image-662" srcset="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/wb.png 560w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/wb-300x32.png 300w" sizes="(max-width: 560px) 100vw, 560px" /></figure>
+
+
+
+<p>R/W is 1 for write, 0 for read. For now I just implemented writes.</p>
+
+
+
+<p>On the FPGA side of things, I made a bus to wishbone converter that, at the moment, supports UART and SPI. The reason for SPI is that an FT2232H supports SPI up to 60Mhz, making for a simple and fast bus. It is also configurable for 8 or 16 bit address/data instead of just 32. The reason for that is that I do not need 32 bit addressing, going for 16 bit makes data transfer quicker.</p>
+
+
+
+<p>This is all configurable in SpinalHDL. The Wishbone code can be found <a href="https://github.com/riktw/HUB75E_ICE40/blob/master/Gateware/src/main/scala/mylib/UartToWishbone.scala">here</a>. However, the wishbone-tool only supports 32 bit address and data and does not support SPI, but that leads us to the next issue</p>
+
+
+
+<h2>PC side of things </h2>
+
+
+
+<p>Whew, that was a lot of FPGA stuff. Time for some PC software to send pictures over. I have been doing some embedded stuff in Rust lately, and was happy I found an<a href="https://github.com/geomatsi/ftdi-embedded-hal"> embedded HAL crate</a> for the common FT2232H and FT232H USB to whatever converters. Using this I can send data over via SPI at decent speeds. </p>
+
+
+
+<p>The PC side of things firstly reads in a BMP or GIF file, secondly converts it to the data format listed above and thirdly sends it over in chunks of 64 pixels. The code can be found <a href="https://github.com/riktw/HUB75E_ICE40/tree/master/Software/PC_To_FPGA">here</a>.</p>
+
+
+
+<p>However, if the image is a GIF, it&#8217;s split in single frames and send over frame by frame, taking frame time into consideration. This of course allows for extremely useful things like this:</p>
+
+
+
+<figure class="wp-block-image size-large is-resized"><img loading="lazy" src="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/file2.gif" alt="" class="wp-image-665" width="440" height="450"/></figure>
+
+
+
+<p></p>
+
+
+
+<p>The code contains a few hacks. For example, I have 2 FT232H things attached, so I gave one a different PID/VID. Would you use the code, it should be changed back to 0x0403 0x6014. Moreover, error handling is finicky at best and it will just crash on an error.</p>
+
+
+
+<h2>Conclusion</h2>
+
+
+
+<p>This part of the blog has been purely software focused. However, the next one will be hardware focused, including a small custom PCB with an ICE40UP5K. A small preview:<br></p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="720" src="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/IMG_4456-1024x720.jpg" alt="" class="wp-image-672" srcset="https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/IMG_4456-1024x720.jpg 1024w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/IMG_4456-300x211.jpg 300w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/IMG_4456-768x540.jpg 768w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/IMG_4456-1536x1080.jpg 1536w, https://justanotherelectronicsblog.com/wp-content/uploads/2020/04/IMG_4456-2048x1440.jpg 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>This has been a fun project working on. In my opinion, SpinalHDL and other newer HDLs like <a href="https://github.com/m-labs/migen">Migen</a>, make FPGA development a lot easier and more fun. Having amazing <a href="http://www.clifford.at/icestorm/">open source FPGA tools</a> also makes a real difference. I started prototyping on an Xilinx Artix FPGA and the same project synthesizes on FOSS tools in 20 seconds compared to several minutes in Vivado.  The entire project can be found on <a href="https://github.com/riktw/HUB75E_ICE40">Github</a>, building it can be done with a simple Make command, no 20GB Vivado required :)</p>
+
+
+
+<p>I hope you enjoyed reading it and you can always buy me a <a href="https://ko-fi.com/riktw">coffee</a> if you did.</p>
+						</div>
+										</article>
+			<!-- end article -->
+			<hr>
+			
+			
+<!-- You can start editing here. -->
+
+	
+	<div id="comments">
+		<h3><span>6</span> Comments</h3>
+		<ul class="commentlist">
+				<li class="comment even thread-even depth-1">
+		<article id="comment-245">
+			<header class="comment-author vcard">
+				        <a rel='nofollow' class='comment-reply-link' href='#comment-245' data-commentid="245" data-postid="636" data-belowelement="comment-245" data-respondelement="respond" data-replyto="Reply to N" aria-label='Reply to N'>Reply</a>				<cite class="fn">N</cite> | 
+				<time datetime="2020-06-16"><a href="https://justanotherelectronicsblog.com/?p=636#comment-245">June 16th, 2020 </a></time>
+							</header>
+			
+			<section class="comment_content">
+				<p>Hey, if you don&#8217;t mind, please change the links color to something like</p>
+<p>a {<br />
+    color: #0D0;<br />
+}</p>
+<p>its really barely visible especially when you are using a word &#8220;here&#8221;.</p>
+<p>And thank you so much for this research, funny enough ice40 is exactly the FPGA I got (+ 64&#215;32 panel), so I&#8217;ll give this a try as soon as my (yet to be ordered) FT232H arrives. Wasted so much time trying to prog it using my FT232RL :) </p>
+<p>Also, awesome write up about Licheen Tang board. Wanned to grab it but I think I&#8217;ll pass at this point. Was wondering if KPU on Maixduino was software implemented, so if it was, it would be much more interesting to grab an FPGA use a RISC-V softcore on it and whichever &#8220;AI&#8221; hardware/software acceleration, but it looks like its actually using some additional hardware (or at least a proprietary FPGA implementation) ( KPU 230GMULps (16bit) + FPU DP&amp;SP and APU 8MIC ) that&#8217;s what I got from the product screenshot. Also it goes for quite a decent price right now, about the same as Tang. $27 shipping included, for the option with 2.4 inch LCD and ESP32 on board not a bad deal I think. So I guess iCE40 and a my old spartan 6 with 14k sluts will do for now :) </p>
+<p>link to the color ex: <a href="https://imgur.com/a/CVmpbIo" rel="nofollow ugc">https://imgur.com/a/CVmpbIo</a></p>
+
+			</section>
+      			
+		</article>
+    <!-- </li> is added by wordpress automatically -->
+<ul class="children">
+	<li class="comment byuser comment-author-riktw bypostauthor odd alt depth-2">
+		<article id="comment-246">
+			<header class="comment-author vcard">
+				        <a rel='nofollow' class='comment-reply-link' href='#comment-246' data-commentid="246" data-postid="636" data-belowelement="comment-246" data-respondelement="respond" data-replyto="Reply to riktw" aria-label='Reply to riktw'>Reply</a>				<cite class="fn">riktw</cite> | 
+				<time datetime="2020-06-16"><a href="https://justanotherelectronicsblog.com/?p=636#comment-246">June 16th, 2020 </a></time>
+							</header>
+			
+			<section class="comment_content">
+				<p>Heya, </p>
+<p>Thanks for the feedback, I&#8217;ll look if I can make the links a more visible colour soon.<br />
+My lichee tang is kind of collecting dust mostly, it&#8217;s a decent fpga for the price, but I am getting a bit too used to the FOSS toolchain the Lattice stuff has that I tend to pick an ice40 or ecp5 for newer projects.</p>
+<p>Rik</p>
+
+			</section>
+      			
+		</article>
+    <!-- </li> is added by wordpress automatically -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1">
+		<article id="comment-247">
+			<header class="comment-author vcard">
+				        <a rel='nofollow' class='comment-reply-link' href='#comment-247' data-commentid="247" data-postid="636" data-belowelement="comment-247" data-respondelement="respond" data-replyto="Reply to N" aria-label='Reply to N'>Reply</a>				<cite class="fn">N</cite> | 
+				<time datetime="2020-06-17"><a href="https://justanotherelectronicsblog.com/?p=636#comment-247">June 17th, 2020 </a></time>
+							</header>
+			
+			<section class="comment_content">
+				<p>Hey, yeah I was actually thinking the same will happen to my tang. Therefore decided to look towards the Maix&#8217;s microcontroller vs getting their FPGA. At least I&#8217;ll have the RISC-V that I wanna be playing with under the hood and AI acceleration seems to be a very interesting topic right now, opening so many possibilities. And wasting time writing a solution within the fpga for the same purpose currently doesn&#8217;t look as fun as playing with it. Plus it looks like it&#8217;s getting some traction with their maixhub and some vids on youtube. Which we barely see with fpga&#8217;s and it&#8217;s so freekin&#8217; sad. </p>
+<p>I&#8217;ve seen some ECP5 content on gojimmy&#8217;s blog. Quite a solid beast indeed. Aight, gonna be on the radars of your blog for more decent content on fpga&#8217;s, mc&#8217;s and whatever drives the protons within us. P.S. the links are way more visible now. Have a good one!</p>
+
+			</section>
+      			
+		</article>
+    <!-- </li> is added by wordpress automatically -->
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1">
+		<article id="comment-390">
+			<header class="comment-author vcard">
+				        <a rel='nofollow' class='comment-reply-link' href='#comment-390' data-commentid="390" data-postid="636" data-belowelement="comment-390" data-respondelement="respond" data-replyto="Reply to Kirill" aria-label='Reply to Kirill'>Reply</a>				<cite class="fn">Kirill</cite> | 
+				<time datetime="2020-10-25"><a href="https://justanotherelectronicsblog.com/?p=636#comment-390">October 25th, 2020 </a></time>
+							</header>
+			
+			<section class="comment_content">
+				<p>So&#8230; I’m done 64&#215;32 led panel with C++ on Linux board and that be 6bit color :) me helped pwm controller with one shot mode</p>
+
+			</section>
+      			
+		</article>
+    <!-- </li> is added by wordpress automatically -->
+</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1">
+		<article id="comment-623">
+			<header class="comment-author vcard">
+				        <a rel='nofollow' class='comment-reply-link' href='#comment-623' data-commentid="623" data-postid="636" data-belowelement="comment-623" data-respondelement="respond" data-replyto="Reply to MarekM" aria-label='Reply to MarekM'>Reply</a>				<cite class="fn">MarekM</cite> | 
+				<time datetime="2021-03-2"><a href="https://justanotherelectronicsblog.com/?p=636#comment-623">March 2nd, 2021 </a></time>
+							</header>
+			
+			<section class="comment_content">
+				<p>Just a few comments how driving these LED panels could be optimised further:<br />
+ &#8211; shift register is buffered, new data can be shifted while previous data still displayed (pulse LATCH to update), only really need to blank while switching the row address (the high current drivers are slow), this helps to get higher duty cycle (more brightness)<br />
+ &#8211; with different framebuffer layout, only 6-bit wide memory should be sufficient (read new 6-bit word RRGGBB for each shift register clock cycle), so 16-bit wide can drive two LED panels in parallel and you are free to write any of the other 3 memory blocks while displaying this one<br />
+ &#8211; additional PWM (on top of BCM) could be done with the BLANK signal, could be useful to adjust for different ambient light levels for example, just pulse it for some part of BCM bit time (or use constant frequency and repeat 1, 2, 4, &#8230; pulses)</p>
+
+			</section>
+      			
+		</article>
+    <!-- </li> is added by wordpress automatically -->
+<ul class="children">
+	<li class="comment byuser comment-author-riktw bypostauthor odd alt depth-2">
+		<article id="comment-625">
+			<header class="comment-author vcard">
+				        <a rel='nofollow' class='comment-reply-link' href='#comment-625' data-commentid="625" data-postid="636" data-belowelement="comment-625" data-respondelement="respond" data-replyto="Reply to riktw" aria-label='Reply to riktw'>Reply</a>				<cite class="fn">riktw</cite> | 
+				<time datetime="2021-03-2"><a href="https://justanotherelectronicsblog.com/?p=636#comment-625">March 2nd, 2021 </a></time>
+							</header>
+			
+			<section class="comment_content">
+				<p>Hello, Thank you for the feedback, those are all good points. The blanking with PWM is implemented already, this panel on maximum brightness is a bit much for inside :)</p>
+
+			</section>
+      			
+		</article>
+    <!-- </li> is added by wordpress automatically -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		</ul>
+	</div>
+  
+	
+
+
+<section id="respond" class="respond-form">
+
+	<div id="comment-form-title"><h3>So, what do you think ?</h3></div>
+	
+	<div id="cancel-comment-reply">
+		<p class="small"><a rel="nofollow" id="cancel-comment-reply-link" href="/?p=636#respond" style="display:none;">Click here to cancel reply.</a></p>
+	</div>
+
+	
+	<form action="https://justanotherelectronicsblog.com/wp-comments-post.php" method="post" id="commentform">
+	
+	<ul id="comment-form-elements">
+
+		
+		<li>
+		  <label for="author">Your Name </label>
+		  <input type="text" name="author" id="author" value="" tabindex="1" aria-required='true' />
+		</li>
+		
+		<li>
+		  <label for="email">Your Mail </label>
+		  <input type="email" name="email" id="email" value="" tabindex="2" aria-required='true' />
+		</li>
+		
+		<li>
+		  <label for="url">Your Website </label>
+		  <input type="url" name="url" id="url" value="" tabindex="3" />
+		</li>
+	
+		
+		<li> 
+			<label for="comment">Message </label> 
+			<textarea name="comment" id="comment" tabindex="4" rows="7" cols="100%"></textarea>
+		</li>
+	
+	
+	  <input name="submit" type="submit" id="submitcomment" class="submitbutton" tabindex="5"  value="POST COMMENT" />
+	  <input type='hidden' name='comment_post_ID' value='636' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+	
+	<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="1686755e50" /></p><input type="hidden" id="ak_js" name="ak_js" value="247"/><textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100" style="display: none !important;"></textarea>	</ul>
+	</form>
+	
+	</section>
+
+
+					</section>
+
+        </div>
+        <!-- end #main -->
+
+<!-- begin aside -->
+<aside id="sidebar">
+
+    <!--<div class="widget">
+        <h3>ABOUT</h3>
+        <p>Often times we mistaken a slew of features for a more powerful effective app/experience. </p>
+        <p>Yet sometimes it’s those same long lists of features that end up making the app hard to grasp, or in some cases ultimately useless. </p>
+    </div> -->
+    <!-- Sidebar Widgets Area -->
+            <div id="search-2" class="widget_sidebar widget_search" ><form role="search" method="get" id="searchform" class="searchform" action="https://justanotherelectronicsblog.com/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input type="text" value="" name="s" id="s" />
+					<input type="submit" id="searchsubmit" value="Search" />
+				</div>
+			</form></div>
+		<div id="recent-posts-2" class="widget_sidebar widget_recent_entries" >
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="https://justanotherelectronicsblog.com/?p=876">Reverse engineering a 68K VMEbus system</a>
+									</li>
+											<li>
+					<a href="https://justanotherelectronicsblog.com/?p=846">Recreating a lab power supply</a>
+									</li>
+											<li>
+					<a href="https://justanotherelectronicsblog.com/?p=830">Using a Raspberry Pi 400 as a desktop computer</a>
+									</li>
+											<li>
+					<a href="https://justanotherelectronicsblog.com/?p=802">Configurable 6502 board</a>
+									</li>
+											<li>
+					<a href="https://justanotherelectronicsblog.com/?p=771">Weird CPU architectures, the MOV only CPU</a>
+									</li>
+					</ul>
+
+		</div><div id="blog_subscription-2" class="widget_sidebar widget_blog_subscription jetpack_subscription_widget" ><h3 class="widget-title">Subscribe to Blog via Email</h3>
+            <form action="#" method="post" accept-charset="utf-8" id="subscribe-blog-blog_subscription-2">
+				                    <div id="subscribe-text"><p>Enter your email address to subscribe to this blog and receive notifications of new posts by email.</p>
+</div>                    <p id="subscribe-email">
+                        <label id="jetpack-subscribe-label"
+                               class="screen-reader-text"
+                               for="subscribe-field-blog_subscription-2">
+							Email Address                        </label>
+                        <input type="email" name="email" required="required"
+                        			                                                value=""
+                            id="subscribe-field-blog_subscription-2"
+                            placeholder="Email Address"
+                        />
+                    </p>
+
+					<p id="subscribe-submit"
+											>
+                        <input type="hidden" name="action" value="subscribe"/>
+                        <input type="hidden" name="source" value="https://justanotherelectronicsblog.com/?p=636"/>
+                        <input type="hidden" name="sub-type" value="widget"/>
+                        <input type="hidden" name="redirect_fragment" value="blog_subscription-2"/>
+						                        <button type="submit"
+	                        		                    	                        name="jetpack_subscriptions_widget"
+	                    >
+	                        Subscribe                        </button>
+                    </p>
+				            </form>
+		
+</div><div id="categories-2" class="widget_sidebar widget_categories" ><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-17"><a href="https://justanotherelectronicsblog.com/?cat=17">beer</a>
+</li>
+	<li class="cat-item cat-item-2"><a href="https://justanotherelectronicsblog.com/?cat=2">Headphone amp</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="https://justanotherelectronicsblog.com/?cat=9">Measurement gear</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="https://justanotherelectronicsblog.com/?cat=11">Microcontrollers</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://justanotherelectronicsblog.com/?cat=3">Power Supply</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="https://justanotherelectronicsblog.com/?cat=1">Uncategorized</a>
+</li>
+			</ul>
+
+			</div>        <!-- END Sidebar Widgets Area -->
+    <!-- social stuff -->
+    <div id="social" class="widget">
+        <ul>
+                        <li class="email"><a href="mailto:&#119;%65&#98;&#109;a%73t&#101;&#114;&#64;jus%74%61&#110;&#111;t%68e%72&#101;%6c%65&#99;t&#114;%6f&#110;%69%63s&#98;&#108;o&#103;.%63%6f%6d"><div class="icon"></div>E-mail</a></li>
+               
+                                                                                                                    
+                        <li class="rss"><a href="https://justanotherelectronicsblog.com/?feed=rss2"><div class="icon"></div>RSS</a></li>
+                    </ul>
+    </div>
+    <!-- end social stuff -->
+</aside>
+<!-- end aside -->    </div>
+    <!-- end #main-wrapper -->
+    <footer>
+        <!-- begin copyright -->
+		 (c) 2014 Rik te Winkel Focused theme from s5themes.com 		<!-- end copyright -->
+
+		<!-- Site5 Credits-->
+		<br>Created by <a href="http://www.s5themes.com/">Site5 WordPress Themes</a>. Experts in <a href="http://gk.site5.com/t/587">WordPress Hosting</a>
+		<!-- end Site5 Credits-->
+    </footer>
+
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-57546125-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script type='text/javascript' src='https://justanotherelectronicsblog.com/wp-content/themes/focused/js/custom.js?ver=1.0' id='custom-js'></script>
+<script type='text/javascript' src='https://justanotherelectronicsblog.com/wp-content/themes/focused/lib/fitvids/jquery.fitvids.js?ver=1.0' id='fitvids-js-js'></script>
+<script type='text/javascript' src='https://justanotherelectronicsblog.com/wp-includes/js/comment-reply.min.js?ver=5.7.2' id='comment-reply-js'></script>
+<script type='text/javascript' src='https://justanotherelectronicsblog.com/wp-content/plugins/enlighter/cache/enlighterjs.min.js?ver=UKo0r4JOtrHwBmN' id='enlighterjs-js'></script>
+<script type='text/javascript' id='enlighterjs-js-after'>
+!function(e,n){if("undefined"!=typeof EnlighterJS){var o={"selectors":{"block":"pre.EnlighterJSRAW","inline":"code.EnlighterJSRAW"},"options":{"indent":4,"ampersandCleanup":true,"linehover":true,"rawcodeDbclick":false,"textOverflow":"break","linenumbers":true,"theme":"enlighter","language":"enlighter","retainCssClasses":false,"collapse":false,"toolbarOuter":"","toolbarTop":"{BTN_RAW}{BTN_COPY}{BTN_WINDOW}{BTN_WEBSITE}","toolbarBottom":""}};(e.EnlighterJSINIT=function(){EnlighterJS.init(o.selectors.block,o.selectors.inline,o.options)})()}else{(n&&(n.error||n.log)||function(){})("Error: EnlighterJS resources not loaded yet!")}}(window,console);
+</script>
+<script type='text/javascript' src='https://justanotherelectronicsblog.com/wp-includes/js/wp-embed.min.js?ver=5.7.2' id='wp-embed-js'></script>
+<script async="async" type='text/javascript' src='https://justanotherelectronicsblog.com/wp-content/plugins/akismet/_inc/form.js?ver=4.1.9' id='akismet-form-js'></script>
+<script src='https://stats.wp.com/e-202125.js' defer></script>
+<script>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:9.7',blog:'180702687',post:'636',tz:'0',srv:'justanotherelectronicsblog.com'} ]);
+	_stq.push([ 'clickTrackerInit', '180702687', '636' ]);
+</script>
+
+	</body>
+</html>
