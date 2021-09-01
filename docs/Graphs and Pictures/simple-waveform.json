@@ -1,0 +1,12 @@
+{
+  signal: [
+    {name: 'clock',         wave: '0.hlhlhlhlhlhlhlhl...', period: 1},
+  	{name: 'blank',         wave: '01.................0.'},
+  	{name: 'latch',         wave: '0................10..'},
+  	{name: 'address',       wave: 'x3...............x...', data: ['Current Row']},
+    {name: 'data',          wave: 'x4.4.4.4.4.4.4.4.x...', data: ['63', '62', '61', '...', '3', '2', '1', '0'], period: 1},
+    {                              node: '.a...............b' }
+  	],
+  edge : [ 'a<->b 64 bits of RGB data'
+  ]
+}
