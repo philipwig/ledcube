@@ -4,3 +4,4 @@ build/.Xil/
 *.jou
 python/*.mp4
 python/.*
+/tmp
