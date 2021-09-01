@@ -10,15 +10,15 @@ To get started with the notebooks you need to install anaconda. Go to the anacon
 
 Once you have it installed hit the windows key and open the anaconda prompt
 
-![Untitled](Jupyter%20Lab%20Notebooks/Untitled.png)
+![Open Prompt](Jupyter-Lab-Notebooks-Images/open-anaconda.png)
 
 When the prompt is open it should look something like this
 
-![Untitled](Jupyter%20Lab%20Notebooks%/Untitled%201.png)
+![Anaconda Prompt](Jupyter-Lab-Notebooks-Images/anaconda-prompt.png)
 
 Once you have it open, navigate to where you cloned the git repository. In my case it is on my D:/ drive in my ledcube folder. **This will probably be different for your computer.** Use "cd" and then a path to navigate to wherever you cloned the repository. Now you should be in the python folder inside the repository and your prompt should look something like this. Your path in blue might be different than mine. The path in red should be the same
 
-![Untitled](Jupyter%20Lab%20Notebooks/Untitled%202.png)
+![Change Path](Jupyter-Lab-Notebooks-Images/navigate-path.png)
 
 Now run the command following command. Say yes to any administrator prompts that come up
 
@@ -35,7 +35,7 @@ conda activate ledcube
 jupyter lab
 ```
 
-![Untitled](Jupyter%20Lab%20Notebooks/Untitled%203.png)
+![Create and Activate Environment](Jupyter-Lab-Notebooks-Images/create-env.png)
 
 # Extra
 
@@ -45,4 +45,4 @@ To run jupyter lab from a different directory than you are currently in
 jupyter lab --notebook-dir=D:/ledcube/python
 ```
 
-![how to add anaconda to path.png](Jupyter%20Lab%20Notebooks/how_to_add_anaconda_to_path.png)
+![how to add anaconda to path.png](Jupyter-Lab-Notebooks-Images/how_to_add_anaconda_to_path.png)
