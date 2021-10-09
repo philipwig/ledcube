@@ -37,9 +37,9 @@
 #set_property PULLUP         TRUE        [get_ports {gpio_ja1[8]}]
 
 ### JA1.11 (IO_L6P_T0_35)
-set_property PACKAGE_PIN F16 [get_ports {display_address_out_0[0]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_0[0]}]
-set_property PULLUP true [get_ports {display_address_out_0[0]}]
+set_property PACKAGE_PIN F16 [get_ports {output_out}]
+set_property IOSTANDARD LVCMOS33 [get_ports {output_out}]
+set_property PULLUP true [get_ports {output_out}]
 
 ### JA1.12 (IO_L1N_T0_AD0N_35)
 set_property PACKAGE_PIN B20 [get_ports {display_address_out_0[1]}]
