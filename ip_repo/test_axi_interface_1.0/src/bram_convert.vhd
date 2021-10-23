@@ -37,7 +37,7 @@ end entity bram_convert;
 
 
 architecture fast of bram_convert is
-    constant bottom_half_offset : integer := n_rows_max * n_cols + 1;
+    signal bottom_half_offset : integer := n_rows_max * n_cols_max + 1;
 
     type state_type is (idle, read_top, read_bottom, write_line);
     signal state : state_type := idle;
@@ -91,6 +91,9 @@ begin
                         if convert_go = '1' then
                             -- Set the address to read the next top line from memory
                             mem_read_addr <= std_logic_vector(to_unsigned( (n_cols * current_row) + current_col, mem_read_addr'length));
+                            
+                            -- Set the bottom half offset in case it changed
+                            bottom_half_offset <= n_rows * n_cols + 1;
 
                             convert_done <= '0';
                             state <= read_top;
@@ -118,7 +121,7 @@ begin
                         mem_write_data <= top_pixel(2 * bitdepth + current_bit) & top_pixel(bitdepth + current_bit) & top_pixel(current_bit) & bottom_pixel(2 * bitdepth + current_bit) & bottom_pixel(bitdepth + current_bit) & bottom_pixel(current_bit);
                         mem_write_en <= '1';
                         
-                        if current_row >= n_rows - 1 and current_col >= n_cols - 1 and current_bit >= bitdepth - 1 then
+                        if current_row >= n_rows / 2 - 1 and current_col >= n_cols - 1 and current_bit >= bitdepth - 1 then
                             -- Finished writing all bits to framebuffer
                             current_row := 0;
                             current_bit := 0;

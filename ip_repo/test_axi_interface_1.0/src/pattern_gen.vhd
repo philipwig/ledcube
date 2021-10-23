@@ -39,8 +39,8 @@ architecture cool of pattern_gen is
 
     signal generating_pattern : std_logic := '1';
 
-    signal current_row : integer range 0 to n_rows_max - 1 :=  n_rows_max - 1;
-    signal current_col : integer range 0 to n_cols_max - 1 := n_cols_max - 1;
+    signal current_row : integer range 0 to n_rows_max - 1 := 0;
+    signal current_col : integer range 0 to n_cols_max - 1 := 0;
 
 
     -- Square outline pattern
@@ -109,7 +109,7 @@ begin
                 generating_pattern <= '0';
             else
                 if pattern_go = '1' and generating_pattern = '0' then
-                    if current_animation_frame = n_animation_frames - 1 and current_display_frame = n_display_frames - 1 then
+                    if current_animation_frame >= n_animation_frames - 1 and current_display_frame >= n_display_frames - 1 then
                         case current_pattern is
                             when square_outline =>
                                 current_pattern <= colored_noise;
@@ -141,7 +141,7 @@ begin
                         generating_pattern <= '1';
                         current_animation_frame <= 0;
                         current_display_frame <= 0;
-                    elsif current_display_frame = n_display_frames - 1 then
+                    elsif current_display_frame >= n_display_frames - 1 then
                         generating_pattern <= '1';
                         current_animation_frame <= current_animation_frame + 1;
                         current_display_frame <= 0;
@@ -263,7 +263,7 @@ begin
 
                                 case current_pattern is
                                     when square_outline =>
-                                        if current_col > left_line and current_col < n_cols - left_line - 1 then
+                                        if current_col >= left_line and current_col <= n_cols - left_line - 1 then
                                             if current_row = top_line or current_row = n_rows - top_line - 1 then
                                                 mem_write_data <= x"00FF00"; -- Draw top and bottom lines of square
                                             else
@@ -276,7 +276,7 @@ begin
                                                 mem_write_data <= x"000000";
                                             end if;
                                         else
-                                            mem_write_data <= x"000000"; -- Fill in other pixels with blue
+                                            mem_write_data <= x"000000"; -- Fill in other pixels with black
                                         end if;
                             
                                     when colored_noise =>

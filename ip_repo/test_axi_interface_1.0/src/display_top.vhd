@@ -62,7 +62,7 @@ architecture rtl of display_top is
 
     -- Constants defining size of patternbuffer
     constant patternbuffer_ram_width : integer := 3 * bitdepth_max; -- For RGB value with each bit taking up bitdepth number of bits
-    constant patternbuffer_ram_depth : integer := n_rows_max * n_cols_max * 2; -- Stores all the data for each pixel on the display **Make sure this is a power of 2**
+    constant patternbuffer_ram_depth : integer := n_rows_max * n_cols_max; -- Stores all the data for each pixel on the display **Make sure this is a power of 2**
     
     constant patternbuffer_addr_size : integer := clogb2(patternbuffer_ram_depth);
     constant patternbuffer_data_size : integer := patternbuffer_ram_width;
