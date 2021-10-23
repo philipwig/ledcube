@@ -1,8 +1,10 @@
 work/
 tmp/
-build/.Xil/
 python/.*
+
+.*/
 
 *.log
 *.jou
 *.mp4
+*.str
