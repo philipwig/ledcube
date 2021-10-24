@@ -103,11 +103,6 @@ proc update_MODELPARAM_VALUE.n_rows_max { MODELPARAM_VALUE.n_rows_max PARAM_VALU
 	set_property value [get_property value ${PARAM_VALUE.n_rows_max}] ${MODELPARAM_VALUE.n_rows_max}
 }
 
-proc update_MODELPARAM_VALUE.lsb_blank_length_max { MODELPARAM_VALUE.lsb_blank_length_max PARAM_VALUE.lsb_blank_length_max } {
-	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.lsb_blank_length_max}] ${MODELPARAM_VALUE.lsb_blank_length_max}
-}
-
 proc update_MODELPARAM_VALUE.n_cols_max { MODELPARAM_VALUE.n_cols_max PARAM_VALUE.n_cols_max } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.n_cols_max}] ${MODELPARAM_VALUE.n_cols_max}
@@ -118,15 +113,8 @@ proc update_MODELPARAM_VALUE.bitdepth_max { MODELPARAM_VALUE.bitdepth_max PARAM_
 	set_property value [get_property value ${PARAM_VALUE.bitdepth_max}] ${MODELPARAM_VALUE.bitdepth_max}
 }
 
-proc update_MODELPARAM_VALUE.MEM_WIDTH { MODELPARAM_VALUE.MEM_WIDTH } {
+proc update_MODELPARAM_VALUE.lsb_blank_length_max { MODELPARAM_VALUE.lsb_blank_length_max PARAM_VALUE.lsb_blank_length_max } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	# WARNING: There is no corresponding user parameter named "MEM_WIDTH". Setting updated value from the model parameter.
-set_property value 32 ${MODELPARAM_VALUE.MEM_WIDTH}
-}
-
-proc update_MODELPARAM_VALUE.MEM_SIZE { MODELPARAM_VALUE.MEM_SIZE } {
-	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	# WARNING: There is no corresponding user parameter named "MEM_SIZE". Setting updated value from the model parameter.
-set_property value 128 ${MODELPARAM_VALUE.MEM_SIZE}
+	set_property value [get_property value ${PARAM_VALUE.lsb_blank_length_max}] ${MODELPARAM_VALUE.lsb_blank_length_max}
 }
 

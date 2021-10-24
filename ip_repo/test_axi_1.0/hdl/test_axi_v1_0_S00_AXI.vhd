@@ -2,13 +2,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity test_axi_interface_v1_0_S00_AXI is
+entity test_axi_v1_0_S00_AXI is
 	generic (
 		-- Users to add parameters here
-		n_rows_max : integer;
-        n_cols_max : integer;
-        bitdepth_max : integer;
-        lsb_blank_length_max : integer;
+
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
@@ -19,13 +16,7 @@ entity test_axi_interface_v1_0_S00_AXI is
 	);
 	port (
 		-- Users to add ports here
-		reset : out std_logic;
-		enable : out std_logic;
-		
-		n_rows_config : out integer range 0 to n_rows_max - 1;
-		n_cols_config : out integer range 0 to n_cols_max - 1;
-		bitdepth_config : out integer range 0 to bitdepth_max - 1;
-		lsb_blank_length_config : out integer range 0 to lsb_blank_length_max - 1;
+
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 
@@ -90,9 +81,9 @@ entity test_axi_interface_v1_0_S00_AXI is
     		-- accept the read data and response information.
 		S_AXI_RREADY	: in std_logic
 	);
-end test_axi_interface_v1_0_S00_AXI;
+end test_axi_v1_0_S00_AXI;
 
-architecture arch_imp of test_axi_interface_v1_0_S00_AXI is
+architecture arch_imp of test_axi_v1_0_S00_AXI is
 
 	-- AXI4LITE signals
 	signal axi_awaddr	: std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -732,13 +723,7 @@ begin
 
 
 	-- Add user logic here
-	reset <= slv_reg0(0);
-	enable <= slv_reg0(1);
 
-	n_rows_config <= to_integer(unsigned(slv_reg1));
-	n_cols_config <= to_integer(unsigned(slv_reg2));
-	bitdepth_config <= to_integer(unsigned(slv_reg3));
-	lsb_blank_length_config <= to_integer(unsigned(slv_reg4));
 	-- User logic ends
 
 end arch_imp;

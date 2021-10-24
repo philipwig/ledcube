@@ -107,7 +107,7 @@ architecture rtl of display_top is
 
 begin
     -- Controller Module -> Controls all of the different modules and makes sure they work together
-    display_contoller_unit : entity work.display_contoller
+    display_contoller_unit : entity display_contoller
         generic map (
             n_rows_max => n_rows_max,
             n_cols_max => n_cols_max,
@@ -157,7 +157,7 @@ begin
         );
 
     -- Blanking Module -> Contols the blanking of the display
-    display_blanking_unit : entity work.display_blanking
+    display_blanking_unit : entity display_blanking
         generic map (
             bitdepth_max => bitdepth_max,
             lsb_blank_length_max => lsb_blank_length_max
@@ -178,7 +178,7 @@ begin
         );
 
     -- BCM Module -> Writes the pixel data to the display using binary coded modulation
-    display_bcm_unit : entity work.display_bcm
+    display_bcm_unit : entity display_bcm
         generic map (
             n_rows_max => n_rows_max,
             n_cols_max => n_cols_max,
@@ -218,7 +218,7 @@ begin
         );
 
     -- Framebuffer -> Stores the frames and uses double buffering
-    framebuffer_unit : entity work.simple_bram
+    framebuffer_unit : entity simple_bram
             generic map (
                 addr_width => framebuffer_addr_size,
                 data_width => framebuffer_data_size,
@@ -236,7 +236,7 @@ begin
             );
 
     -- Converter -> Converts and moves the display data from the Patternbuffer to the Framebuffer
-    bram_convert_unit : entity work.bram_convert
+    bram_convert_unit : entity bram_convert
                 generic map (
                     n_rows_max => n_rows_max,
                     n_cols_max => n_cols_max,
@@ -268,7 +268,7 @@ begin
                 );
 
     -- Patternbuffer -> Stores the generated pattern that will be displayed on the LED panel
-    patternbuffer_unit : entity work.simple_bram
+    patternbuffer_unit : entity simple_bram
             generic map (
                 addr_width => patternbuffer_addr_size,
                 data_width => patternbuffer_data_size,
@@ -286,7 +286,7 @@ begin
             );
     
     -- Pattern Generator -> Generates the patterns to be displayed without using the ARM CPU
-    pattern_gen_unit : entity work.pattern_gen 
+    pattern_gen_unit : entity pattern_gen 
         generic map (
             n_rows_max => n_rows_max,
             n_cols_max => n_cols_max,

@@ -2,12 +2,9 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity test_axi_interface_v1_0 is
+entity led_panel_driver_v1_0 is
 	generic (
 		-- Users to add parameters here
-		MEM_WIDTH : integer := 32;
-		MEM_SIZE : integer := 128;
-
 		n_rows_max : integer := 255;
         n_cols_max : integer := 32;
         bitdepth_max : integer := 8;
@@ -18,7 +15,7 @@ entity test_axi_interface_v1_0 is
 
 		-- Parameters of Axi Slave Bus Interface S00_AXI
 		C_S00_AXI_DATA_WIDTH	: integer	:= 32;
-		C_S00_AXI_ADDR_WIDTH	: integer	:= 4
+		C_S00_AXI_ADDR_WIDTH	: integer	:= 7
 	);
 	port (
 		-- Users to add ports here
@@ -54,37 +51,29 @@ entity test_axi_interface_v1_0 is
 		s00_axi_rvalid	: out std_logic;
 		s00_axi_rready	: in std_logic
 	);
-end test_axi_interface_v1_0;
+end led_panel_driver_v1_0;
 
-architecture arch_imp of test_axi_interface_v1_0 is
+architecture arch_imp of led_panel_driver_v1_0 is
 
 	signal reset : std_logic;
 	signal enable : std_logic;
 
-	signal n_rows_config : integer range 0 to n_rows_max - 1;
-	signal n_cols_config : integer range 0 to n_cols_max - 1;
-	signal bitdepth_config : integer range 0 to bitdepth_max - 1;
-	signal lsb_blank_length_config : integer range 0 to lsb_blank_length_max - 1;
+	signal n_rows_config : integer range 0 to n_rows_max;
+	signal n_cols_config : integer range 0 to n_cols_max;
+	signal bitdepth_config : integer range 0 to bitdepth_max;
+	signal lsb_blank_length_config : integer range 0 to lsb_blank_length_max;
 
 	-- component declaration
-	component test_axi_interface_v1_0_S00_AXI is
+	component led_panel_driver_v1_0_S00_AXI is
 		generic (
-			n_rows_max : integer;
-			n_cols_max : integer;
-			bitdepth_max : integer;
-			lsb_blank_length_max : integer;
-
 			C_S_AXI_DATA_WIDTH	: integer	:= 32;
-			C_S_AXI_ADDR_WIDTH	: integer	:= 4
+			C_S_AXI_ADDR_WIDTH	: integer	:= 7
 		);
 		port (
-			reset : out std_logic;
-			enable : out std_logic;
-
-			n_rows_config : out integer range 0 to n_rows_max - 1;
-			n_cols_config : out integer range 0 to n_cols_max - 1;
-			bitdepth_config : out integer range 0 to bitdepth_max - 1;
-			lsb_blank_length_config : out integer range 0 to lsb_blank_length_max - 1;
+			n_rows_config : out integer range 0 to n_rows_max;
+			n_cols_config : out integer range 0 to n_cols_max;
+			bitdepth_config : out integer range 0 to bitdepth_max;
+			lsb_blank_length_config : out integer range 0 to lsb_blank_length_max;
 	
 			S_AXI_ACLK	: in std_logic;
 			S_AXI_ARESETN	: in std_logic;
@@ -108,7 +97,7 @@ architecture arch_imp of test_axi_interface_v1_0 is
 			S_AXI_RVALID	: out std_logic;
 			S_AXI_RREADY	: in std_logic
 		);
-	end component test_axi_interface_v1_0_S00_AXI;
+	end component led_panel_driver_v1_0_S00_AXI;
 
 	component display_top is
 		generic(
@@ -123,10 +112,10 @@ architecture arch_imp of test_axi_interface_v1_0 is
 			en : in std_logic;
 	
 			-- Configuration values from the axi interface
-			n_rows_config : in integer range 0 to n_rows_max - 1;
-			n_cols_config : in integer range 0 to n_cols_max - 1;
-			bitdepth_config : in integer range 0 to bitdepth_max - 1;
-			lsb_blank_length_config : in integer range 0 to lsb_blank_length_max - 1;
+			n_rows_config : in integer range 0 to n_rows_max;
+			n_cols_config : in integer range 0 to n_cols_max;
+			bitdepth_config : in integer range 0 to bitdepth_max;
+			lsb_blank_length_config : in integer range 0 to lsb_blank_length_max;
 	
 			-- Display interface
 			display_clk_out : out std_logic;
@@ -141,13 +130,8 @@ architecture arch_imp of test_axi_interface_v1_0 is
 begin
 
 -- Instantiation of Axi Bus Interface S00_AXI
-test_axi_interface_v1_0_S00_AXI_inst : test_axi_interface_v1_0_S00_AXI
+led_panel_driver_v1_0_S00_AXI_inst : led_panel_driver_v1_0_S00_AXI
 	generic map (
-		n_rows_max => n_rows_max,
-		n_cols_max => n_cols_max,
-		bitdepth_max => bitdepth_max,
-		lsb_blank_length_max => lsb_blank_length_max,
-
 		C_S_AXI_DATA_WIDTH	=> C_S00_AXI_DATA_WIDTH,
 		C_S_AXI_ADDR_WIDTH	=> C_S00_AXI_ADDR_WIDTH
 	)
@@ -184,8 +168,6 @@ test_axi_interface_v1_0_S00_AXI_inst : test_axi_interface_v1_0_S00_AXI
 	);
 
 	-- Add user logic here
-
-	-- User logic ends
 	display_top_inst : display_top
 		generic map (
             n_rows_max => n_rows_max,
@@ -217,6 +199,6 @@ test_axi_interface_v1_0_S00_AXI_inst : test_axi_interface_v1_0_S00_AXI
         	G1_out => G1_out,
         	B1_out => B1_out
 		);
+	-- User logic ends
+
 end arch_imp;
-
-
