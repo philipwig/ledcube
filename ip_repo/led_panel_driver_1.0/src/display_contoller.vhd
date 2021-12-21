@@ -106,8 +106,6 @@ begin
                         if latch_rdy = '1' and bcm_done = '1' then
                             -- Start latching
                             state <= latch;
-                            
-
                         end if;
 
                     when latch =>                     

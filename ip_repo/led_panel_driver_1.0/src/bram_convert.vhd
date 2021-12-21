@@ -51,9 +51,12 @@ architecture fast of bram_convert is
     signal current_buffer : integer range 0 to 1;
 
 begin
-
+    -- Invert which display buffer to use since display_buffer is the one being shown on the display
     current_buffer <= 1 when display_buffer = 0 else
                       0;
+
+    -- Set the bottom half offset, need the rows divided by 2 since we are using a 1:32 split display 
+    bottom_half_offset <= (n_rows / 2) * n_cols + 1;
 
     process (clk)
         variable current_row : integer range 0 to n_rows_max := 0;
@@ -92,8 +95,7 @@ begin
                             -- Set the address to read the next top line from memory
                             mem_read_addr <= std_logic_vector(to_unsigned( (n_cols * current_row) + current_col, mem_read_addr'length));
                             
-                            -- Set the bottom half offset in case it changed
-                            bottom_half_offset <= n_rows * n_cols + 1;
+                            
 
                             convert_done <= '0';
                             state <= read_top;

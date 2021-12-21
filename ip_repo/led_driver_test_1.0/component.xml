@@ -1,0 +1,1464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:component xmlns:xilinx="http://www.xilinx.com" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <spirit:vendor>xilinx.com</spirit:vendor>
+  <spirit:library>user</spirit:library>
+  <spirit:name>led_driver_test</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:busInterfaces>
+    <spirit:busInterface>
+      <spirit:name>axi_control</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="aximm" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="aximm_rtl" spirit:version="1.0"/>
+      <spirit:slave>
+        <spirit:memoryMapRef spirit:memoryMapRef="axi_control"/>
+      </spirit:slave>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>AWADDR</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_awaddr</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>AWPROT</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_awprot</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>AWVALID</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_awvalid</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>AWREADY</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_awready</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>WDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_wdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>WSTRB</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_wstrb</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>WVALID</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_wvalid</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>WREADY</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_wready</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>BRESP</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_bresp</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>BVALID</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_bvalid</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>BREADY</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_bready</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>ARADDR</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_araddr</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>ARPROT</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_arprot</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>ARVALID</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_arvalid</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>ARREADY</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_arready</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_rdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RRESP</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_rresp</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RVALID</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_rvalid</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RREADY</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_rready</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>WIZ_DATA_WIDTH</spirit:name>
+          <spirit:value spirit:format="long" spirit:id="BUSIFPARAM_VALUE.AXI_CONTROL.WIZ_DATA_WIDTH" spirit:choiceRef="choice_list_6fc15197">32</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>WIZ_NUM_REG</spirit:name>
+          <spirit:value spirit:format="long" spirit:id="BUSIFPARAM_VALUE.AXI_CONTROL.WIZ_NUM_REG" spirit:minimum="4" spirit:maximum="512" spirit:rangeType="long">30</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>SUPPORTS_NARROW_BURST</spirit:name>
+          <spirit:value spirit:format="long" spirit:id="BUSIFPARAM_VALUE.AXI_CONTROL.SUPPORTS_NARROW_BURST" spirit:choiceRef="choice_pairs_ce1226b1">0</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>axi_control_RST</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="reset" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="reset_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RST</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_aresetn</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>POLARITY</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.AXI_CONTROL_RST.POLARITY" spirit:choiceRef="choice_list_9d8b0d81">ACTIVE_LOW</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>axi_control_CLK</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="clock" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="clock_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_control_aclk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>ASSOCIATED_BUSIF</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.AXI_CONTROL_CLK.ASSOCIATED_BUSIF">axi_control</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>ASSOCIATED_RESET</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.AXI_CONTROL_CLK.ASSOCIATED_RESET">axi_control_aresetn:axi_control_RST</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>axi_patternbuffer_rst</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="reset" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="reset_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RST</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_patternbuffer_rst</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>axi_patternbuffer_clk</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="clock" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="clock_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_patternbuffer_clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>ASSOCIATED_RESET</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.AXI_PATTERNBUFFER_CLK.ASSOCIATED_RESET">axi_patternbuffer_rst</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>ASSOCIATED_BUSIF</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.AXI_PATTERNBUFFER_CLK.ASSOCIATED_BUSIF">axi_patternbuffer</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>axi_patternbuffer</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="bram" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="bram_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>DOUT</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_patternbuffer_read_data</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>DIN</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_patternbuffer_write_data</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>WE</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_patternbuffer_write_en</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>ADDR</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_patternbuffer_addr</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_patternbuffer_clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RST</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>axi_patternbuffer_rst</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>MASTER_TYPE</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.AXI_PATTERNBUFFER.MASTER_TYPE">BRAM_CTRL</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>READ_WRITE_MODE</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.AXI_PATTERNBUFFER.READ_WRITE_MODE">READ_WRITE</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+    </spirit:busInterface>
+  </spirit:busInterfaces>
+  <spirit:memoryMaps>
+    <spirit:memoryMap>
+      <spirit:name>axi_control</spirit:name>
+      <spirit:addressBlock>
+        <spirit:name>axi_control_reg</spirit:name>
+        <spirit:baseAddress spirit:format="long" spirit:resolve="user">0</spirit:baseAddress>
+        <spirit:range spirit:format="long">4096</spirit:range>
+        <spirit:width spirit:format="long">32</spirit:width>
+        <spirit:usage>register</spirit:usage>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>OFFSET_BASE_PARAM</spirit:name>
+            <spirit:value spirit:id="ADDRBLOCKPARAM_VALUE.AXI_CONTROL.AXI_CONTROL_REG.OFFSET_BASE_PARAM">C_axi_control_BASEADDR</spirit:value>
+          </spirit:parameter>
+          <spirit:parameter>
+            <spirit:name>OFFSET_HIGH_PARAM</spirit:name>
+            <spirit:value spirit:id="ADDRBLOCKPARAM_VALUE.AXI_CONTROL.AXI_CONTROL_REG.OFFSET_HIGH_PARAM">C_axi_control_HIGHADDR</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:addressBlock>
+    </spirit:memoryMap>
+  </spirit:memoryMaps>
+  <spirit:model>
+    <spirit:views>
+      <spirit:view>
+        <spirit:name>xilinx_vhdlsynthesis</spirit:name>
+        <spirit:displayName>VHDL Synthesis</spirit:displayName>
+        <spirit:envIdentifier>vhdlSource:vivado.xilinx.com:synthesis</spirit:envIdentifier>
+        <spirit:language>vhdl</spirit:language>
+        <spirit:modelName>led_driver_test_v1_0</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_vhdlsynthesis_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>0d80a791</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_vhdlbehavioralsimulation</spirit:name>
+        <spirit:displayName>VHDL Simulation</spirit:displayName>
+        <spirit:envIdentifier>vhdlSource:vivado.xilinx.com:simulation</spirit:envIdentifier>
+        <spirit:language>vhdl</spirit:language>
+        <spirit:modelName>led_driver_test_v1_0</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_vhdlbehavioralsimulation_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>0d80a791</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_softwaredriver</spirit:name>
+        <spirit:displayName>Software Driver</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:sw.driver</spirit:envIdentifier>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_softwaredriver_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>1ed5b139</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_xpgui</spirit:name>
+        <spirit:displayName>UI Layout</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:xgui.ui</spirit:envIdentifier>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_xpgui_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>02ba4ba4</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>bd_tcl</spirit:name>
+        <spirit:displayName>Block Diagram</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:block.diagram</spirit:envIdentifier>
+        <spirit:fileSetRef>
+          <spirit:localName>bd_tcl_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>16328387</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+    </spirit:views>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>axi_patternbuffer_clk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_patternbuffer_rst</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_patternbuffer_write_en</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_patternbuffer_addr</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.MEM_ADDR_SIZE&apos;)) - 1)">15</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_patternbuffer_write_data</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.MEM_WIDTH&apos;)) - 1)">31</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long">8</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_patternbuffer_read_data</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.MEM_WIDTH&apos;)) - 1)">31</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>display_clk_out</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>display_blank_out</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>display_latch_out</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>display_address_out</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">4</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>R0_out</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>G0_out</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>B0_out</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>R1_out</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>G1_out</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>B1_out</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_aclk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_aresetn</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_awaddr</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_axi_control_ADDR_WIDTH&apos;)) - 1)">6</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_awprot</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">2</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_awvalid</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_awready</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_wdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_axi_control_DATA_WIDTH&apos;)) - 1)">31</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_wstrb</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_axi_control_DATA_WIDTH&apos;)) / 8) - 1)">3</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_wvalid</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_wready</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_bresp</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">1</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_bvalid</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_bready</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_araddr</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_axi_control_ADDR_WIDTH&apos;)) - 1)">6</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_arprot</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">2</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_arvalid</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_arready</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_rdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_axi_control_DATA_WIDTH&apos;)) - 1)">31</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_rresp</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">1</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_rvalid</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>axi_control_rready</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+    <spirit:modelParameters>
+      <spirit:modelParameter xsi:type="spirit:nameValueTypeType" spirit:dataType="integer">
+        <spirit:name>C_axi_control_DATA_WIDTH</spirit:name>
+        <spirit:displayName>C axi control DATA WIDTH</spirit:displayName>
+        <spirit:description>Width of S_AXI data bus</spirit:description>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_axi_control_DATA_WIDTH" spirit:order="3" spirit:rangeType="long">32</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>C_axi_control_ADDR_WIDTH</spirit:name>
+        <spirit:displayName>C axi control ADDR WIDTH</spirit:displayName>
+        <spirit:description>Width of S_AXI address bus</spirit:description>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_axi_control_ADDR_WIDTH" spirit:order="4" spirit:rangeType="long">7</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>n_rows_max</spirit:name>
+        <spirit:displayName>N Rows Max</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.n_rows_max">64</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>n_cols_max</spirit:name>
+        <spirit:displayName>N Cols Max</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.n_cols_max">128</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>bitdepth_max</spirit:name>
+        <spirit:displayName>Bitdepth Max</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.bitdepth_max">8</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>lsb_blank_length_max</spirit:name>
+        <spirit:displayName>Lsb Blank Length Max</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.lsb_blank_length_max">100</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>MEM_WIDTH</spirit:name>
+        <spirit:displayName>Mem Width</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.MEM_WIDTH">32</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>MEM_ADDR_SIZE</spirit:name>
+        <spirit:displayName>Mem Addr Size</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.MEM_ADDR_SIZE">16</spirit:value>
+      </spirit:modelParameter>
+    </spirit:modelParameters>
+  </spirit:model>
+  <spirit:choices>
+    <spirit:choice>
+      <spirit:name>choice_list_6fc15197</spirit:name>
+      <spirit:enumeration>32</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>choice_list_9d8b0d81</spirit:name>
+      <spirit:enumeration>ACTIVE_HIGH</spirit:enumeration>
+      <spirit:enumeration>ACTIVE_LOW</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>choice_pairs_ce1226b1</spirit:name>
+      <spirit:enumeration spirit:text="true">1</spirit:enumeration>
+      <spirit:enumeration spirit:text="false">0</spirit:enumeration>
+    </spirit:choice>
+  </spirit:choices>
+  <spirit:fileSets>
+    <spirit:fileSet>
+      <spirit:name>xilinx_vhdlsynthesis_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>src/bram_convert.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/display_bcm.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/display_blanking.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/display_contoller.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/simple_bram.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/dual_bram.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/display_top.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/led_driver_test_v1_0_axi_control.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/led_driver_test_v1_0.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_fccf86e8</spirit:userFileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_vhdlbehavioralsimulation_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>src/bram_convert.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/display_bcm.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/display_blanking.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/display_contoller.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/simple_bram.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/dual_bram.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/display_top.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/led_driver_test_v1_0_axi_control.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/led_driver_test_v1_0.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_softwaredriver_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>drivers/led_driver_test_v1_0/data/led_driver_test.mdd</spirit:name>
+        <spirit:userFileType>mdd</spirit:userFileType>
+        <spirit:userFileType>driver_mdd</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/led_driver_test_v1_0/data/led_driver_test.tcl</spirit:name>
+        <spirit:fileType>tclSource</spirit:fileType>
+        <spirit:userFileType>driver_tcl</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/led_driver_test_v1_0/src/Makefile</spirit:name>
+        <spirit:userFileType>driver_src</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/led_driver_test_v1_0/src/led_driver_test.h</spirit:name>
+        <spirit:fileType>cSource</spirit:fileType>
+        <spirit:userFileType>driver_src</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/led_driver_test_v1_0/src/led_driver_test.c</spirit:name>
+        <spirit:fileType>cSource</spirit:fileType>
+        <spirit:userFileType>driver_src</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/led_driver_test_v1_0/src/led_driver_test_selftest.c</spirit:name>
+        <spirit:fileType>cSource</spirit:fileType>
+        <spirit:userFileType>driver_src</spirit:userFileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_xpgui_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>xgui/led_driver_test_v1_0.tcl</spirit:name>
+        <spirit:fileType>tclSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_02ba4ba4</spirit:userFileType>
+        <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>bd_tcl_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>bd/bd.tcl</spirit:name>
+        <spirit:fileType>tclSource</spirit:fileType>
+      </spirit:file>
+    </spirit:fileSet>
+  </spirit:fileSets>
+  <spirit:description>Full led panel driver test</spirit:description>
+  <spirit:parameters>
+    <spirit:parameter>
+      <spirit:name>C_axi_control_DATA_WIDTH</spirit:name>
+      <spirit:displayName>C axi control DATA WIDTH</spirit:displayName>
+      <spirit:description>Width of S_AXI data bus</spirit:description>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_axi_control_DATA_WIDTH" spirit:choiceRef="choice_list_6fc15197" spirit:order="3">32</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.C_axi_control_DATA_WIDTH">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>C_axi_control_ADDR_WIDTH</spirit:name>
+      <spirit:displayName>C axi control ADDR WIDTH</spirit:displayName>
+      <spirit:description>Width of S_AXI address bus</spirit:description>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_axi_control_ADDR_WIDTH" spirit:order="4" spirit:rangeType="long">7</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.C_axi_control_ADDR_WIDTH">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>C_axi_control_BASEADDR</spirit:name>
+      <spirit:displayName>C axi control BASEADDR</spirit:displayName>
+      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.C_axi_control_BASEADDR" spirit:order="5" spirit:bitStringLength="32">0xFFFFFFFF</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.C_axi_control_BASEADDR">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>C_axi_control_HIGHADDR</spirit:name>
+      <spirit:displayName>C axi control HIGHADDR</spirit:displayName>
+      <spirit:value spirit:format="bitString" spirit:resolve="user" spirit:id="PARAM_VALUE.C_axi_control_HIGHADDR" spirit:order="6" spirit:bitStringLength="32">0x00000000</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.C_axi_control_HIGHADDR">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>Component_Name</spirit:name>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.Component_Name" spirit:order="1">led_driver_test_v1_0</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>n_rows_max</spirit:name>
+      <spirit:displayName>N Rows Max</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.n_rows_max">64</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>n_cols_max</spirit:name>
+      <spirit:displayName>N Cols Max</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.n_cols_max">128</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>bitdepth_max</spirit:name>
+      <spirit:displayName>Bitdepth Max</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.bitdepth_max">8</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>lsb_blank_length_max</spirit:name>
+      <spirit:displayName>Lsb Blank Length Max</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.lsb_blank_length_max">100</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>MEM_WIDTH</spirit:name>
+      <spirit:displayName>Mem Width</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.MEM_WIDTH">32</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>MEM_ADDR_SIZE</spirit:name>
+      <spirit:displayName>Mem Addr Size</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.MEM_ADDR_SIZE">16</spirit:value>
+    </spirit:parameter>
+  </spirit:parameters>
+  <spirit:vendorExtensions>
+    <xilinx:coreExtensions>
+      <xilinx:supportedFamilies>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">zynq</xilinx:family>
+      </xilinx:supportedFamilies>
+      <xilinx:taxonomies>
+        <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
+      </xilinx:taxonomies>
+      <xilinx:displayName>led_driver_test_v1.0</xilinx:displayName>
+      <xilinx:coreRevision>13</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-11-25T03:36:09Z</xilinx:coreCreationDateTime>
+      <xilinx:tags>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@1d8d8694_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@104dde70_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2bbe5448_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5a8bdcd5_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@435ec1ff_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@132eb9a8_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@442a0d11_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@61634c16_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5a507988_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@8af44d7_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@f5cba96_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7f990ea0_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@74e014c1_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5bddc363_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@4c4cc737_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@453d3b13_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@68d43d03_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7ec0751_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@63b88bec_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@629dff76_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@b162227_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@3cce2a1f_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7b48b848_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@68874238_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@6f690709_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@49e3bc41_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@115b9a1a_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@6aef3d5a_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2806acde_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@73d7393_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@779285fe_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5015fd8d_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@523f400a_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@61973c89_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2eb3156f_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5390ebf7_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@3eb5a2c7_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@4724b7ce_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2051879b_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@247cf45a_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@606116be_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@15cfa566_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7e04e87a_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5402c526_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5029ce0_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@198d23c9_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@717841c0_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@758f9318_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@37cff775_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@30ce76bc_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@23ceef08_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@87f3da0_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@179e2ada_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2c51f99c_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@428fc6aa_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7999c326_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@46c2acc5_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@de4c255_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@6fd2c1eb_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7fbafe3a_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@313e29dd_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@155c6dc9_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@617cbf01_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@4f40f078_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@4aad1a46_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5bb902fc_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7db64afd_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2edb6994_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@607611fe_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@3ca4efbc_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@72e531bd_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@174840_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@24a2639_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@4d28e713_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@23f655f2_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@3211d26d_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7cd59a7d_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7dc9e522_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@6525165f_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@4362354f_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@202dcb33_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@262215e6_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@6c7ab82c_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@366b63f2_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@199c4ba4_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@1e7683e0_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@769020eb_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@3b462b27_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@290e617a_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@22bfd92b_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@391c55d5_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@712077f3_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@586c91e0_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@3b2c8524_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@6e8dc2ec_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@532b0211_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7f8635d3_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@276357df_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@3fe5d6f_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2d9b0346_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@341a0825_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@d0f5fef_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@1caea880_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5ea498c4_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@11b7d4eb_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@156535c7_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@62bd1954_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@18db8264_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@52e805e_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@47b6237_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@10d23bef_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@6afe7121_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@11a2380c_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@372c5a06_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7938d62e_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7edb4b11_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@b6c04e3_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@30a2262e_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@70e18acd_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5f944ad_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@69232cbe_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2b945113_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@22244da8_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@442abe9d_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2754f68d_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5993ee3e_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5fab1bf5_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@769ac56_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@30e68503_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@1ed29882_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@1823eaab_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2a91c4a8_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@b1329eb_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@4a82362e_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2c14f3c8_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@68282860_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@41e02b71_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@375fc7a7_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5e613d10_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@319cd9a6_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@57c2754a_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@348e465b_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7046f952_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@299405a7_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2e94316f_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7f8e489e_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@71a7ccf1_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@37da7495_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@56841f25_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@44625b1f_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7e9c8f86_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@11e48e2f_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5daa269a_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@355c721e_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7a21bb2e_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2f310e1e_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@54fa6904_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7b012d61_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@4365a5a7_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@136a0330_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@647792fa_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@51c2f2cc_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@590b5ca7_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@5cb7f5d7_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@213549d2_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@4fc46c70_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@1b3ae07c_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2274c684_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2f87444a_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@1e7b8083_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@68fd9ea2_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@691d3264_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@14a55acc_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7ea00eb2_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@60f2936c_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2bba87e1_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@3981bf8_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@3fc4ff0f_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@25a9c09c_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@1f4587f1_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@29df4fa2_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@4829ea97_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@1e6389ef_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@3896dfd9_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@3b227811_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_driver_test_1.0</xilinx:tag>
+      </xilinx:tags>
+    </xilinx:coreExtensions>
+    <xilinx:packagingInfo>
+      <xilinx:xilinxVersion>2021.2</xilinx:xilinxVersion>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="d333ea3a"/>
+      <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="eb4221f7"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="dba0d03f"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="571ee165"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="a9b395e5"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="897b4152"/>
+    </xilinx:packagingInfo>
+  </spirit:vendorExtensions>
+</spirit:component>

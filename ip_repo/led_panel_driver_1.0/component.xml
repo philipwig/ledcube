@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <spirit:component xmlns:xilinx="http://www.xilinx.com" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <spirit:vendor>user.org</spirit:vendor>
+  <spirit:vendor>xilinx.com</spirit:vendor>
   <spirit:library>user</spirit:library>
   <spirit:name>led_panel_driver</spirit:name>
   <spirit:version>1.0</spirit:version>
@@ -266,7 +266,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>cc82b62b</spirit:value>
+            <spirit:value>67d1a146</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -282,7 +282,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>cc82b62b</spirit:value>
+            <spirit:value>67d1a146</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -296,7 +296,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>5d001a29</spirit:value>
+            <spirit:value>9492086a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -310,7 +310,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>cfe55f00</spirit:value>
+            <spirit:value>dec5506c</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -324,7 +324,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>45a2f450</spirit:value>
+            <spirit:value>16328387</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -790,12 +790,12 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>n_rows_max</spirit:name>
         <spirit:displayName>N Rows Max</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.n_rows_max">255</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.n_rows_max">64</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>n_cols_max</spirit:name>
         <spirit:displayName>N Cols Max</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.n_cols_max">32</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.n_cols_max">256</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>bitdepth_max</spirit:name>
@@ -805,7 +805,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>lsb_blank_length_max</spirit:name>
         <spirit:displayName>Lsb Blank Length Max</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.lsb_blank_length_max">200</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.lsb_blank_length_max">100</spirit:value>
       </spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
@@ -863,7 +863,7 @@
       <spirit:file>
         <spirit:name>hdl/led_panel_driver_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_f8c3e152</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_8ed9f871</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -942,7 +942,7 @@
       <spirit:file>
         <spirit:name>xgui/led_panel_driver_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_cfe55f00</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_dec5506c</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -954,7 +954,7 @@
       </spirit:file>
     </spirit:fileSet>
   </spirit:fileSets>
-  <spirit:description>A driver for RGB LED panels</spirit:description>
+  <spirit:description>My new AXI IP</spirit:description>
   <spirit:parameters>
     <spirit:parameter>
       <spirit:name>C_S00_AXI_DATA_WIDTH</spirit:name>
@@ -1013,12 +1013,12 @@
     <spirit:parameter>
       <spirit:name>n_rows_max</spirit:name>
       <spirit:displayName>N Rows Max</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.n_rows_max">255</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.n_rows_max">64</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>n_cols_max</spirit:name>
       <spirit:displayName>N Cols Max</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.n_cols_max">32</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.n_cols_max">256</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>bitdepth_max</spirit:name>
@@ -1028,7 +1028,7 @@
     <spirit:parameter>
       <spirit:name>lsb_blank_length_max</spirit:name>
       <spirit:displayName>Lsb Blank Length Max</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.lsb_blank_length_max">200</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.lsb_blank_length_max">100</spirit:value>
     </spirit:parameter>
   </spirit:parameters>
   <spirit:vendorExtensions>
@@ -1041,54 +1041,53 @@
       </xilinx:taxonomies>
       <xilinx:displayName>led_panel_driver_v1.0</xilinx:displayName>
       <xilinx:coreRevision>2</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-10-24T03:19:04Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2021-11-23T03:39:16Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@3b75db15_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@72fd77e9_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@5367888c_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@4e490b38_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@3f6b4d57_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@48f8ee10_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@76297e7d_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@6a158f8b_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@29561e1c_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@3c6b1bfa_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@2cc4e73f_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@56588fa_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@11cb2090_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@6ad9cde2_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@1f95d38d_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@15946c6e_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@2d76d600_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@6597d9bc_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@26893335_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@59f45712_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@1767edd3_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@6280c76d_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@7fbefcd6_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@2895000_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@1b037d88_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@51f2f43a_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@139ba1cc_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@1ce71d60_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@ce564ff_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@52501639_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@2f966ba5_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@5bb0063b_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@7066971b_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@1be46dba_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@364a9279_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.df@680e11cf_ARCHIVE_LOCATION">/home/philip/Everything/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@551e75ac_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@48527771_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7ebd60d3_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7406962b_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2db12395_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@25129107_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@39047cb4_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2c6f9a1e_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@192585f2_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2b443cba_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@334d990e_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@30295d6d_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@24a16a14_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@76120558_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@78f0576b_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@1ce93d3_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@b48050f_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@4cff3d28_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@720a94af_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@440251ff_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@6ffb1846_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@551b88cf_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@660e24d6_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@190514ef_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@2363f6f_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@36941d55_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@44eb311f_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@3e8b008a_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@611cd619_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@4ca1220a_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@e4a80f9_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@c332f86_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@373b403c_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@754cb783_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.df@7c46ad06_ARCHIVE_LOCATION">c:/Users/finns/EverythingLocal/ledcube/ip_repo/led_panel_driver_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2021.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="18181f42"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="ed1368d5"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="d148763c"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="b4a81ba6"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="dd3d957e"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="7d6f30fd"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="e54ce57f"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="cdb53c78"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="5e487321"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

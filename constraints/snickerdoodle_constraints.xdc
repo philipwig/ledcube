@@ -293,29 +293,29 @@ set_property PULLUP true [get_ports display_latch_out_0]
 #set_property PULLUP         TRUE        [get_ports {gpio2_tri_io[10]}]
 
 ### JB1.11 (IO_L6P_T0_34)
-#set_property PACKAGE_PIN P14 [get_ports {display_address_out_1[0]}]
-#set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[0]}]
-#set_property PULLUP true [get_ports {display_address_out_1[0]}]
+set_property PACKAGE_PIN P14 [get_ports {display_address_out_1[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[0]}]
+set_property PULLUP true [get_ports {display_address_out_1[0]}]
 
 ### JB1.12 (IO_L4N_T0_34)
-#set_property PACKAGE_PIN W13 [get_ports {display_address_out_1[1]}]
-#set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[1]}]
-#set_property PULLUP true [get_ports {display_address_out_1[1]}]
+set_property PACKAGE_PIN W13 [get_ports {display_address_out_1[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[1]}]
+set_property PULLUP true [get_ports {display_address_out_1[1]}]
 
 ### JB1.13 (IO_L6N_T0_VREF_34)
-#set_property PACKAGE_PIN R14 [get_ports {display_address_out_1[2]}]
-#set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[2]}]
-#set_property PULLUP true [get_ports {display_address_out_1[2]}]
+set_property PACKAGE_PIN R14 [get_ports {display_address_out_1[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[2]}]
+set_property PULLUP true [get_ports {display_address_out_1[2]}]
 
 #### JB1.14 (IO_L4P_T0_34)
-#set_property PACKAGE_PIN V12 [get_ports {display_address_out_1[3]}]
-#set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[3]}]
-#set_property PULLUP true [get_ports {display_address_out_1[3]}]
+set_property PACKAGE_PIN V12 [get_ports {display_address_out_1[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[3]}]
+set_property PULLUP true [get_ports {display_address_out_1[3]}]
 
 ### JB1.17 (IO_L3P_T0_DQS_PUDC_B_34)
-#set_property PACKAGE_PIN U13 [get_ports {display_address_out_1[4]}]
-#set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[4]}]
-#set_property PULLUP true [get_ports {display_address_out_1[4]}]
+set_property PACKAGE_PIN U13 [get_ports {display_address_out_1[4]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[4]}]
+set_property PULLUP true [get_ports {display_address_out_1[4]}]
 
 #### JB1.18 (IO_L5N_T0_34)
 #set_property PACKAGE_PIN    T15         [get_ports {gpio2_tri_io[17]}]
@@ -333,19 +333,19 @@ set_property PULLUP true [get_ports display_latch_out_0]
 #set_property PULLUP         TRUE        [get_ports {gpio2_tri_io[16]}]
 
 ### JB1.23 (IO_L9P_T1_DQS_34)
-#set_property PACKAGE_PIN T16 [get_ports R0_out_1]
-#set_property IOSTANDARD LVCMOS33 [get_ports R0_out_1]
-#set_property PULLUP true [get_ports R0_out_1]
+set_property PACKAGE_PIN T16 [get_ports R0_out_1]
+set_property IOSTANDARD LVCMOS33 [get_ports R0_out_1]
+set_property PULLUP true [get_ports R0_out_1]
 
 ### JB1.24 (IO_L7N_T1_34)
-#set_property PACKAGE_PIN Y17 [get_ports G0_out_1]
-#set_property IOSTANDARD LVCMOS33 [get_ports G0_out_1]
-#set_property PULLUP true [get_ports G0_out_1]
+set_property PACKAGE_PIN Y17 [get_ports G0_out_1]
+set_property IOSTANDARD LVCMOS33 [get_ports G0_out_1]
+set_property PULLUP true [get_ports G0_out_1]
 
 ### JB1.25 (IO_L9N_T1_DQS_34)
-#set_property PACKAGE_PIN U17 [get_ports B0_out_1]
-#set_property IOSTANDARD LVCMOS33 [get_ports B0_out_1]
-#set_property PULLUP true [get_ports B0_out_1]
+set_property PACKAGE_PIN U17 [get_ports B0_out_1]
+set_property IOSTANDARD LVCMOS33 [get_ports B0_out_1]
+set_property PULLUP true [get_ports B0_out_1]
 
 #### JB1.26 (IO_L7P_T1_34)
 #set_property PACKAGE_PIN    Y16         [get_ports {gpio2_tri_io[0]}]
@@ -353,19 +353,19 @@ set_property PULLUP true [get_ports display_latch_out_0]
 #set_property PULLUP         TRUE        [get_ports {gpio2_tri_io[0]}]
 
 ### JB1.29 (IO_L8P_T1_34)
-#set_property PACKAGE_PIN W14 [get_ports R1_out_1]
-#set_property IOSTANDARD LVCMOS33 [get_ports R1_out_1]
-#set_property PULLUP true [get_ports R1_out_1]
+set_property PACKAGE_PIN W14 [get_ports R1_out_1]
+set_property IOSTANDARD LVCMOS33 [get_ports R1_out_1]
+set_property PULLUP true [get_ports R1_out_1]
 
 ### JB1.30 (IO_L10N_T1_34)
-#set_property PACKAGE_PIN W15 [get_ports G1_out_1]
-#set_property IOSTANDARD LVCMOS33 [get_ports G1_out_1]
-#set_property PULLUP true [get_ports G1_out_1]
+set_property PACKAGE_PIN W15 [get_ports G1_out_1]
+set_property IOSTANDARD LVCMOS33 [get_ports G1_out_1]
+set_property PULLUP true [get_ports G1_out_1]
 
 ### JB1.31 (IO_L8N_T1_34)
-#set_property PACKAGE_PIN Y14 [get_ports B1_out_1]
-#set_property IOSTANDARD LVCMOS33 [get_ports B1_out_1]
-#set_property PULLUP true [get_ports B1_out_1]
+set_property PACKAGE_PIN Y14 [get_ports B1_out_1]
+set_property IOSTANDARD LVCMOS33 [get_ports B1_out_1]
+set_property PULLUP true [get_ports B1_out_1]
 
 #### JB1.32 (IO_L10P_T1_34)
 #set_property PACKAGE_PIN    V15         [get_ports {gpio2_tri_io[4]}]
@@ -373,19 +373,19 @@ set_property PULLUP true [get_ports display_latch_out_0]
 #set_property PULLUP         TRUE        [get_ports {gpio2_tri_io[4]}]
 
 ### JB1.35 (IO_L11P_T1_SRCC_34)
-#set_property PACKAGE_PIN U14 [get_ports display_clk_out_1]
-#set_property IOSTANDARD LVCMOS33 [get_ports display_clk_out_1]
-#set_property PULLUP true [get_ports display_clk_out_1]
+set_property PACKAGE_PIN U14 [get_ports display_clk_out_1]
+set_property IOSTANDARD LVCMOS33 [get_ports display_clk_out_1]
+set_property PULLUP true [get_ports display_clk_out_1]
 
 ### JB1.36 (IO_L12N_T1_MRCC_34)
-#set_property PACKAGE_PIN U19 [get_ports display_blank_out_1]
-#set_property IOSTANDARD LVCMOS33 [get_ports display_blank_out_1]
-#set_property PULLUP true [get_ports display_blank_out_1]
+set_property PACKAGE_PIN U19 [get_ports display_blank_out_1]
+set_property IOSTANDARD LVCMOS33 [get_ports display_blank_out_1]
+set_property PULLUP true [get_ports display_blank_out_1]
 
 ### JB1.37 (IO_L11N_T1_SRCC_34)
-#set_property PACKAGE_PIN U15 [get_ports display_latch_out_1]
-#set_property IOSTANDARD LVCMOS33 [get_ports display_latch_out_1]
-#set_property PULLUP true [get_ports display_latch_out_1]
+set_property PACKAGE_PIN U15 [get_ports display_latch_out_1]
+set_property IOSTANDARD LVCMOS33 [get_ports display_latch_out_1]
+set_property PULLUP true [get_ports display_latch_out_1]
 
 #### JB1.38 (IO_L12P_T1_MRCC_34)
 #set_property PACKAGE_PIN    U18         [get_ports {gpio2_tri_io[22]}]

@@ -5,10 +5,10 @@ use ieee.numeric_std.all;
 entity led_panel_driver_v1_0 is
 	generic (
 		-- Users to add parameters here
-		n_rows_max : integer := 255;
-        n_cols_max : integer := 32;
+		n_rows_max : integer := 64;
+        n_cols_max : integer := 256;
         bitdepth_max : integer := 8;
-		lsb_blank_length_max : integer := 200;
+		lsb_blank_length_max : integer := 100;
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
@@ -19,7 +19,7 @@ entity led_panel_driver_v1_0 is
 	);
 	port (
 		-- Users to add ports here
-        display_clk_out : out std_logic;
+		display_clk_out : out std_logic;
         display_blank_out : out std_logic;
         display_latch_out : out std_logic;
         display_address_out : out std_logic_vector(4 downto 0);
@@ -66,10 +66,18 @@ architecture arch_imp of led_panel_driver_v1_0 is
 	-- component declaration
 	component led_panel_driver_v1_0_S00_AXI is
 		generic (
+			n_rows_max : integer;
+			n_cols_max : integer;
+			bitdepth_max : integer;
+			lsb_blank_length_max : integer;
+
 			C_S_AXI_DATA_WIDTH	: integer	:= 32;
 			C_S_AXI_ADDR_WIDTH	: integer	:= 7
 		);
 		port (
+			reset : out std_logic;
+			enable : out std_logic;
+			
 			n_rows_config : out integer range 0 to n_rows_max;
 			n_cols_config : out integer range 0 to n_cols_max;
 			bitdepth_config : out integer range 0 to bitdepth_max;
@@ -132,6 +140,11 @@ begin
 -- Instantiation of Axi Bus Interface S00_AXI
 led_panel_driver_v1_0_S00_AXI_inst : led_panel_driver_v1_0_S00_AXI
 	generic map (
+		n_rows_max => n_rows_max,
+        n_cols_max => n_cols_max,
+        bitdepth_max => bitdepth_max,
+        lsb_blank_length_max => lsb_blank_length_max,
+
 		C_S_AXI_DATA_WIDTH	=> C_S00_AXI_DATA_WIDTH,
 		C_S_AXI_ADDR_WIDTH	=> C_S00_AXI_ADDR_WIDTH
 	)
@@ -169,36 +182,36 @@ led_panel_driver_v1_0_S00_AXI_inst : led_panel_driver_v1_0_S00_AXI
 
 	-- Add user logic here
 	display_top_inst : display_top
-		generic map (
-            n_rows_max => n_rows_max,
-            n_cols_max => n_cols_max,
-            bitdepth_max => bitdepth_max,
-            lsb_blank_length_max => lsb_blank_length_max
-		)
-		port map (
-			clk => s00_axi_aclk,
-			rst => reset,
-			en => enable,
+	generic map (
+		n_rows_max => n_rows_max,
+		n_cols_max => n_cols_max,
+		bitdepth_max => bitdepth_max,
+		lsb_blank_length_max => lsb_blank_length_max
+	)
+	port map (
+		clk => s00_axi_aclk,
+		rst => reset,
+		en => enable,
 
-        	-- Configuration values from the axi interface
-            n_rows_config => n_rows_config,
-            n_cols_config => n_cols_config,
-            bitdepth_config => bitdepth_config,
-            lsb_blank_length_config => lsb_blank_length_config,
-			
-			-- Display interface
-			display_clk_out => display_clk_out,
-			display_blank_out => display_blank_out,
-			display_latch_out => display_latch_out,
-			display_address_out => display_address_out,
+		-- Configuration values from the axi interface
+		n_rows_config => n_rows_config,
+		n_cols_config => n_cols_config,
+		bitdepth_config => bitdepth_config,
+		lsb_blank_length_config => lsb_blank_length_config,
+		
+		-- Display interface
+		display_clk_out => display_clk_out,
+		display_blank_out => display_blank_out,
+		display_latch_out => display_latch_out,
+		display_address_out => display_address_out,
 
-			R0_out => R0_out,
-        	G0_out => G0_out,
-        	B0_out => B0_out,
-        	R1_out => R1_out,
-        	G1_out => G1_out,
-        	B1_out => B1_out
-		);
+		R0_out => R0_out,
+		G0_out => G0_out,
+		B0_out => B0_out,
+		R1_out => R1_out,
+		G1_out => G1_out,
+		B1_out => B1_out
+	);
 	-- User logic ends
 
 end arch_imp;

@@ -47,6 +47,7 @@ architecture cool of pattern_gen is
     constant square_outline_display_frames : integer := 9;
     constant square_outline_animation_frames: integer := 64*4;
 
+    -- Outer lines for the square outline. Each starts in the middle of the display
     signal top_line : integer range 0 to n_rows_max - 1 := n_rows_max / 2 - 1;
     signal bottom_line : integer range 0 to n_rows_max - 1 := n_rows_max / 2;
     signal left_line : integer range 0 to n_cols_max - 1 := n_cols_max / 2 - 1;
