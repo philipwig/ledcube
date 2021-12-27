@@ -1,1 +1,0 @@
-# LED Panel Driver for RGB LED Panels
