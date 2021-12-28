@@ -13,7 +13,7 @@ All of the makefiles and scripts were created on linux so it is highly recommend
 ### Required Software
 
 1. Xilinx Vivado 2021.1
-2. Xilinx PeteLinux 2021.1
+2. Xilinx PetaLinux 2021.1
 3. Make
 4. A serial terminal (I used GTKTerm)
 5. All the other stuff I am forgetting
