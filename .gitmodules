@@ -1,3 +1,0 @@
-[submodule "sled"]
-	path = sled
-	url = git@github.com:philipwig/sled.git
