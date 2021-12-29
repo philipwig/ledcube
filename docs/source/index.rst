@@ -1,15 +1,16 @@
-.. ledcube documentation master file, created by
-   sphinx-quickstart on Fri Dec 24 15:08:13 2021.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to ledcube's documentation!
 ===================================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+This is the homepage for the documentation for the ledcube repository. In here there is a variety of resources about the project and its different components.
+On the sidebar you can navigate to different pages or continue reading below for a getting started guide.
 
+.. toctree::
+   :caption: Contents:
+   :maxdepth: 1
+
+   hardware-driver/bcm-module
+   vivado/vivado-revision-control
+   installation
 
 
 Indices and tables

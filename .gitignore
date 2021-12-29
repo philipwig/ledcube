@@ -1,6 +1,10 @@
 work/
 
-.*/
+.vscode/
+.Xil/
+
+docs/build/*
+docs/source/_build
 
 *.log
 *.jou
