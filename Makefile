@@ -15,16 +15,21 @@ VIVADO_ARGS = -notrace -journal $(VIVADO_PROJ_DIR)/vivado.jou -log $(VIVADO_PROJ
 
 .PHONY: vivado-*
 
+vivado-check:
+	ifeq ($(shell which vivado >/dev/null 2>&1; echo $$?), 1)
+	$(error The Vivado commands were not found. Make sure you have petalinux installed, then source the settings.sh file to activate the environment)
+	endif
+
 # Builds the project from tcl files. The project must not exist for this to succeed
-vivado-build: scripts/block-design.tcl scripts/build-project.tcl
+vivado-build: vivado-check scripts/block-design.tcl scripts/build-project.tcl
 	vivado -mode batch -source scripts/build-project.tcl $(VIVADO_ARGS) -tclargs $(VIVADO_PROJ_NAME) $(VIVADO_PROJ_DIR)
 	# touch vivado-build # Maybe add the possibility to track the rebuilding of the project
 
 # Cleans and then rebuilds the project from tcl files
-vivado-rebuild: scripts/block-design.tcl scripts/build-project.tcl vivado-remove vivado-build
+vivado-rebuild: vivado-check scripts/block-design.tcl scripts/build-project.tcl vivado-remove vivado-build
 
 # Open the vivado project gui
-vivado-gui:
+vivado-gui: vivado-check
 	vivado -mode gui -source $(VIVADO_ARGS) $(VIVADO_PROJ_DIR)/$(VIVADO_PROJ_NAME).xpr
 
 # Removes the project and all its files
@@ -36,25 +41,27 @@ vivado-clean:
 	rm -f $(VIVADO_PROJ_DIR)/*.jou $(VIVADO_PROJ_DIR)/*.log
 
 # Generates the block diagram tcl script
-vivado-bd:
+vivado-bd: vivado-check
 	vivado -mode batch -source scripts/write-block-design.tcl $(VIVADO_ARGS) -tclargs $(VIVADO_PROJ_NAME) $(VIVADO_PROJ_DIR)
-
-vivado-test:
-	cd work && vivado -mode batch -source ../scripts/build-project-no.tcl -journal vivado.jou -log vivado.log -tclargs $(VIVADO_PROJ_NAME) $(VIVADO_PROJ_DIR)
 
 
 # ****************************************************** Petalinux Commands *****************************************************
 
 .PHONY: petalinux-*
 
-petalinux-build:
+petalinux-check:
+	ifeq ($(shell which petalinux-build >/dev/null 2>&1; echo $$?), 1)
+	$(error The petalinux commands were not found. Make sure you have petalinux installed, then source the settings.sh file to activate the environment)
+	endif
+
+petalinux-build: petalinux-check
 	cd linux &&	petalinux-build
 	cd linux &&	petalinux-package --boot --fsbl --fpga --u-boot --force
 
-petalinux-clean:
+petalinux-clean: petalinux-check
 	cd linux &&	petalinux-build -x mrproper
 
-petalinux-hw:
+petalinux-hw: petalinux-check
 	vivado -mode batch -source scripts/write-hw-platform.tcl $(VIVADO_ARGS) -tclargs $(VIVADO_PROJ_NAME) $(VIVADO_PROJ_DIR)
 	cd linux &&	petalinux-config --get-hw-description hw-description
 
@@ -67,12 +74,6 @@ petalinux-copy:
 # ******************************************************** sled Commands ********************************************************
 
 ZYNQ_CC = arm-linux-gnueabihf-gcc
-
-# User-friendly check for arm-linux-gnueabihf-gcc
-ifeq ($(shell which $(ZYNQ_CC) >/dev/null 2>&1; echo $$?), 1)
-$(error The '$(ZYNQ_CC)' command was not found. Make sure you have petalinux installed, then source the settings.sh file to activate the environment)
-endif
-
 OUTMOD = zynq
 SLED_ARGS = CC=$(ZYNQ_CC) DEFAULT_OUTMOD=$(OUTMOD) MARCH=
 
@@ -82,7 +83,13 @@ sled: sled/sled-all
 .PHONY: sled-clean
 sled-clean: sled/sled-clean
 
-sled/sled-%:
+sled-check:
+	ifeq ($(shell which $(ZYNQ_CC) >/dev/null 2>&1; echo $$?), 1)
+	$(error The '$(ZYNQ_CC)' command was not found. Make sure you have petalinux installed, then source the settings.sh file to activate the environment)
+	endif
+
+
+sled/sled-%: sled-check
 	$(MAKE) $(subst sled/sled-,,$@) -C sled $(SLED_ARGS)
 
 sled-copy:
