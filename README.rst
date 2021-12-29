@@ -15,8 +15,8 @@ To be able to compile and run all of the different parts there is quite a hefty 
 
 All of the makefiles and scripts were created on linux so it is highly recommended. Ubuntu 20.04 was used. It might be possible to build all of this using wsl on windows but still has to be tried out.
 
-Required Software
-~~~~~~~~~~~~~~~~~
+Project
+^^^^^^^
 
 1. Xilinx Vivado 2021.1
 2. Xilinx PetaLinux 2021.1
@@ -24,14 +24,14 @@ Required Software
 4. A serial terminal (I used GTKTerm)
 5. All the other stuff I am forgetting
 
-Required for Docs
-~~~~~~~~~~~~~~~~~
+Docs
+^^^^
 
 1. A recent python of some sort
 2. Sphinx
 3. Doxygen
 4. Breathe
-5. sphinx_rtd_theme
+5. Sphinx rtd theme
 
 Cloning
 ~~~~~~~
