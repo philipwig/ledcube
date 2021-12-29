@@ -13,7 +13,7 @@ Requirements
 
 To be able to compile and run all of the different parts there is quite a hefty list of software that is needed.
 
-All of the makefiles and scripts were created on linux so it is highly recommended. Ubuntu 20.04 was used. It might be possible to build all of this using wsl on windows but still has to be tried out.
+All of the makefiles and scripts were created on linux so it is highly recommended. Ubuntu 20.04 was used. It seems to be possible to build all of this under wsl on windows but that is still a work in progress.
 
 Project
 ^^^^^^^
@@ -22,7 +22,7 @@ Project
 2. Xilinx PetaLinux 2021.1
 3. Make
 4. A serial terminal (I used GTKTerm)
-5. All the other stuff I am forgetting
+5. All the other stuff I am forgetting. Just read the error messages
 
 Docs
 ^^^^
@@ -67,11 +67,11 @@ You will have to change the paths to match where Vivado and PetaLinux are instal
     source /home/philip/tools/Xilinx/PetaLinux/settings.sh
 
 
-You will have to change the relevant paths to the settings.sh files. Then all you have to do is source the shell script. I placed the script in my bin folder and added an alias to my .bashrc
+You will have to change the relevant paths to the settings.sh files. Then all you have to do is source the shell script. I placed the script in my tools/Xilinx folder and added an alias to my .bashrc
 
 .. code-block:: shell
 
-    alias xilinx-tools="source /home/philip/bin/xilinx-tools.sh"
+    alias xilinx-tools="source /home/philip/tools/Xilinx/xilinx-tools.sh"
 
 
 Now I just call xilinx-tools to load Vivado and PetaLinux.
