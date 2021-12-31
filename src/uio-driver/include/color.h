@@ -64,4 +64,8 @@ static inline RGB RGB5652RGB(uint16_t color) {
 #endif
 }
 
+static inline uint32_t RGB2UINT(RGB color) {
+	return (color.red << 8*2) | (color.green << 8*1) | (color.blue << 8*0);
+}
+
 #endif

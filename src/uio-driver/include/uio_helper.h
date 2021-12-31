@@ -34,25 +34,19 @@
 /* This should be identical to the define in include/linux/uio_driver.h */
 #define MAX_UIO_MAPS 	5
 
-struct uio_map_t {
-	unsigned long addr;
-	int size;
-	int mmap_result;
-};
+#include <stdint.h>
 
-struct uio_dev_attr_t {
-	char name[ UIO_MAX_NAME_SIZE ];
-	char value[ UIO_MAX_NAME_SIZE ];
-	struct uio_dev_attr_t *next;
+
+struct uio_map_t {
+	uint32_t addr;
+	uint32_t size;
 };
 
 struct uio_info_t {
 	int uio_num;
 	struct uio_map_t maps[ MAX_UIO_MAPS ];
-	unsigned long event_count;
 	char name[ UIO_MAX_NAME_SIZE ];
 	char version[ UIO_MAX_NAME_SIZE ];
-	struct uio_dev_attr_t *dev_attrs;
 	struct uio_info_t* next;  /* for linked list */
 };
 
@@ -60,14 +54,13 @@ struct uio_info_t {
 
 int uio_get_mem_size(struct uio_info_t* info, int map_num);
 int uio_get_mem_addr(struct uio_info_t* info, int map_num);
-int uio_get_event_count(struct uio_info_t* info);
+int line_from_file(char *filename, char *linebuf);
 int uio_get_name(struct uio_info_t* info);
 int uio_get_version(struct uio_info_t* info);
 int uio_get_all_info(struct uio_info_t* info);
-int uio_get_device_attributes(struct uio_info_t* info);
-void uio_free_dev_attrs(struct uio_info_t* info);
 void uio_free_info(struct uio_info_t* info);
+int uio_num_from_filename(char* name);
+struct uio_info_t* info_from_name(char* name, int filter_num);
 struct uio_info_t* uio_find_devices(int filter_num);
-void uio_mmap_test(struct uio_info_t* info);
 
 #endif
