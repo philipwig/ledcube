@@ -1,5 +1,5 @@
 CC=arm-linux-gnueabihf-gcc
-CFLAGS=-Wall -Wextra 
+CFLAGS=-Wall -Wextra -lm # -O3
 DEPS = include/uio_helper.h include/color.h uio-driver.h
 OBJ = include/uio_helper.o include/color.o uio-driver.o
 

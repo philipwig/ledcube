@@ -11,8 +11,8 @@
 #include <unistd.h>
 
 // ******************* Config Variables ****************
-static struct driver_config_t *driver_config;
-static struct display_config_t *display_config;
+static struct driver_config_t *driver_config = NULL;
+static struct display_config_t *display_config = NULL;
 
 
 // *************** Utility Functions ************************
@@ -69,7 +69,8 @@ static volatile uint32_t *open_uio(int uio_num, int map_num, struct uio_map_t ma
 int *init(char *ctrl_name, char *ctrl_version, char *data_name, char *data_version) {
     // Create driver options struct and fill with names, version, and default values
     driver_config = (struct driver_config_t*) malloc(sizeof(struct driver_config_t));
-    
+    display_config = (struct display_config_t*) malloc(sizeof(struct display_config_t));
+
     strcpy(driver_config->ctrl_name, ctrl_name);
     strcpy(driver_config->ctrl_version, ctrl_version);
     driver_config->ctrl_uio_num = -1;
@@ -79,6 +80,15 @@ int *init(char *ctrl_name, char *ctrl_version, char *data_name, char *data_versi
     strcpy(driver_config->data_version, data_version);
     driver_config->data_uio_num = -1;
     driver_config->data_map_num = 1;
+
+
+    display_config->num_rows = 64;
+    display_config->num_cols = 64;
+
+    display_config->bitdepth = 24;
+    display_config->lsb_blank_time = 10;
+
+
 
     // Create variables to use when searching for uio devices
 	struct uio_info_t *info_list, *p;
@@ -142,7 +152,7 @@ int *init(char *ctrl_name, char *ctrl_version, char *data_name, char *data_versi
         driver_config->data_base_addr = open_uio(driver_config->data_uio_num,
                                                   0, // driver_config->data_map_num,
                                                   driver_config->maps[driver_config->data_map_num]);
-        printf("Opened data uio\n");
+        // printf("Opened data uio\n");
     }
 
     // printf("\n");
@@ -158,7 +168,7 @@ int *init(char *ctrl_name, char *ctrl_version, char *data_name, char *data_versi
         driver_config->ctrl_base_addr = open_uio(driver_config->ctrl_uio_num,
                                                   0, // driver_config->ctrl_map_num,
                                                   driver_config->maps[driver_config->ctrl_map_num]);
-        printf("Opened control uio\n");
+        // printf("Opened control uio\n");
     }
 
     // printf("\n");
@@ -181,6 +191,7 @@ int deinit() {
 	munmap((void *) driver_config->ctrl_base_addr, driver_config->maps[driver_config->ctrl_map_num].size);
 	munmap((void *) driver_config->data_base_addr, driver_config->maps[driver_config->data_map_num].size);
     free(driver_config);
+    driver_config = NULL;
     printf("\nClosed and freed all\n");
     return 0;
 }
@@ -193,6 +204,11 @@ int deinit() {
  * @return int 0 if successful, 1 if error
  */
 int write_ctrl(uint32_t offset, uint32_t value) {
+    if (driver_config == NULL || driver_config->ctrl_uio_num < 0) {
+        printf("WARNING: Need to initialize driver\n");
+        return 1;
+    }
+
     if (offset < driver_config->maps[driver_config->ctrl_map_num].size) {
         driver_config->ctrl_base_addr[offset] = value;
         return 0;
@@ -209,6 +225,11 @@ int write_ctrl(uint32_t offset, uint32_t value) {
  * @return int 0 if successful, 1 if error
  */
 int write_data(uint32_t offset, uint32_t value) {
+    if (driver_config == NULL || driver_config->ctrl_uio_num < 0) {
+        printf("WARNING: Need to initialize driver\n");
+        return 1;
+    }
+
     if (offset < driver_config->maps[driver_config->data_map_num].size) {
         driver_config->data_base_addr[offset] = value;
         return 0;
