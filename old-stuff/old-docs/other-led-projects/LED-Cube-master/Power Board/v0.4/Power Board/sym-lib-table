@@ -1,3 +1,0 @@
-(sym_lib_table
-  (lib (name Power_Board)(type Legacy)(uri "${KIPRJMOD}/Power Board Symbols.lib")(options "")(descr ""))
-)

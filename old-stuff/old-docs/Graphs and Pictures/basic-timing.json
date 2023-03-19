@@ -1,7 +1,0 @@
-{signal: [
-  {name: 'address',  wave: '3..........4...........5', data: ['0','1','2']},
-  {name: 'blank',    wave: '10.......1..0.......1..0'},
-  {name: 'latch',    wave: '0.........10.........10.'},
-  {name: 'clock',    wave: '0.hlhlhlhl...hlhlhlhl...', period: 1},
-  {name: 'data',     wave: 'x3.3.3.3.x..4.4.4.4.x...'}
-]}

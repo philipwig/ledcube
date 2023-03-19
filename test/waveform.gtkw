@@ -1,0 +1,81 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Sat Mar 18 07:41:00 2023
+[*]
+[dumpfile] "/home/philip/ledcube-verilog/test/waveform.vcd"
+[dumpfile_mtime] "Sat Mar 18 07:40:03 2023"
+[dumpfile_size] 2891
+[savefile] "/home/philip/ledcube-verilog/test/waveform.gtkw"
+[timestart] 6720
+[size] 1425 1032
+[pos] -1 -1
+*-12.618830 13000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_framebuffer.
+[treeopen] tb_framebuffer.dut.
+[sst_width] 233
+[signals_width] 288
+[sst_expanded] 1
+[sst_vpaned_height] 341
+@200
+-Write Port
+@28
+tb_framebuffer.dut.w_clk
+tb_framebuffer.dut.w_en
+tb_framebuffer.dut.w_buffer
+@24
+tb_framebuffer.dut.w_addr[11:0]
+@28
+tb_framebuffer.dut.w_din[23:0]
+@22
+tb_framebuffer.dut.ctrl_bitdepth[31:0]
+@200
+-
+@28
+tb_framebuffer.result[7:0]
+@200
+-
+-Read Port
+@28
+tb_framebuffer.dut.r_clk
+tb_framebuffer.dut.r_en
+tb_framebuffer.dut.r_buffer
+@22
+tb_framebuffer.dut.r_addr[10:0]
+@24
+tb_framebuffer.dut.r_bit[2:0]
+@28
+tb_framebuffer.dut.r_dout[5:0]
+@200
+-
+-Mem Upper
+-Data In
+@28
+tb_framebuffer.dut.mem_upper.a_we
+@22
+tb_framebuffer.dut.mem_upper.a_addr[11:0]
+tb_framebuffer.dut.mem_upper.a_din[23:0]
+@200
+-Data Out
+@28
+tb_framebuffer.dut.mem_upper.b_re
+@22
+tb_framebuffer.dut.mem_upper.b_addr[11:0]
+tb_framebuffer.dut.mem_upper.b_dout[23:0]
+@200
+-
+-Mem Lower
+-Data In
+@28
+tb_framebuffer.dut.mem_lower.a_we
+@22
+tb_framebuffer.dut.mem_lower.a_addr[11:0]
+tb_framebuffer.dut.mem_lower.a_din[23:0]
+@200
+-Data Out
+@28
+tb_framebuffer.dut.mem_lower.b_re
+@22
+tb_framebuffer.dut.mem_lower.b_addr[11:0]
+tb_framebuffer.dut.mem_lower.b_dout[23:0]
+[pattern_trace] 1
+[pattern_trace] 0

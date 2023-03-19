@@ -1,3 +1,0 @@
-(fp_lib_table
-  (lib (name Power_Board)(type KiCad)(uri "${KIPRJMOD}/../Power Board Footprints.pretty")(options "")(descr ""))
-)
