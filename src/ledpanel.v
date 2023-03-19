@@ -1,5 +1,7 @@
 
 
+`timescale 1 ns / 10 ps
+
 `default_nettype none
 module ledpanel #(
     parameter N_ROWS_MAX = 64, // Total num rows on panel (64 for 64x64 panel)
@@ -28,19 +30,19 @@ module ledpanel #(
 
     // BRAM interface
     output wire mem_clk,
-    output reg mem_en,
+    output wire mem_en,
     output wire mem_buffer,
     output wire [R_MEM_ADDR_WIDTH-1:0] mem_addr,
     output wire [$clog2(BITDEPTH_MAX)-1:0] mem_bit,
-    input wire [R_MEM_DATA_WIDTH-1:0] mem_dout,
+    input wire [R_MEM_DATA_WIDTH-1:0] mem_din,
 
     // Display interface
     output reg disp_clk,
     output wire disp_blank,
     output reg disp_latch,
     output wire [4:0] disp_addr,
-    output reg disp_r0, disp_g0, disp_b0,
-    output reg disp_r1, disp_g1, disp_b1
+    output wire disp_r0, disp_g0, disp_b0,
+    output wire disp_r1, disp_g1, disp_b1
 );
 
     reg cnt_buffer;
@@ -69,6 +71,7 @@ module ledpanel #(
     always @(posedge clk) begin
         if (ctrl_rst) begin
             main_state <= startup;
+            cnt_buffer <= 1'b0;
             cnt_row <= 0;
             cnt_bit <= 0;
         end else if (ctrl_en) begin
@@ -142,10 +145,14 @@ module ledpanel #(
         bcm_shift2 = 3;
     reg [BCM_STATES-1:0] bcm_state;
 
+    assign mem_clk = clk;
+    assign mem_en = ~bcm_rdy;
     assign mem_buffer = cnt_buffer;
     assign mem_addr = cnt_row * cnt_col;
     assign mem_bit = cnt_bit;
+
     assign disp_addr = cnt_row;
+    assign {disp_r0, disp_g0, disp_b0, disp_r1, disp_g1, disp_b1} = mem_din;
 
     always @(posedge clk) begin
         if (ctrl_rst) begin
@@ -158,12 +165,13 @@ module ledpanel #(
         end else begin
             case (bcm_state)
                 bcm_idle: begin
+                    disp_clk <= 1'b0;
+
                     if (bcm_en) begin
                         bcm_state <= bcm_shift1;
 
                         cnt_col <= 0;
                         bcm_rdy <= 1'b0;
-                        mem_en <= 1'b1;
                     end
                 end
 
@@ -180,6 +188,7 @@ module ledpanel #(
                         bcm_state <= bcm_shift1;
                     end else begin
                         bcm_state <= idle;
+                        bcm_rdy <= 1'b1;
                     end
                 end
 
@@ -196,23 +205,26 @@ module ledpanel #(
     localparam BLANK_MAX = (2**(BITDEPTH_MAX-1)) * LSB_BLANK_MAX;
     reg [$clog2(BLANK_MAX):0] blank_timer;
 
+    localparam BITS_MAX = 2 ** (BITDEPTH_MAX - 1);
+    reg [$clog2(BITS_MAX):0] blank_bit_num;
+
     assign disp_blank = blank_rdy;
 
     always @(posedge clk) begin
         if (ctrl_rst) begin
-            cnt_bit = 1;
+            blank_bit_num = 1;
             blank_timer <= 1;
 
             blank_rdy <= 1'b1;
             // disp_blank <= 1'b1; // Display off
         end else if (blank_en && !blank_timer) begin
-            if (cnt_bit < (2 ** (ctrl_bitdepth - 1))) begin
-                cnt_bit = cnt_bit << 1;
+            if (blank_bit_num < (2 ** (ctrl_bitdepth - 1))) begin
+                blank_bit_num = blank_bit_num << 1;
             end else begin
-                cnt_bit = 1;
+                blank_bit_num = 1;
             end
 
-            blank_timer <= 2 * cnt_bit * ctrl_lsb_blank;
+            blank_timer <= 2 * blank_bit_num * ctrl_lsb_blank;
         end else begin
             if (blank_timer != 0) begin
                 blank_timer <= blank_timer - 1;
