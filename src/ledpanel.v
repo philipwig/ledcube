@@ -2,8 +2,13 @@
 
 /**
     TODO:
-        Zigzag scanning
+        global dimming
         gamma correction
+            LUT or some sort of polynomial approx. Can possibly use 3 cycles to perform lookup so only one LUT is needed
+        Zigzag scanning
+            Scan first row, then last row, then second row, then second to last
+            For 64x64 panel with 1:32
+            Ex: {0, 32}, {31, 63}, {1, 33}, {30, 62}, {2, 34}, {29, 61}, ...
     
     DONE:
         LSB of each row needs to be latched in on the last blank cycle of the previous row
