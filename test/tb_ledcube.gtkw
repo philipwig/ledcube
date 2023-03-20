@@ -1,20 +1,20 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Sun Mar 19 03:55:51 2023
+[*] Mon Mar 20 15:48:59 2023
 [*]
 [dumpfile] "/home/philip/ledcube/test/waveform.vcd"
-[dumpfile_mtime] "Sun Mar 19 03:55:16 2023"
-[dumpfile_size] 213598
+[dumpfile_mtime] "Mon Mar 20 15:47:32 2023"
+[dumpfile_size] 227118
 [savefile] "/home/philip/ledcube/test/tb_ledcube.gtkw"
-[timestart] 0
-[size] 2560 1355
+[timestart] 21290000
+[size] 1433 1211
 [pos] -1 -1
-*-18.588789 1685000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-21.588789 28100000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_ledpanel.
-[sst_width] 251
-[signals_width] 261
+[sst_width] 233
+[signals_width] 250
 [sst_expanded] 1
-[sst_vpaned_height] 407
+[sst_vpaned_height] 544
 @28
 tb_ledpanel.clk
 tb_ledpanel.dut.ctrl_en
@@ -41,13 +41,13 @@ tb_ledpanel.mem_din[5:0]
 @200
 -
 -Display
+@24
+tb_ledpanel.disp_addr[4:0]
 @28
 tb_ledpanel.disp_clk
 tb_ledpanel.disp_blank
 tb_ledpanel.disp_latch
-@22
-tb_ledpanel.disp_addr[4:0]
-@800200
+@c00200
 -RGB Data
 @22
 tb_ledpanel.disp_r0
@@ -56,19 +56,23 @@ tb_ledpanel.disp_b0
 tb_ledpanel.disp_r1
 tb_ledpanel.disp_g1
 tb_ledpanel.disp_b1
-@1000200
+@1401200
 -RGB Data
 @200
 -
 -Main Control
 @28
-tb_ledpanel.dut.main_state[2:0]
+tb_ledpanel.dut.main_state[1:0]
+tb_ledpanel.dut.bcm_en
+tb_ledpanel.dut.bcm_rdy
+tb_ledpanel.dut.blank_en
+tb_ledpanel.dut.blank_rdy
 tb_ledpanel.dut.cnt_buffer
-@24
-tb_ledpanel.dut.cnt_row[5:0]
 @25
-tb_ledpanel.dut.cnt_col[7:0]
+tb_ledpanel.dut.cnt_row[5:0]
 @24
+tb_ledpanel.dut.disp_row[5:0]
+tb_ledpanel.dut.cnt_col[7:0]
 tb_ledpanel.dut.cnt_bit[2:0]
 @200
 -
@@ -84,9 +88,10 @@ tb_ledpanel.dut.bcm_rdy
 @28
 tb_ledpanel.dut.blank_en
 tb_ledpanel.dut.blank_rdy
+@22
+tb_ledpanel.dut.blank_bit[3:0]
 @24
-tb_ledpanel.dut.blank_bit_num[7:0]
-tb_ledpanel.dut.blank_timer[15:0]
+tb_ledpanel.dut.blank_counter[16:0]
 @28
 tb_ledpanel.dut.disp_blank
 [pattern_trace] 1

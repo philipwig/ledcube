@@ -1,5 +1,15 @@
 
 
+/**
+    TODO:
+        Zigzag scanning
+        gamma correction
+    
+    DONE:
+        LSB of each row needs to be latched in on the last blank cycle of the previous row
+
+*/
+
 `timescale 1 ns / 10 ps
 
 `default_nettype none
@@ -59,58 +69,63 @@ module ledpanel #(
     // ****************
     // * Main Control *
     // ****************
-    localparam integer MAIN_STATES = $clog2(5);
+    localparam integer MAIN_STATES = $clog2(4);
     localparam [MAIN_STATES-1:0]
-        startup = 3'd0,
-        idle = 3'd1,
-        latch = 3'd2,
-        unlatch = 3'd3,
-        wait_reset = 3'd4;
+        startup = 0,
+        idle = 1,
+        unlatch = 2,
+        wait_reset = 3;
     reg [MAIN_STATES-1:0] main_state;
     
+    reg [$clog2(N_ROWS_MAX)-1:0] disp_row;
+    assign disp_addr = disp_row;
+
     always @(posedge clk) begin
         if (ctrl_rst) begin
             main_state <= startup;
-            cnt_buffer <= 1'b0;
-            cnt_row <= 0;
-            cnt_bit <= 0;
         end else if (ctrl_en) begin
             case (main_state)
                 startup: begin
-                    main_state <= idle;
+                    main_state <= wait_reset;
 
-                    blank_en <= 1'b0;
-                    bcm_en <= 1'b0;
+                    cnt_buffer <= 1'b0;
+                    cnt_row <= 0;
+                    cnt_bit <= 0;
+                    disp_row <= ctrl_n_rows - 1;
 
                     disp_latch <= 1'b0;
+                    blank_en <= 1'b1; // Start blanking
+                    bcm_en <= 1'b1; // Start bcm shifting
                 end
 
                 idle: begin
-                    if (blank_rdy && bcm_rdy)
-                        main_state <= latch;
+                    if (blank_rdy && bcm_rdy) begin
+                        main_state <= unlatch;
+                        disp_latch <= 1'b1; // Latch
+                    end
+
                 end
                 
-                latch: begin
-                    main_state <= unlatch;
-                    disp_latch <= 1'b1;
-                end
-
                 unlatch: begin
                     main_state <= wait_reset;
 
-                    blank_en <= 1'b1;
-                    bcm_en <= 1'b1;
+                    disp_latch <= 1'b0; // Unlatch
+                    blank_en <= 1'b1; // Start blanking
+                    bcm_en <= 1'b1; // Start bcm shifting
 
-                    // Go to next buffer, row or bit
-                    if ((cnt_row >= ctrl_n_rows - 1) && (cnt_bit >= ctrl_bitdepth - 1)) begin
-                        cnt_buffer <= ~cnt_buffer; // Swap buffers
-                        cnt_row <= 0;
-                        cnt_col <= 0;
-                    end else if (cnt_bit >= ctrl_bitdepth - 1) begin
-                        cnt_row <= cnt_row + 1;
-                        cnt_bit <= 0;
-                    end else begin
+                    if (cnt_bit < ctrl_bitdepth - 1) begin
                         cnt_bit <= cnt_bit + 1;
+                        disp_row <= cnt_row;
+                    end else begin
+                        cnt_bit <= 0;
+
+                        // Increment row (FUTURE: implement ZIGZAG scanning)
+                        if (cnt_row < ctrl_n_rows - 1) begin
+                            cnt_row <= cnt_row + 1;
+                        end else begin
+                            cnt_row <= 0;
+                            cnt_buffer <= ~cnt_buffer;
+                        end
                     end
 
                 end
@@ -129,8 +144,6 @@ module ledpanel #(
             endcase
         end else begin
             main_state <= startup;
-
-            disp_latch <= 1'b0;
         end
     end
 
@@ -146,12 +159,12 @@ module ledpanel #(
     reg [BCM_STATES-1:0] bcm_state;
 
     assign mem_clk = clk;
-    assign mem_en = ~bcm_rdy;
+    // assign mem_en = ~bcm_rdy;
+    assign mem_en = 1'b1;
     assign mem_buffer = cnt_buffer;
-    assign mem_addr = cnt_row * cnt_col;
+    assign mem_addr = (cnt_row * ctrl_n_cols) + cnt_col;
     assign mem_bit = cnt_bit;
 
-    assign disp_addr = cnt_row;
     assign {disp_r0, disp_g0, disp_b0, disp_r1, disp_g1, disp_b1} = mem_din;
 
     always @(posedge clk) begin
@@ -161,16 +174,14 @@ module ledpanel #(
             cnt_col <= 0;
             bcm_rdy <= 1'b1;
 
-            disp_clk <= 0;
+            disp_clk <= 1'b0;
         end else begin
             case (bcm_state)
                 bcm_idle: begin
                     disp_clk <= 1'b0;
 
                     if (bcm_en) begin
-                        bcm_state <= bcm_shift1;
-
-                        cnt_col <= 0;
+                        bcm_state <= bcm_shift2;
                         bcm_rdy <= 1'b0;
                     end
                 end
@@ -187,7 +198,8 @@ module ledpanel #(
                         cnt_col <= cnt_col + 1;
                         bcm_state <= bcm_shift1;
                     end else begin
-                        bcm_state <= idle;
+                        cnt_col <= 0;
+                        bcm_state <= bcm_idle;
                         bcm_rdy <= 1'b1;
                     end
                 end
@@ -202,41 +214,34 @@ module ledpanel #(
     // ************
     // * Blanking *
     // ************
-    localparam BLANK_MAX = (2**(BITDEPTH_MAX-1)) * LSB_BLANK_MAX;
-    reg [$clog2(BLANK_MAX):0] blank_timer;
+    localparam BLANK_MAX = 2 * (2**(BITDEPTH_MAX-1)) * LSB_BLANK_MAX;
+    reg [$clog2(BLANK_MAX):0] blank_counter;
 
-    localparam BITS_MAX = 2 ** (BITDEPTH_MAX - 1);
-    reg [$clog2(BITS_MAX):0] blank_bit_num;
+    reg [$clog2(BITDEPTH_MAX):0] blank_bit;
 
+    // disp_blank <= 1'b0; // Display on
+    // disp_blank <= 1'b1; // Display off
     assign disp_blank = blank_rdy;
 
     always @(posedge clk) begin
         if (ctrl_rst) begin
-            blank_bit_num = 1;
-            blank_timer <= 1;
+            blank_bit = ctrl_bitdepth - 2; // Start with longest BCM bit so next pixel can be shifted in
+            blank_counter <= 0;
 
             blank_rdy <= 1'b1;
-            // disp_blank <= 1'b1; // Display off
-        end else if (blank_en && !blank_timer) begin
-            if (blank_bit_num < (2 ** (ctrl_bitdepth - 1))) begin
-                blank_bit_num = blank_bit_num << 1;
-            end else begin
-                blank_bit_num = 1;
-            end
+        end else if (blank_en && blank_rdy) begin
+            // Start blanking
+            blank_rdy <= 1'b0;
 
-            blank_timer <= 2 * blank_bit_num * ctrl_lsb_blank;
+            // Increment current bit number
+            if (blank_bit < ctrl_bitdepth - 1) blank_bit = blank_bit + 1;
+            else blank_bit = 0;
+
+            // Calculate blank_counter
+            blank_counter <= 2 * (1<<blank_bit) * ctrl_lsb_blank - 1;
         end else begin
-            if (blank_timer != 0) begin
-                blank_timer <= blank_timer - 1;
-                blank_rdy <= 1'b0;
-                // disp_blank <= 1'b0; // Display on
-            end else begin
-                blank_rdy <= 1'b1;
-                // disp_blank <= 1'b1; // Display off
-            end
+            if (blank_counter > 0) blank_counter <= blank_counter - 1; // Decrement blank counter
+            else blank_rdy <= 1'b1; // Blanking done
         end
     end
-
-
-
 endmodule

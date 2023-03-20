@@ -81,7 +81,8 @@ module tb_ledpanel;
 
 
     // ******** Simulation ********
-    localparam PERIOD = 2;
+    // localparam PERIOD = 1e9/(2*30e6); // disp_clk = 30Mhz, system clk = 60MHz
+    localparam PERIOD = 1e9/(2*25e6); // disp_clk = 25Mhz, system clk = 50MHz (fastest speed?)
 
     initial begin
         $dumpfile("waveform.vcd");
@@ -89,6 +90,13 @@ module tb_ledpanel;
     end
 
     always #(PERIOD/2) clk <= ~clk;
+
+    // BRAM Model
+    always @(posedge clk) begin
+        if (mem_en) begin
+            mem_din <= mem_addr;
+        end
+    end
 
     initial begin
         // ********* Set initial values ***********
@@ -101,12 +109,12 @@ module tb_ledpanel;
         ctrl_n_rows <= 5;
         ctrl_n_cols <= 5;
         ctrl_bitdepth <= 4;
-        ctrl_lsb_blank <= 5;
+        ctrl_lsb_blank <= 8;
         // ****************************************
 
 
         // **** Set pixel value read from ram *****
-        mem_din <= 6'b101010;
+        // mem_din <= 6'b101010;
         // ****************************************
 
 
