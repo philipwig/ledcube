@@ -2,7 +2,7 @@
 
 /**
     TODO:
-        global dimming
+        Add condition to have to reset to load new ctrl values. Register the ctrl values so they do not change without a reset (or en low?)
         gamma correction
             LUT or some sort of polynomial approx. Can possibly use 3 cycles to perform lookup so only one LUT is needed
         Zigzag scanning
@@ -12,6 +12,8 @@
     
     DONE:
         LSB of each row needs to be latched in on the last blank cycle of the previous row
+        global dimming
+
 
 */
 
@@ -37,10 +39,11 @@ module ledpanel #(
     input wire ctrl_rst, // Reset module
 
     // Current configuration, these are not latched
-    input wire unsigned [31:0] ctrl_n_rows,
-    input wire unsigned [31:0] ctrl_n_cols,
-    input wire unsigned [31:0] ctrl_bitdepth,
-    input wire unsigned [31:0] ctrl_lsb_blank,
+    input wire [CTRL_WIDTH-1:0] ctrl_n_rows,
+    input wire [CTRL_WIDTH-1:0] ctrl_n_cols,
+    input wire [CTRL_WIDTH-1:0] ctrl_bitdepth,
+    input wire [CTRL_WIDTH-1:0] ctrl_lsb_blank,
+    input wire [CTRL_WIDTH-1:0] ctrl_brightness,
 
 
     // BRAM interface
@@ -222,21 +225,29 @@ module ledpanel #(
     localparam BLANK_MAX = 2 * (2**(BITDEPTH_MAX-1)) * LSB_BLANK_MAX;
     reg [$clog2(BLANK_MAX):0] blank_counter;
 
+    reg [$clog2(BLANK_MAX):0] bright_counter; 
+
     reg [$clog2(BITDEPTH_MAX):0] blank_bit;
+    reg blank_set;
 
     // disp_blank <= 1'b0; // Display on
     // disp_blank <= 1'b1; // Display off
-    assign disp_blank = blank_rdy;
+    // assign disp_blank = blank_rdy;
+    assign disp_blank = blank_set;
 
     always @(posedge clk) begin
         if (ctrl_rst) begin
             blank_bit = ctrl_bitdepth - 2; // Start with longest BCM bit so next pixel can be shifted in
             blank_counter <= 0;
 
+            bright_counter <= 0;
+            blank_set <= 1'b1;
+
             blank_rdy <= 1'b1;
         end else if (blank_en && blank_rdy) begin
             // Start blanking
             blank_rdy <= 1'b0;
+            blank_set <= 1'b0;
 
             // Increment current bit number
             if (blank_bit < ctrl_bitdepth - 1) blank_bit = blank_bit + 1;
@@ -244,9 +255,15 @@ module ledpanel #(
 
             // Calculate blank_counter
             blank_counter <= 2 * (1<<blank_bit) * ctrl_lsb_blank - 1;
+            bright_counter <= (2 * (1<<blank_bit) * ctrl_lsb_blank) / ctrl_brightness - 1;
+
         end else begin
             if (blank_counter > 0) blank_counter <= blank_counter - 1; // Decrement blank counter
             else blank_rdy <= 1'b1; // Blanking done
+
+
+            if (bright_counter > 0) bright_counter <= bright_counter - 1;
+            else blank_set <= 1'b1;  
         end
     end
 endmodule
