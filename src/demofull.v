@@ -81,6 +81,8 @@ module demofull #(
         //	if (o_rd)
         //		i_rdata <= mem[o_raddr[AW-1:LSB]];
         //
+        // localparam	AW = C_S_AXI_ADDR_WIDTH;
+        //
         // 4. The rule on the input is that i_rdata must be registered,
         //    and that it must only change if o_rd is true.  Violating
         //    this rule will cause this core to violate the AXI

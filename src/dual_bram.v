@@ -10,6 +10,7 @@ module dual_bram #(
 ) (
     // Port A
     input wire a_clk, a_we,
+    input wire [ADDR_WIDTH/8-1:0] a_wstrb,
     input wire [ADDR_WIDTH-1:0] a_addr,
     input wire [DATA_WIDTH-1:0] a_din,
 
@@ -31,14 +32,18 @@ module dual_bram #(
     // Port A
     always @(posedge a_clk) begin
         if (a_we) begin
-            ram[a_addr] <= a_din;
+            for (k=0; k<DATA_WIDTH/8; k=k+1) begin
+                ram[a_addr[ADDR_WIDTH-1:$clog2(DATA_WIDTH)-3]][k*8+:8] <= a_din[k*8+:8];
+            end
+            // ram[a_addr] <= a_din;
         end
     end
 
     // Port B
     always @(posedge b_clk) begin
         if (b_re) begin
-            b_dout <= ram[b_addr];
+            b_dout <= ram[b_addr[]]
+            // b_dout <= ram[b_addr];
         end
     end
     

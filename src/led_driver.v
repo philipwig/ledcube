@@ -20,7 +20,7 @@
 `timescale 1 ns / 10 ps
 
 `default_nettype none
-module ledpanel #(
+module led_driver #(
     parameter N_ROWS_MAX = 64, // Total num rows on panel (64 for 64x64 panel)
     parameter N_COLS_MAX = 256, // Number of panels * number of cols per panel (256 for 4 64x64 panels)
     parameter BITDEPTH_MAX = 8, // Bits per color (bpc), 8 gives 24 bits per pixel
