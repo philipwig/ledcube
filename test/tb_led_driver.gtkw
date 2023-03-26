@@ -1,20 +1,20 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Mon Mar 20 15:48:59 2023
+[*] Sun Mar 26 20:14:05 2023
 [*]
 [dumpfile] "/home/philip/ledcube/test/waveform.vcd"
-[dumpfile_mtime] "Mon Mar 20 15:47:32 2023"
-[dumpfile_size] 227118
+[dumpfile_mtime] "Sun Mar 26 20:13:30 2023"
+[dumpfile_size] 466381
 [savefile] "/home/philip/ledcube/test/tb_led_driver.gtkw"
-[timestart] 21290000
-[size] 1433 1211
-[pos] -1 -1
-*-21.588789 28100000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 99586200
+[size] 2560 1355
+[pos] -139 -139
+*-16.588789 100080000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_led_driver.
 [sst_width] 233
 [signals_width] 250
 [sst_expanded] 1
-[sst_vpaned_height] 544
+[sst_vpaned_height] 859
 @28
 tb_led_driver.clk
 tb_led_driver.dut.ctrl_en
@@ -26,6 +26,8 @@ tb_led_driver.ctrl_n_rows[31:0]
 tb_led_driver.ctrl_n_cols[31:0]
 tb_led_driver.ctrl_bitdepth[31:0]
 tb_led_driver.ctrl_lsb_blank[31:0]
+@23
+tb_led_driver.ctrl_brightness[31:0]
 @200
 -
 -BRAM
@@ -68,9 +70,8 @@ tb_led_driver.dut.bcm_rdy
 tb_led_driver.dut.blank_en
 tb_led_driver.dut.blank_rdy
 tb_led_driver.dut.cnt_buffer
-@25
-tb_led_driver.dut.cnt_row[5:0]
 @24
+tb_led_driver.dut.cnt_row[5:0]
 tb_led_driver.dut.disp_row[5:0]
 tb_led_driver.dut.cnt_col[7:0]
 tb_led_driver.dut.cnt_bit[2:0]

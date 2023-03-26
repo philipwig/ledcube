@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Filename: 	demofull.v
+// Filename: 	axif_interface.v
 // {{{
 // Project:	WB2AXIPSP: bus bridges and other odds and ends
 //
@@ -47,7 +47,7 @@
 
 `default_nettype	none
 // }}}
-module demofull #(
+module axif_interface #(
         // {{{
         parameter integer C_S_AXI_ID_WIDTH = 2,
         parameter integer C_S_AXI_DATA_WIDTH = 32,

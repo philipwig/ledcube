@@ -1,20 +1,19 @@
 
-`include "ledpanel.v"
+`include "../src/led_driver.v"
 
 `timescale 1 ns / 10 ps
 
-module tb_ledpanel;
+module tb_led_driver;
     parameter N_ROWS_MAX = 64; // Total num rows on panel (64 for 64x64 panel)
     parameter N_COLS_MAX = 256; // Number of panels * number of cols per panel (256 for 4 64x64 panels)
     parameter BITDEPTH_MAX = 8; // Bits per color (bpc), 8 gives 24 bits per pixel
     parameter LSB_BLANK_MAX = 200;
 
-    parameter CTRL_WIDTH = 32; // Width of ctrl reg
+    parameter CTRL_REG_WIDTH = 32; // Width of ctrl reg
 
     // ******** Calculated parameters, DO NOT CHANGE ********
-    parameter MEM_DEPTH = N_ROWS_MAX * N_COLS_MAX; // Number of configured pixels
-    parameter R_MEM_ADDR_WIDTH = $clog2(MEM_DEPTH) - 1; // Half of total frame width since top/bottom
-    parameter R_MEM_DATA_WIDTH = 6; // R0, G0, B0, R1, G1, G1 -> 6 total
+    parameter MEM_R_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX) - 1; // Half of total frame width since top/bottom
+    parameter MEM_R_DATA_WIDTH = 6; // R0, G0, B0, R1, G1, G1 -> 6 total
 
     reg clk; // Global clock
     
@@ -22,19 +21,20 @@ module tb_ledpanel;
     reg ctrl_rst; // Reset module
 
     // Current configuration, these are not latched
-    reg unsigned [CTRL_WIDTH-1:0] ctrl_n_rows;
-    reg unsigned [CTRL_WIDTH-1:0] ctrl_n_cols;
-    reg unsigned [CTRL_WIDTH-1:0] ctrl_bitdepth;
-    reg unsigned [CTRL_WIDTH-1:0] ctrl_lsb_blank;
+    reg unsigned [CTRL_REG_WIDTH-1:0] ctrl_n_rows;
+    reg unsigned [CTRL_REG_WIDTH-1:0] ctrl_n_cols;
+    reg unsigned [CTRL_REG_WIDTH-1:0] ctrl_bitdepth;
+    reg unsigned [CTRL_REG_WIDTH-1:0] ctrl_lsb_blank;
+    reg unsigned [CTRL_REG_WIDTH-1:0] ctrl_brightness;
 
 
     // BRAM interface
     wire mem_clk;
     wire mem_en;
     wire mem_buffer;
-    wire [R_MEM_ADDR_WIDTH-1:0] mem_addr;
+    wire [MEM_R_ADDR_WIDTH-1:0] mem_addr;
     wire [$clog2(BITDEPTH_MAX)-1:0] mem_bit;
-    reg [R_MEM_DATA_WIDTH-1:0] mem_din;
+    reg [MEM_R_DATA_WIDTH-1:0] mem_din;
 
     // Display interface
     wire disp_clk;
@@ -45,11 +45,11 @@ module tb_ledpanel;
     wire disp_r1, disp_g1, disp_b1;
 
 
-    ledpanel #(
+    led_driver #(
         .N_ROWS_MAX(N_ROWS_MAX),
         .N_COLS_MAX(N_COLS_MAX),
         .BITDEPTH_MAX(BITDEPTH_MAX),
-        .CTRL_WIDTH(CTRL_WIDTH)
+        .CTRL_REG_WIDTH(CTRL_REG_WIDTH)
     ) dut (
         .clk, // Global clock
     
@@ -61,6 +61,7 @@ module tb_ledpanel;
         .ctrl_n_cols,
         .ctrl_bitdepth,
         .ctrl_lsb_blank,
+        .ctrl_brightness,
 
         // BRAM interface
         .mem_clk,
@@ -110,6 +111,8 @@ module tb_ledpanel;
         ctrl_n_cols <= 5;
         ctrl_bitdepth <= 4;
         ctrl_lsb_blank <= 8;
+        ctrl_brightness <= 0; // Full brightness
+
         // ****************************************
 
 
@@ -122,6 +125,17 @@ module tb_ledpanel;
         // Reset ledpanel
         repeat (1) @(negedge clk);
         ctrl_rst <= 1'b1;
+
+        repeat (1) @(negedge clk);
+        ctrl_rst <= 1'b0;
+        ctrl_en <= 1'b1;
+
+        repeat (5000) @(negedge clk);
+
+        // Reset ledpanel
+        repeat (1) @(negedge clk);
+        ctrl_rst <= 1'b1;
+        ctrl_brightness <= 4; // Half brightness
 
         repeat (1) @(negedge clk);
         ctrl_rst <= 1'b0;

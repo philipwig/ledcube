@@ -1,5 +1,4 @@
 
-
 /**
     TODO:
         Add condition to have to reset to load new ctrl values. Register the ctrl values so they do not change without a reset (or en low?)
@@ -14,7 +13,6 @@
         LSB of each row needs to be latched in on the last blank cycle of the previous row
         global dimming
 
-
 */
 
 `timescale 1 ns / 10 ps
@@ -26,12 +24,11 @@ module led_driver #(
     parameter BITDEPTH_MAX = 8, // Bits per color (bpc), 8 gives 24 bits per pixel
     parameter LSB_BLANK_MAX = 200,
 
-    parameter CTRL_WIDTH = 32, // Width of ctrl reg
-
-    // ******** Calculated parameters, DO NOT CHANGE ********
-    parameter MEM_DEPTH = N_ROWS_MAX * N_COLS_MAX, // Number of configured pixels
-    parameter R_MEM_ADDR_WIDTH = $clog2(MEM_DEPTH) - 1, // Half of total frame width since top/bottom
-    parameter R_MEM_DATA_WIDTH = 6 // R0, G0, B0, R1, G1, G1 -> 6 total
+    parameter CTRL_REG_WIDTH = 32, // Width of ctrl reg
+    
+    // ********** Calculated parameters **********
+    parameter MEM_R_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX) - 1, // Half of total frame width since top/bottom
+    parameter MEM_R_DATA_WIDTH = 6 // R0, G0, B0, R1, G1, G1 -> 6 total
 ) (
     input wire clk, // Global clock
     
@@ -39,20 +36,20 @@ module led_driver #(
     input wire ctrl_rst, // Reset module
 
     // Current configuration, these are not latched
-    input wire [CTRL_WIDTH-1:0] ctrl_n_rows,
-    input wire [CTRL_WIDTH-1:0] ctrl_n_cols,
-    input wire [CTRL_WIDTH-1:0] ctrl_bitdepth,
-    input wire [CTRL_WIDTH-1:0] ctrl_lsb_blank,
-    input wire [CTRL_WIDTH-1:0] ctrl_brightness,
+    input wire [CTRL_REG_WIDTH-1:0] ctrl_n_rows,
+    input wire [CTRL_REG_WIDTH-1:0] ctrl_n_cols,
+    input wire [CTRL_REG_WIDTH-1:0] ctrl_bitdepth,
+    input wire [CTRL_REG_WIDTH-1:0] ctrl_lsb_blank, // Number of **Display** clock cycles to blank for
+    input wire [CTRL_REG_WIDTH-1:0] ctrl_brightness, // Number of clock cycles to subtract off lsb_blank length. Higher number is less bright
 
 
     // BRAM interface
     output wire mem_clk,
     output wire mem_en,
     output wire mem_buffer,
-    output wire [R_MEM_ADDR_WIDTH-1:0] mem_addr,
+    output wire [MEM_R_ADDR_WIDTH-1:0] mem_addr,
     output wire [$clog2(BITDEPTH_MAX)-1:0] mem_bit,
-    input wire [R_MEM_DATA_WIDTH-1:0] mem_din,
+    input wire [MEM_R_DATA_WIDTH-1:0] mem_din,
 
     // Display interface
     output reg disp_clk,
@@ -237,7 +234,7 @@ module led_driver #(
 
     always @(posedge clk) begin
         if (ctrl_rst) begin
-            blank_bit = ctrl_bitdepth - 2; // Start with longest BCM bit so next pixel can be shifted in
+            blank_bit <= ctrl_bitdepth - 2; // Start with longest BCM bit so next pixel can be shifted in
             blank_counter <= 0;
 
             bright_counter <= 0;
@@ -249,21 +246,25 @@ module led_driver #(
             blank_rdy <= 1'b0;
             blank_set <= 1'b0;
 
-            // Increment current bit number
-            if (blank_bit < ctrl_bitdepth - 1) blank_bit = blank_bit + 1;
-            else blank_bit = 0;
-
             // Calculate blank_counter
             blank_counter <= 2 * (1<<blank_bit) * ctrl_lsb_blank - 1;
-            bright_counter <= (2 * (1<<blank_bit) * ctrl_lsb_blank) / ctrl_brightness - 1;
+            bright_counter <= (2 * (1<<blank_bit) * (ctrl_lsb_blank - ctrl_brightness)) - 1;
 
         end else begin
-            if (blank_counter > 0) blank_counter <= blank_counter - 1; // Decrement blank counter
-            else blank_rdy <= 1'b1; // Blanking done
+            if (blank_counter > 0) begin
+                blank_counter <= blank_counter - 1; // Decrement blank counter
 
+                if (bright_counter > 0) bright_counter <= bright_counter - 1;
+                else blank_set <= 1'b1; // Display off early to adjust brightness
 
-            if (bright_counter > 0) bright_counter <= bright_counter - 1;
-            else blank_set <= 1'b1;  
+            end else begin
+                blank_rdy <= 1'b1; // Blanking done
+                blank_set <= 1'b1; // Display off
+
+                // Increment current bit number
+                if (blank_bit < ctrl_bitdepth - 1) blank_bit <= blank_bit + 1;
+                else blank_bit <= 0;
+            end
         end
     end
 endmodule

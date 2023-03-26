@@ -5,38 +5,40 @@
 
 module tb_framebuffer;
     parameter N_ROWS_MAX = 64; // Total num rows on panel (64 for 64x64 panel)
-    parameter N_COLS_MAX = 64; // Number of panels * number of cols per panel (256 for 4 64x64 panels)
+    parameter N_COLS_MAX = 64*4; // Number of panels * number of cols per panel (256 for 4 64x64 panels)
     parameter BITDEPTH_MAX = 8; // Bits per color (bpc), 8 gives 24 bits per pixel
 
-    parameter CTRL_WIDTH = 32; // Width of ctrl reg
+    parameter CTRL_REG_WIDTH = 32; // Width of ctrl reg
 
     // ******** Calculated parameters, DO NOT CHANGE ********
-    parameter MEM_DEPTH = N_ROWS_MAX * N_COLS_MAX;  // Number of configured pixels
-    parameter W_MEM_ADDR_WIDTH = $clog2(MEM_DEPTH); // Full panel size
-    parameter W_MEM_DATA_WIDTH = BITDEPTH_MAX * 3; // Full number of bits per pixel
-    parameter R_MEM_ADDR_WIDTH = W_MEM_ADDR_WIDTH - 1; // Half of total frame width since top/bottom
-    parameter R_MEM_DATA_WIDTH = 6; // R0, G0, B0, R1, G1, G1 -> 6 total
+    parameter MEM_W_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX); // Full panel size
+    parameter MEM_W_DATA_WIDTH = 32; // Full number of bits per pixel
+    parameter MEM_R_ADDR_WIDTH = MEM_W_ADDR_WIDTH - 1; // Half of total frame width since top/bottom
+    parameter MEM_R_DATA_WIDTH = 6; // R0, G0, B0, R1, G1, G1 -> 6 total
 
     reg w_clk, w_en, w_buffer;
-    reg [W_MEM_ADDR_WIDTH-1:0] w_addr;
-    reg [W_MEM_DATA_WIDTH-1:0] w_din;
-    reg [CTRL_WIDTH-1:0] ctrl_bitdepth;
+    reg [MEM_W_ADDR_WIDTH-1:0] w_addr;
+    reg [MEM_W_DATA_WIDTH/8-1:0] w_strb;
+    reg [MEM_W_DATA_WIDTH-1:0] w_din;
+
+    reg [CTRL_REG_WIDTH-1:0] ctrl_bitdepth;
 
     reg r_clk, r_en, r_buffer;
-    reg [R_MEM_ADDR_WIDTH-1:0] r_addr;
+    reg [MEM_R_ADDR_WIDTH-1:0] r_addr;
     reg [$clog2(BITDEPTH_MAX)-1:0] r_bit;
-    wire [R_MEM_DATA_WIDTH-1:0] r_dout;
+    wire [MEM_R_DATA_WIDTH-1:0] r_dout;
     
     framebuffer #(
         .N_ROWS_MAX(N_ROWS_MAX),
         .N_COLS_MAX(N_COLS_MAX),
         .BITDEPTH_MAX(BITDEPTH_MAX),
-        .CTRL_WIDTH(CTRL_WIDTH)
+        .CTRL_REG_WIDTH(CTRL_REG_WIDTH)
     ) dut (
         .w_clk,
         .w_en,
         .w_buffer,
         .w_addr,
+        .w_strb,
         .w_din,
         .ctrl_bitdepth,
         .r_clk,
@@ -50,7 +52,7 @@ module tb_framebuffer;
     // ******** Simulation ********
     localparam PERIOD = 2;
 
-    reg [W_MEM_DATA_WIDTH-1:0] result_upper, result_lower;
+    reg [MEM_W_DATA_WIDTH-1:0] result_upper, result_lower;
 
     initial begin
         $dumpfile("waveform.vcd");
@@ -69,6 +71,7 @@ module tb_framebuffer;
         w_en <= 1'b0;
         w_buffer <= 1'b0;
         w_addr <= 0;
+        w_strb <= 0;
         w_din <= 0;
         ctrl_bitdepth <= 8;
         // ****************************************
@@ -79,6 +82,7 @@ module tb_framebuffer;
         repeat (2) @(negedge w_clk);
         w_en <= 1'b1;
         w_addr <= 0;
+        w_strb <= 4'b1111;
         w_din <= 24'hAAFF11;
 
         repeat (1) @(negedge w_clk);
@@ -88,6 +92,7 @@ module tb_framebuffer;
         repeat (2) @(negedge w_clk);
         w_en <= 1'b1;
         w_addr <= 2048;
+        w_strb <= 4'b1111;
         w_din <= 24'hAAFF11;
 
         repeat (1) @(negedge w_clk);

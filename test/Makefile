@@ -1,8 +1,10 @@
 
 
-SRC = ../src/
 # TESTBENCH = tb_framebuffer.v
-TESTBENCH = tb_ledpanel.v
+SRC = ../src
+
+TESTBENCH = tb_led_driver.v
+SRC = ../src/led_driver.v
 
 FLAGS = -Wall -Winfloop
 
