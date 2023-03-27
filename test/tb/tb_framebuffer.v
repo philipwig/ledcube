@@ -1,4 +1,3 @@
-
 `include "framebuffer.v"
 
 `timescale 1 ns / 10 ps
@@ -55,7 +54,7 @@ module tb_framebuffer;
     reg [MEM_W_DATA_WIDTH-1:0] result_upper, result_lower;
 
     initial begin
-        $dumpfile("waveform.vcd");
+        $dumpfile(`DUMP_FILE_NAME);
         $dumpvars;
     end
 

@@ -1,5 +1,4 @@
-
-`include "../src/led_driver.v"
+`include "led_driver.v"
 
 `timescale 1 ns / 10 ps
 
@@ -86,7 +85,7 @@ module tb_led_driver;
     localparam PERIOD = 1e9/(2*25e6); // disp_clk = 25Mhz, system clk = 50MHz (fastest speed?)
 
     initial begin
-        $dumpfile("waveform.vcd");
+        $dumpfile(`DUMP_FILE_NAME);
         $dumpvars;
     end
 

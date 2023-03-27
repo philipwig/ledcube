@@ -5,7 +5,7 @@
 [dumpfile] "/home/philip/ledcube/test/waveform.vcd"
 [dumpfile_mtime] "Sun Mar 26 00:55:57 2023"
 [dumpfile_size] 4464
-[savefile] "/home/philip/ledcube/test/tb_framebuffer.gtkw"
+[savefile] "/home/philip/ledcube/test/savefile/tb_framebuffer.gtkw"
 [timestart] 0
 [size] 1425 929
 [pos] -1572 250

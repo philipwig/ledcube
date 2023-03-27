@@ -5,7 +5,7 @@
 [dumpfile] "/home/philip/ledcube/test/waveform.vcd"
 [dumpfile_mtime] "Sun Mar 26 20:13:30 2023"
 [dumpfile_size] 466381
-[savefile] "/home/philip/ledcube/test/tb_led_driver.gtkw"
+[savefile] "/home/philip/ledcube/test/savefile/tb_led_driver.gtkw"
 [timestart] 99586200
 [size] 2560 1355
 [pos] -139 -139

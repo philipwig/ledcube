@@ -1,34 +1,38 @@
 
 
-# TESTBENCH = tb_framebuffer.v
-SRC = ../src
+INCLUDE := ../src
+BIN := ./bin
+TB := ./tb
+WAVES := ./waves
 
-TESTBENCH = tb_led_driver.v
-SRC = ../src/led_driver.v
 
 FLAGS = -Wall -Winfloop
 
-.PHONY: default
-default: clean waveform.vcd
+# .PHONY: default
+# default: clean waveform.vcd
 
 
-.PHONY: waves
-waves: waveform.vcd
-	@echo
-	@echo "### WAVES ###"
-	gtkwave waveform.vcd
-
-waveform.vcd: tb
-	@echo
-	@echo "### SIMULATING ###"
-	vvp tb
-
-tb: $(TESTBENCH) $(SRC)
-	@echo
-	@echo "### BUILDING SIM ###"
-	iverilog $(FLAGS) -o $@ -I $(SRC) $(TESTBENCH)
+# .PHONY: waves
+# waves: waveform.vcd
+# 	@echo
+# 	@echo "### WAVES ###"
+# 	gtkwave waveform.vcd
 
 
-clean:
-	rm tb
-	rm waveform.vcd
+.PHONY: tb_framebuffer
+tb_framebuffer: $(WAVES)/tb_framebuffer
+
+
+.PHONY: tb_led_driver
+tb_led_driver: $(WAVES)/tb_led_driver
+
+
+# clean:
+# 	rm -f $(BIN)/*
+# 	rm -f $(WAVES)/*
+
+$(BIN)/%.vvp: $(TB)/%.v $(INCLUDE)/*.v
+	iverilog $< $(FLAGS) -D'DUMP_FILE_NAME="$(WAVES)/$(patsubst %.vvp,%.vcd,$(@F))"' -o $@ -I $(INCLUDE) 
+
+$(WAVES)/%: $(BIN)/%.vvp
+	vvp $<

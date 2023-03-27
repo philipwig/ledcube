@@ -1,0 +1,358 @@
+$date
+	Sun Mar 26 22:11:23 2023
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	10ps
+$end
+$scope module tb_framebuffer $end
+$var wire 6 ! r_dout [5:0] $end
+$var parameter 32 " BITDEPTH_MAX $end
+$var parameter 32 # CTRL_REG_WIDTH $end
+$var parameter 33 $ MEM_R_ADDR_WIDTH $end
+$var parameter 32 % MEM_R_DATA_WIDTH $end
+$var parameter 32 & MEM_W_ADDR_WIDTH $end
+$var parameter 32 ' MEM_W_DATA_WIDTH $end
+$var parameter 64 ( N_COLS_MAX $end
+$var parameter 32 ) N_ROWS_MAX $end
+$var parameter 32 * PERIOD $end
+$var reg 32 + ctrl_bitdepth [31:0] $end
+$var reg 13 , r_addr [12:0] $end
+$var reg 3 - r_bit [2:0] $end
+$var reg 1 . r_buffer $end
+$var reg 1 / r_clk $end
+$var reg 1 0 r_en $end
+$var reg 32 1 result_lower [31:0] $end
+$var reg 32 2 result_upper [31:0] $end
+$var reg 14 3 w_addr [13:0] $end
+$var reg 1 4 w_buffer $end
+$var reg 1 5 w_clk $end
+$var reg 32 6 w_din [31:0] $end
+$var reg 1 7 w_en $end
+$var reg 4 8 w_strb [3:0] $end
+$scope module dut $end
+$var wire 32 9 ctrl_bitdepth [31:0] $end
+$var wire 13 : r_addr [12:0] $end
+$var wire 3 ; r_bit [2:0] $end
+$var wire 1 . r_buffer $end
+$var wire 1 / r_clk $end
+$var wire 1 0 r_en $end
+$var wire 14 < w_addr [13:0] $end
+$var wire 1 4 w_buffer $end
+$var wire 1 5 w_clk $end
+$var wire 32 = w_din [31:0] $end
+$var wire 1 7 w_en $end
+$var wire 4 > w_strb [3:0] $end
+$var wire 32 ? r_upper_dout [31:0] $end
+$var wire 32 @ r_lower_dout [31:0] $end
+$var wire 6 A r_dout [5:0] $end
+$var parameter 32 B BITDEPTH_MAX $end
+$var parameter 32 C CTRL_REG_WIDTH $end
+$var parameter 33 D MEM_R_ADDR_WIDTH $end
+$var parameter 32 E MEM_R_DATA_WIDTH $end
+$var parameter 32 F MEM_W_ADDR_WIDTH $end
+$var parameter 32 G MEM_W_DATA_WIDTH $end
+$var parameter 64 H N_COLS_MAX $end
+$var parameter 32 I N_ROWS_MAX $end
+$scope module mem_lower $end
+$var wire 14 J a_addr [13:0] $end
+$var wire 1 5 a_clk $end
+$var wire 32 K a_din [31:0] $end
+$var wire 1 L a_en $end
+$var wire 4 M a_we [3:0] $end
+$var wire 14 N b_addr [13:0] $end
+$var wire 1 / b_clk $end
+$var wire 1 0 b_en $end
+$var parameter 32 O ADDR_WIDTH $end
+$var parameter 32 P DATA_WIDTH $end
+$var reg 32 Q b_dout [31:0] $end
+$var integer 32 R k [31:0] $end
+$upscope $end
+$scope module mem_upper $end
+$var wire 14 S a_addr [13:0] $end
+$var wire 1 5 a_clk $end
+$var wire 32 T a_din [31:0] $end
+$var wire 1 U a_en $end
+$var wire 4 V a_we [3:0] $end
+$var wire 14 W b_addr [13:0] $end
+$var wire 1 / b_clk $end
+$var wire 1 0 b_en $end
+$var parameter 32 X ADDR_WIDTH $end
+$var parameter 32 Y DATA_WIDTH $end
+$var reg 32 Z b_dout [31:0] $end
+$var integer 32 [ k [31:0] $end
+$upscope $end
+$upscope $end
+$scope begin $ivl_for_loop0 $end
+$var integer 32 \ i [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b100000 Y
+b1110 X
+b100000 P
+b1110 O
+b1000000 I
+b100000000 H
+b100000 G
+b1110 F
+b110 E
+b1101 D
+b100000 C
+b1000 B
+b10 *
+b1000000 )
+b100000000 (
+b100000 '
+b1110 &
+b110 %
+b1101 $
+b100000 #
+b1000 "
+$end
+#0
+$dumpvars
+bx \
+bx [
+bx Z
+bx W
+bx V
+xU
+bx T
+bx S
+bx R
+bx Q
+bx N
+bx M
+xL
+bx K
+bx J
+bx A
+bx @
+bx ?
+bx >
+bx =
+bx <
+bx ;
+bx :
+bx 9
+bx 8
+x7
+bx 6
+05
+x4
+bx 3
+bx 2
+bx 1
+x0
+0/
+x.
+bx -
+bx ,
+bx +
+bx !
+$end
+#100
+1/
+15
+#200
+0U
+0L
+b1000 +
+b1000 9
+b0 6
+b0 =
+b0 K
+b0 T
+b0 8
+b0 >
+b0 M
+b0 V
+b0 3
+b0 <
+b0 S
+b0 J
+04
+07
+0/
+05
+#300
+1/
+15
+#400
+0/
+05
+#500
+1/
+15
+#600
+1U
+b101010101111111100010001 6
+b101010101111111100010001 =
+b101010101111111100010001 K
+b101010101111111100010001 T
+b1111 8
+b1111 >
+b1111 M
+b1111 V
+17
+0/
+05
+#700
+b100 [
+1/
+15
+#800
+0U
+07
+0/
+05
+#900
+1/
+15
+#1000
+0/
+05
+#1100
+1/
+15
+#1200
+b100000000000 S
+b100000000000 J
+1U
+b100000000000 3
+b100000000000 <
+17
+0/
+05
+#1300
+b100 [
+1/
+15
+#1400
+0U
+07
+0/
+05
+#1500
+1/
+15
+#1600
+b0 -
+b0 ;
+10
+0.
+b0 W
+b0 N
+b0 ,
+b0 :
+b0 \
+0/
+05
+#1700
+b11xxx !
+b11xxx A
+b101010101111111100010001 ?
+b101010101111111100010001 Z
+1/
+15
+#1800
+b110xxx !
+b110xxx A
+b1 -
+b1 ;
+bx0xxxxxxx1xxxxxxx1 2
+b1 \
+0/
+05
+#1900
+1/
+15
+#2000
+b10xxx !
+b10xxx A
+b10 -
+b10 ;
+bx10xxxxxx11xxxxxx01 2
+b10 \
+0/
+05
+#2100
+1/
+15
+#2200
+b110xxx !
+b110xxx A
+b11 -
+b11 ;
+bx010xxxxx111xxxxx001 2
+b11 \
+0/
+05
+#2300
+1/
+15
+#2400
+b11xxx !
+b11xxx A
+b100 -
+b100 ;
+bx1010xxxx1111xxxx0001 2
+b100 \
+0/
+05
+#2500
+1/
+15
+#2600
+b110xxx !
+b110xxx A
+b101 -
+b101 ;
+bx01010xxx11111xxx10001 2
+b101 \
+0/
+05
+#2700
+1/
+15
+#2800
+b10xxx !
+b10xxx A
+b110 -
+b110 ;
+bx101010xx111111xx010001 2
+b110 \
+0/
+05
+#2900
+1/
+15
+#3000
+b110xxx !
+b110xxx A
+b111 -
+b111 ;
+bx0101010x1111111x0010001 2
+b111 \
+0/
+05
+#3100
+1/
+15
+#3200
+00
+bx101010101111111100010001 2
+b1000 \
+0/
+05
+#3300
+1/
+15
+#3400
+0/
+05
