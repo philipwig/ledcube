@@ -230,19 +230,19 @@ module axil_interface #(
     assign	wskd_lsb_blank = apply_wstrb(ctrl_lsb_blank, wskd_data, wskd_strb);
     assign	wskd_brightness = apply_wstrb(ctrl_brightness, wskd_data, wskd_strb);
 
-    initial	ctrl_display = 0;
+    initial	ctrl_display = 32'h00000002;
     initial	ctrl_n_rows = 64;
     initial	ctrl_n_cols = 64;
     initial	ctrl_bitdepth = 8;
-    initial	ctrl_lsb_blank = 100;
-    initial	ctrl_brightness = 100;
+    initial	ctrl_lsb_blank = 20;
+    initial	ctrl_brightness = 0;
     always @(posedge S_AXI_ACLK) begin
         if (i_reset) begin
-            ctrl_display <= 0;
-            ctrl_n_rows <= 0;
-            ctrl_n_cols <= 0;
-            ctrl_bitdepth <= 0;
-            ctrl_lsb_blank <= 0;
+            ctrl_display <= 32'h00000002;
+            ctrl_n_rows <= 64;
+            ctrl_n_cols <= 64;
+            ctrl_bitdepth <= 8;
+            ctrl_lsb_blank <= 20;
             ctrl_brightness <= 0;
         end else if (axil_write_ready) begin
             case(awskd_addr)

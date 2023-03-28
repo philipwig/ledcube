@@ -293,29 +293,29 @@ set_property PULLUP true [get_ports disp_latch_0]
 #set_property PULLUP         TRUE        [get_ports {gpio2_tri_io[10]}]
 
 ### JB1.11 (IO_L6P_T0_34)
-set_property PACKAGE_PIN P14 [get_ports {display_address_out_1[0]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[0]}]
-set_property PULLUP true [get_ports {display_address_out_1[0]}]
+set_property PACKAGE_PIN P14 [get_ports {disp_addr_1[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {disp_addr_1[0]}]
+set_property PULLUP true [get_ports {disp_addr_1[0]}]
 
 ### JB1.12 (IO_L4N_T0_34)
-set_property PACKAGE_PIN W13 [get_ports {display_address_out_1[1]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[1]}]
-set_property PULLUP true [get_ports {display_address_out_1[1]}]
+set_property PACKAGE_PIN W13 [get_ports {disp_addr_1[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {disp_addr_1[1]}]
+set_property PULLUP true [get_ports {disp_addr_1[1]}]
 
 ### JB1.13 (IO_L6N_T0_VREF_34)
-set_property PACKAGE_PIN R14 [get_ports {display_address_out_1[2]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[2]}]
-set_property PULLUP true [get_ports {display_address_out_1[2]}]
+set_property PACKAGE_PIN R14 [get_ports {disp_addr_1[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {disp_addr_1[2]}]
+set_property PULLUP true [get_ports {disp_addr_1[2]}]
 
 #### JB1.14 (IO_L4P_T0_34)
-set_property PACKAGE_PIN V12 [get_ports {display_address_out_1[3]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[3]}]
-set_property PULLUP true [get_ports {display_address_out_1[3]}]
+set_property PACKAGE_PIN V12 [get_ports {disp_addr_1[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {disp_addr_1[3]}]
+set_property PULLUP true [get_ports {disp_addr_1[3]}]
 
 ### JB1.17 (IO_L3P_T0_DQS_PUDC_B_34)
-set_property PACKAGE_PIN U13 [get_ports {display_address_out_1[4]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {display_address_out_1[4]}]
-set_property PULLUP true [get_ports {display_address_out_1[4]}]
+set_property PACKAGE_PIN U13 [get_ports {disp_addr_1[4]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {disp_addr_1[4]}]
+set_property PULLUP true [get_ports {disp_addr_1[4]}]
 
 #### JB1.18 (IO_L5N_T0_34)
 #set_property PACKAGE_PIN    T15         [get_ports {gpio2_tri_io[17]}]
@@ -333,19 +333,19 @@ set_property PULLUP true [get_ports {display_address_out_1[4]}]
 #set_property PULLUP         TRUE        [get_ports {gpio2_tri_io[16]}]
 
 ### JB1.23 (IO_L9P_T1_DQS_34)
-set_property PACKAGE_PIN T16 [get_ports R0_out_1]
-set_property IOSTANDARD LVCMOS33 [get_ports R0_out_1]
-set_property PULLUP true [get_ports R0_out_1]
+set_property PACKAGE_PIN T16 [get_ports disp_r0_1]
+set_property IOSTANDARD LVCMOS33 [get_ports disp_r0_1]
+set_property PULLUP true [get_ports disp_r0_1]
 
 ### JB1.24 (IO_L7N_T1_34)
-set_property PACKAGE_PIN Y17 [get_ports G0_out_1]
-set_property IOSTANDARD LVCMOS33 [get_ports G0_out_1]
-set_property PULLUP true [get_ports G0_out_1]
+set_property PACKAGE_PIN Y17 [get_ports disp_g0_1]
+set_property IOSTANDARD LVCMOS33 [get_ports disp_g0_1]
+set_property PULLUP true [get_ports disp_g0_1]
 
 ### JB1.25 (IO_L9N_T1_DQS_34)
-set_property PACKAGE_PIN U17 [get_ports B0_out_1]
-set_property IOSTANDARD LVCMOS33 [get_ports B0_out_1]
-set_property PULLUP true [get_ports B0_out_1]
+set_property PACKAGE_PIN U17 [get_ports disp_b0_1]
+set_property IOSTANDARD LVCMOS33 [get_ports disp_b0_1]
+set_property PULLUP true [get_ports disp_b0_1]
 
 #### JB1.26 (IO_L7P_T1_34)
 #set_property PACKAGE_PIN    Y16         [get_ports {gpio2_tri_io[0]}]
@@ -353,19 +353,19 @@ set_property PULLUP true [get_ports B0_out_1]
 #set_property PULLUP         TRUE        [get_ports {gpio2_tri_io[0]}]
 
 ### JB1.29 (IO_L8P_T1_34)
-set_property PACKAGE_PIN W14 [get_ports R1_out_1]
-set_property IOSTANDARD LVCMOS33 [get_ports R1_out_1]
-set_property PULLUP true [get_ports R1_out_1]
+set_property PACKAGE_PIN W14 [get_ports disp_r1_1]
+set_property IOSTANDARD LVCMOS33 [get_ports disp_r1_1]
+set_property PULLUP true [get_ports disp_r1_1]
 
 ### JB1.30 (IO_L10N_T1_34)
-set_property PACKAGE_PIN W15 [get_ports G1_out_1]
-set_property IOSTANDARD LVCMOS33 [get_ports G1_out_1]
-set_property PULLUP true [get_ports G1_out_1]
+set_property PACKAGE_PIN W15 [get_ports disp_g1_1]
+set_property IOSTANDARD LVCMOS33 [get_ports disp_g1_1]
+set_property PULLUP true [get_ports disp_g1_1]
 
 ### JB1.31 (IO_L8N_T1_34)
-set_property PACKAGE_PIN Y14 [get_ports B1_out_1]
-set_property IOSTANDARD LVCMOS33 [get_ports B1_out_1]
-set_property PULLUP true [get_ports B1_out_1]
+set_property PACKAGE_PIN Y14 [get_ports disp_b1_1]
+set_property IOSTANDARD LVCMOS33 [get_ports disp_b1_1]
+set_property PULLUP true [get_ports disp_b1_1]
 
 #### JB1.32 (IO_L10P_T1_34)
 #set_property PACKAGE_PIN    V15         [get_ports {gpio2_tri_io[4]}]
@@ -373,19 +373,19 @@ set_property PULLUP true [get_ports B1_out_1]
 #set_property PULLUP         TRUE        [get_ports {gpio2_tri_io[4]}]
 
 ### JB1.35 (IO_L11P_T1_SRCC_34)
-set_property PACKAGE_PIN U14 [get_ports display_clk_out_1]
-set_property IOSTANDARD LVCMOS33 [get_ports display_clk_out_1]
-set_property PULLUP true [get_ports display_clk_out_1]
+set_property PACKAGE_PIN U14 [get_ports disp_clk_1]
+set_property IOSTANDARD LVCMOS33 [get_ports disp_clk_1]
+set_property PULLUP true [get_ports disp_clk_1]
 
 ### JB1.36 (IO_L12N_T1_MRCC_34)
-set_property PACKAGE_PIN U19 [get_ports display_blank_out_1]
-set_property IOSTANDARD LVCMOS33 [get_ports display_blank_out_1]
-set_property PULLUP true [get_ports display_blank_out_1]
+set_property PACKAGE_PIN U19 [get_ports disp_blank_1]
+set_property IOSTANDARD LVCMOS33 [get_ports disp_blank_1]
+set_property PULLUP true [get_ports disp_blank_1]
 
 ### JB1.37 (IO_L11N_T1_SRCC_34)
-set_property PACKAGE_PIN U15 [get_ports display_latch_out_1]
-set_property IOSTANDARD LVCMOS33 [get_ports display_latch_out_1]
-set_property PULLUP true [get_ports display_latch_out_1]
+set_property PACKAGE_PIN U15 [get_ports disp_latch_1]
+set_property IOSTANDARD LVCMOS33 [get_ports disp_latch_1]
+set_property PULLUP true [get_ports disp_latch_1]
 
 #### JB1.38 (IO_L12P_T1_MRCC_34)
 #set_property PACKAGE_PIN    U18         [get_ports {gpio2_tri_io[22]}]
@@ -521,3 +521,76 @@ set_property PULLUP true [get_ports display_latch_out_1]
 #set_property PULLUP         TRUE        [get_ports {gpio3_tri_io[22]}]
 
 
+
+set_output_delay -clock [get_clocks clk_fpga_0] 2.000 [get_ports -filter { NAME =~  "*disp*" && DIRECTION == "OUT" }]
+
+create_debug_core u_ila_0 ila
+set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_0]
+set_property ALL_PROBE_SAME_MU_CNT 1 [get_debug_cores u_ila_0]
+set_property C_ADV_TRIGGER false [get_debug_cores u_ila_0]
+set_property C_DATA_DEPTH 8192 [get_debug_cores u_ila_0]
+set_property C_EN_STRG_QUAL false [get_debug_cores u_ila_0]
+set_property C_INPUT_PIPE_STAGES 0 [get_debug_cores u_ila_0]
+set_property C_TRIGIN_EN false [get_debug_cores u_ila_0]
+set_property C_TRIGOUT_EN false [get_debug_cores u_ila_0]
+set_property port_width 1 [get_debug_ports u_ila_0/clk]
+connect_debug_port u_ila_0/clk [get_nets [list design_1_i/processing_system7_0/inst/FCLK_CLK0]]
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe0]
+set_property port_width 6 [get_debug_ports u_ila_0/probe0]
+connect_debug_port u_ila_0/probe0 [get_nets [list {design_1_i/led_driver_top_0/inst/driver/disp_row[0]} {design_1_i/led_driver_top_0/inst/driver/disp_row[1]} {design_1_i/led_driver_top_0/inst/driver/disp_row[2]} {design_1_i/led_driver_top_0/inst/driver/disp_row[3]} {design_1_i/led_driver_top_0/inst/driver/disp_row[4]} {design_1_i/led_driver_top_0/inst/driver/disp_row[5]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe1]
+set_property port_width 3 [get_debug_ports u_ila_0/probe1]
+connect_debug_port u_ila_0/probe1 [get_nets [list {design_1_i/led_driver_top_0/inst/driver/cnt_bit[0]} {design_1_i/led_driver_top_0/inst/driver/cnt_bit[1]} {design_1_i/led_driver_top_0/inst/driver/cnt_bit[2]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe2]
+set_property port_width 8 [get_debug_ports u_ila_0/probe2]
+connect_debug_port u_ila_0/probe2 [get_nets [list {design_1_i/led_driver_top_0/inst/driver/cnt_col[0]} {design_1_i/led_driver_top_0/inst/driver/cnt_col[1]} {design_1_i/led_driver_top_0/inst/driver/cnt_col[2]} {design_1_i/led_driver_top_0/inst/driver/cnt_col[3]} {design_1_i/led_driver_top_0/inst/driver/cnt_col[4]} {design_1_i/led_driver_top_0/inst/driver/cnt_col[5]} {design_1_i/led_driver_top_0/inst/driver/cnt_col[6]} {design_1_i/led_driver_top_0/inst/driver/cnt_col[7]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe3]
+set_property port_width 6 [get_debug_ports u_ila_0/probe3]
+connect_debug_port u_ila_0/probe3 [get_nets [list {design_1_i/led_driver_top_0/inst/driver/cnt_row[0]} {design_1_i/led_driver_top_0/inst/driver/cnt_row[1]} {design_1_i/led_driver_top_0/inst/driver/cnt_row[2]} {design_1_i/led_driver_top_0/inst/driver/cnt_row[3]} {design_1_i/led_driver_top_0/inst/driver/cnt_row[4]} {design_1_i/led_driver_top_0/inst/driver/cnt_row[5]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe4]
+set_property port_width 2 [get_debug_ports u_ila_0/probe4]
+connect_debug_port u_ila_0/probe4 [get_nets [list {design_1_i/led_driver_top_0/inst/driver/bcm_state[0]} {design_1_i/led_driver_top_0/inst/driver/bcm_state[1]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe5]
+set_property port_width 4 [get_debug_ports u_ila_0/probe5]
+connect_debug_port u_ila_0/probe5 [get_nets [list {design_1_i/led_driver_top_0/inst/driver/blank_bit[0]} {design_1_i/led_driver_top_0/inst/driver/blank_bit[1]} {design_1_i/led_driver_top_0/inst/driver/blank_bit[2]} {design_1_i/led_driver_top_0/inst/driver/blank_bit[3]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe6]
+set_property port_width 2 [get_debug_ports u_ila_0/probe6]
+connect_debug_port u_ila_0/probe6 [get_nets [list {design_1_i/led_driver_top_0/inst/driver/main_state[0]} {design_1_i/led_driver_top_0/inst/driver/main_state[1]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe7]
+set_property port_width 17 [get_debug_ports u_ila_0/probe7]
+connect_debug_port u_ila_0/probe7 [get_nets [list {design_1_i/led_driver_top_0/inst/driver/bright_counter[0]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[1]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[2]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[3]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[4]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[5]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[6]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[7]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[8]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[9]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[10]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[11]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[12]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[13]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[14]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[15]} {design_1_i/led_driver_top_0/inst/driver/bright_counter[16]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe8]
+set_property port_width 17 [get_debug_ports u_ila_0/probe8]
+connect_debug_port u_ila_0/probe8 [get_nets [list {design_1_i/led_driver_top_0/inst/driver/blank_counter[0]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[1]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[2]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[3]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[4]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[5]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[6]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[7]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[8]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[9]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[10]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[11]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[12]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[13]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[14]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[15]} {design_1_i/led_driver_top_0/inst/driver/blank_counter[16]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe9]
+set_property port_width 1 [get_debug_ports u_ila_0/probe9]
+connect_debug_port u_ila_0/probe9 [get_nets [list design_1_i/led_driver_top_0/inst/driver/bcm_en]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe10]
+set_property port_width 1 [get_debug_ports u_ila_0/probe10]
+connect_debug_port u_ila_0/probe10 [get_nets [list design_1_i/led_driver_top_0/inst/driver/bcm_rdy]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe11]
+set_property port_width 1 [get_debug_ports u_ila_0/probe11]
+connect_debug_port u_ila_0/probe11 [get_nets [list design_1_i/led_driver_top_0/inst/driver/blank_en]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe12]
+set_property port_width 1 [get_debug_ports u_ila_0/probe12]
+connect_debug_port u_ila_0/probe12 [get_nets [list design_1_i/led_driver_top_0/inst/driver/blank_rdy]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe13]
+set_property port_width 1 [get_debug_ports u_ila_0/probe13]
+connect_debug_port u_ila_0/probe13 [get_nets [list design_1_i/led_driver_top_0/inst/driver/cnt_buffer]]
+set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
+set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
+set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]
+connect_debug_port dbg_hub/clk [get_nets clk]

@@ -8,6 +8,10 @@ WAVES := ./waves
 
 FLAGS = -Wall -Winfloop
 
+# Create all necessary directories
+DIRS := $(INCLUDE) $(BIN) $(TB) $(WAVES)
+$(info $(shell mkdir -p $(DIRS)))
+
 # .PHONY: default
 # default: clean waveform.vcd
 

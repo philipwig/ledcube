@@ -8,6 +8,7 @@
             Scan first row, then last row, then second row, then second to last
             For 64x64 panel with 1:32
             Ex: {0, 32}, {31, 63}, {1, 33}, {30, 62}, {2, 34}, {29, 61}, ...
+        Make disp_clk an actual gated output clock in vivado to be able to apply timing constraints to it
     
     DONE:
         LSB of each row needs to be latched in on the last blank cycle of the previous row
@@ -53,22 +54,22 @@ module led_driver #(
 
     // Display interface
     output reg disp_clk,
-    output wire disp_blank,
+    output reg disp_blank,
     output reg disp_latch,
     output wire [4:0] disp_addr,
     output wire disp_r0, disp_g0, disp_b0,
     output wire disp_r1, disp_g1, disp_b1
 );
 
-    reg cnt_buffer;
-    reg [$clog2(N_COLS_MAX)-1:0] cnt_col;
-    reg [$clog2(N_ROWS_MAX)-1:0] cnt_row;
-    reg [$clog2(BITDEPTH_MAX)-1:0] cnt_bit;
+    (* mark_debug = "true" *) reg cnt_buffer;
+    (* mark_debug = "true" *) reg [$clog2(N_COLS_MAX)-1:0] cnt_col;
+    (* mark_debug = "true" *) reg [$clog2(N_ROWS_MAX)-1:0] cnt_row;
+    (* mark_debug = "true" *) reg [$clog2(BITDEPTH_MAX)-1:0] cnt_bit;
 
 
     // Control reg
-    reg bcm_en, bcm_rdy;
-    reg blank_en, blank_rdy;
+    (* mark_debug = "true" *) reg bcm_en, bcm_rdy;
+    (* mark_debug = "true" *) reg blank_en, blank_rdy;
 
 
     // ****************
@@ -80,10 +81,14 @@ module led_driver #(
         idle = 1,
         unlatch = 2,
         wait_reset = 3;
-    reg [MAIN_STATES-1:0] main_state;
+    (* mark_debug = "true" *) reg [MAIN_STATES-1:0] main_state;
     
-    reg [$clog2(N_ROWS_MAX)-1:0] disp_row;
+    (* mark_debug = "true" *) reg [$clog2(N_ROWS_MAX)-1:0] disp_row;
     assign disp_addr = disp_row;
+
+    initial begin
+        main_state <= startup;
+    end
 
     always @(posedge clk) begin
         if (ctrl_rst) begin
@@ -161,7 +166,7 @@ module led_driver #(
         bcm_idle = 1,
         bcm_shift1 = 2,
         bcm_shift2 = 3;
-    reg [BCM_STATES-1:0] bcm_state;
+    (* mark_debug = "true" *) reg [BCM_STATES-1:0] bcm_state;
 
     assign mem_clk = clk;
     // assign mem_en = ~bcm_rdy;
@@ -171,6 +176,14 @@ module led_driver #(
     assign mem_bit = cnt_bit;
 
     assign {disp_r0, disp_g0, disp_b0, disp_r1, disp_g1, disp_b1} = mem_din;
+
+    initial begin
+        bcm_state <= bcm_idle;
+        cnt_col <= 0;
+        bcm_rdy <= 1'b1;
+        disp_clk <= 1'b0;
+    end
+
 
     always @(posedge clk) begin
         if (ctrl_rst) begin
@@ -220,17 +233,26 @@ module led_driver #(
     // * Blanking *
     // ************
     localparam BLANK_MAX = 2 * (2**(BITDEPTH_MAX-1)) * LSB_BLANK_MAX;
-    reg [$clog2(BLANK_MAX):0] blank_counter;
+    (* mark_debug = "true" *) reg [$clog2(BLANK_MAX):0] blank_counter;
 
-    reg [$clog2(BLANK_MAX):0] bright_counter; 
+    (* mark_debug = "true" *) reg [$clog2(BLANK_MAX):0] bright_counter; 
 
-    reg [$clog2(BITDEPTH_MAX):0] blank_bit;
-    reg blank_set;
+    (* mark_debug = "true" *) reg [$clog2(BITDEPTH_MAX):0] blank_bit;
 
     // disp_blank <= 1'b0; // Display on
     // disp_blank <= 1'b1; // Display off
     // assign disp_blank = blank_rdy;
-    assign disp_blank = blank_set;
+    // assign disp_blank = disp_blank;
+
+    initial begin
+        blank_bit <= ctrl_bitdepth - 2; // Start with longest BCM bit so next pixel can be shifted in
+        blank_counter <= 0;
+
+        bright_counter <= 0;
+        disp_blank <= 1'b1;
+
+        blank_rdy <= 1'b1;
+    end
 
     always @(posedge clk) begin
         if (ctrl_rst) begin
@@ -238,13 +260,13 @@ module led_driver #(
             blank_counter <= 0;
 
             bright_counter <= 0;
-            blank_set <= 1'b1;
+            disp_blank <= 1'b1;
 
             blank_rdy <= 1'b1;
         end else if (blank_en && blank_rdy) begin
             // Start blanking
             blank_rdy <= 1'b0;
-            blank_set <= 1'b0;
+            disp_blank <= 1'b0;
 
             // Calculate blank_counter
             blank_counter <= 2 * (1<<blank_bit) * ctrl_lsb_blank - 1;
@@ -255,13 +277,13 @@ module led_driver #(
                 blank_counter <= blank_counter - 1; // Decrement blank counter
 
                 if (bright_counter > 0) bright_counter <= bright_counter - 1;
-                else blank_set <= 1'b1; // Display off early to adjust brightness
+                else disp_blank <= 1'b1; // Display off early to adjust brightness
 
             end else begin
                 blank_rdy <= 1'b1; // Blanking done
-                blank_set <= 1'b1; // Display off
+                disp_blank <= 1'b1; // Display off
 
-                // Increment current bit number
+                // Increment current bit number - WHY NOT JUST USE CNT_BIT????????
                 if (blank_bit < ctrl_bitdepth - 1) blank_bit <= blank_bit + 1;
                 else blank_bit <= 0;
             end
