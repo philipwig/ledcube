@@ -1,0 +1,17 @@
+#Note: Mention Each package in individual line
+#These packages will get added into rootfs menu entry
+
+CONFIG_gpio-demo
+CONFIG_peekpoke
+CONFIG_lsuio
+
+CONFIG_hostapd
+CONFIG_wpa-supplicant
+CONFIG_iw
+CONFIG_wireless-regdb-static
+
+
+CONFIG_wl18xx-fw
+CONFIG_wlconf
+CONFIG_wl18xx-calibrator
+CONFIG_wl18xx-target-scripts

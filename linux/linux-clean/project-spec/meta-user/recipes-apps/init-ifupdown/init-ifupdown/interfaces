@@ -1,0 +1,19 @@
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+ 
+# The loopback interface
+auto lo
+iface lo inet loopback
+
+# Wireless interfaces
+allow-hotplug wlan0
+auto wlan0
+iface wlan0 inet dhcp
+	wireless_mode managed
+	wpa-driver nl80211
+	wpa-conf /etc/wpa_supplicant.conf
+
+iface wlan1 inet dhcp
+
+# Bluetooth networking
+iface bnep0 inet dhcp
+
