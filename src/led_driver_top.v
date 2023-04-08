@@ -264,22 +264,17 @@ module led_driver_top #(
     ) driver (
         .clk(clk), // Global clock
         
-        // .ctrl_en(ctrl_en), // Enable or disable module
-        // .ctrl_rst(ctrl_rst), // Reset module
-        .ctrl_en(1'b1), // Enable or disable module
-        .ctrl_rst(1'b0), // Reset module
+        .ctrl_en(ctrl_en), // Enable or disable module
+        .ctrl_rst(ctrl_rst), // Reset module
+        // .ctrl_en(1'b1), // Enable or disable module
+        // .ctrl_rst(1'b0), // Reset module
 
         // Current configuration, these are not latched
-        // .ctrl_n_rows(ctrl_n_rows),
-        // .ctrl_n_cols(ctrl_n_cols),
-        // .ctrl_bitdepth(ctrl_bitdepth),
-        // .ctrl_lsb_blank(ctrl_lsb_blank),
-        // .ctrl_brightness(ctrl_brightness),
-        .ctrl_n_rows(64),
-        .ctrl_n_cols(64),
-        .ctrl_bitdepth(8),
-        .ctrl_lsb_blank(20),
-        .ctrl_brightness(0),
+        .ctrl_n_rows(ctrl_n_rows),
+        .ctrl_n_cols(ctrl_n_cols),
+        .ctrl_bitdepth(ctrl_bitdepth),
+        .ctrl_lsb_blank(ctrl_lsb_blank),
+        .ctrl_brightness(ctrl_brightness),
 
         // BRAM interface
         .mem_clk(mem_rclk),

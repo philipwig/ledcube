@@ -33,32 +33,32 @@ module led_driver #(
 ) (
     input wire clk, // Global clock
     
-    input wire ctrl_en, // Enable or disable module
-    input wire ctrl_rst, // Reset module
+    (* mark_debug = "true" *) input wire ctrl_en, // Enable or disable module
+    (* mark_debug = "true" *) input wire ctrl_rst, // Reset module
 
     // Current configuration, these are not latched
-    input wire [CTRL_REG_WIDTH-1:0] ctrl_n_rows,
-    input wire [CTRL_REG_WIDTH-1:0] ctrl_n_cols,
-    input wire [CTRL_REG_WIDTH-1:0] ctrl_bitdepth,
-    input wire [CTRL_REG_WIDTH-1:0] ctrl_lsb_blank, // Number of **Display** clock cycles to blank for
-    input wire [CTRL_REG_WIDTH-1:0] ctrl_brightness, // Number of clock cycles to subtract off lsb_blank length. Higher number is less bright
+    (* mark_debug = "true" *) input wire [CTRL_REG_WIDTH-1:0] ctrl_n_rows,
+    (* mark_debug = "true" *) input wire [CTRL_REG_WIDTH-1:0] ctrl_n_cols,
+    (* mark_debug = "true" *) input wire [CTRL_REG_WIDTH-1:0] ctrl_bitdepth,
+    (* mark_debug = "true" *) input wire [CTRL_REG_WIDTH-1:0] ctrl_lsb_blank, // Number of **Display** clock cycles to blank for
+    (* mark_debug = "true" *) input wire [CTRL_REG_WIDTH-1:0] ctrl_brightness, // Number of clock cycles to subtract off lsb_blank length. Higher number is less bright
 
 
     // BRAM interface
-    output wire mem_clk,
-    output wire mem_en,
-    output wire mem_buffer,
-    output wire [MEM_R_ADDR_WIDTH-1:0] mem_addr,
-    output wire [$clog2(BITDEPTH_MAX)-1:0] mem_bit,
-    input wire [MEM_R_DATA_WIDTH-1:0] mem_din,
+    (* mark_debug = "true" *) output wire mem_clk,
+    (* mark_debug = "true" *) output wire mem_en,
+    (* mark_debug = "true" *) output wire mem_buffer,
+    (* mark_debug = "true" *) output wire [MEM_R_ADDR_WIDTH-1:0] mem_addr,
+    (* mark_debug = "true" *) output wire [$clog2(BITDEPTH_MAX)-1:0] mem_bit,
+    (* mark_debug = "true" *) input wire [MEM_R_DATA_WIDTH-1:0] mem_din,
 
     // Display interface
-    output reg disp_clk,
-    output reg disp_blank,
-    output reg disp_latch,
-    output wire [4:0] disp_addr,
-    output wire disp_r0, disp_g0, disp_b0,
-    output wire disp_r1, disp_g1, disp_b1
+    (* mark_debug = "true" *) output reg disp_clk,
+    (* mark_debug = "true" *) output reg disp_blank,
+    (* mark_debug = "true" *) output reg disp_latch,
+    (* mark_debug = "true" *) output wire [4:0] disp_addr,
+    (* mark_debug = "true" *) output wire disp_r0, disp_g0, disp_b0,
+    (* mark_debug = "true" *) output wire disp_r1, disp_g1, disp_b1
 );
 
     (* mark_debug = "true" *) reg cnt_buffer;
@@ -86,6 +86,8 @@ module led_driver #(
     (* mark_debug = "true" *) reg [$clog2(N_ROWS_MAX)-1:0] disp_row;
     assign disp_addr = disp_row;
 
+    (* mark_debug = "true" *) reg [$clog2(BITDEPTH_MAX):0] blank_bit;
+
     initial begin
         main_state <= startup;
     end
@@ -102,6 +104,7 @@ module led_driver #(
                     cnt_row <= 0;
                     cnt_bit <= 0;
                     disp_row <= ctrl_n_rows - 1;
+                    blank_bit <= ctrl_bitdepth - 1;
 
                     disp_latch <= 1'b0;
                     blank_en <= 1'b1; // Start blanking
@@ -138,6 +141,7 @@ module led_driver #(
                         end
                     end
 
+                    blank_bit <= cnt_bit;
                 end
 
                 wait_reset: begin
@@ -237,7 +241,6 @@ module led_driver #(
 
     (* mark_debug = "true" *) reg [$clog2(BLANK_MAX):0] bright_counter; 
 
-    (* mark_debug = "true" *) reg [$clog2(BITDEPTH_MAX):0] blank_bit;
 
     // disp_blank <= 1'b0; // Display on
     // disp_blank <= 1'b1; // Display off
@@ -245,7 +248,7 @@ module led_driver #(
     // assign disp_blank = disp_blank;
 
     initial begin
-        blank_bit <= ctrl_bitdepth - 2; // Start with longest BCM bit so next pixel can be shifted in
+        // blank_bit <= ctrl_bitdepth - 2; // Start with longest BCM bit so next pixel can be shifted in
         blank_counter <= 0;
 
         bright_counter <= 0;
@@ -256,7 +259,7 @@ module led_driver #(
 
     always @(posedge clk) begin
         if (ctrl_rst) begin
-            blank_bit <= ctrl_bitdepth - 2; // Start with longest BCM bit so next pixel can be shifted in
+            // blank_bit = ctrl_bitdepth - 2; // Start with longest BCM bit so next pixel can be shifted in
             blank_counter <= 0;
 
             bright_counter <= 0;
@@ -267,6 +270,9 @@ module led_driver #(
             // Start blanking
             blank_rdy <= 1'b0;
             disp_blank <= 1'b0;
+
+            // if (blank_bit < ctrl_bitdepth - 1) blank_bit = blank_bit + 1;
+            // else blank_bit = 0;
 
             // Calculate blank_counter
             blank_counter <= 2 * (1<<blank_bit) * ctrl_lsb_blank - 1;
@@ -284,8 +290,8 @@ module led_driver #(
                 disp_blank <= 1'b1; // Display off
 
                 // Increment current bit number - WHY NOT JUST USE CNT_BIT????????
-                if (blank_bit < ctrl_bitdepth - 1) blank_bit <= blank_bit + 1;
-                else blank_bit <= 0;
+                // if (blank_bit < ctrl_bitdepth - 1) blank_bit <= blank_bit + 1;
+                // else blank_bit <= 0;
             end
         end
     end

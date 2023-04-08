@@ -292,10 +292,10 @@ module axil_interface #(
     // Make Verilator happy
     // {{{
     // Verilator lint_off UNUSED
-    wire	unused;
-    assign	unused = &{ 1'b0, S_AXI_AWPROT, S_AXI_ARPROT,
-            S_AXI_ARADDR[ADDRLSB-1:0],
-            S_AXI_AWADDR[ADDRLSB-1:0] };
+    // wire	unused;
+    // assign	unused = &{ 1'b0, S_AXI_AWPROT, S_AXI_ARPROT,
+    //         S_AXI_ARADDR[ADDRLSB-1:0],
+    //         S_AXI_AWADDR[ADDRLSB-1:0] };
     // Verilator lint_on  UNUSED
     // }}}
 

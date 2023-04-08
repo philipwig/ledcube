@@ -10,3 +10,5 @@ docs/source/_build
 *.jou
 *.mp4
 *.str
+linux/.vscode-ctags
+linux/obsidian-ledcube-linux/.obsidian
