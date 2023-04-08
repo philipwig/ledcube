@@ -1,0 +1,2 @@
+# This file is automatically written.  Do not modify.
+proc gen_USERPARAMETER_N_PIXELS_VALUE {N_ROWS_MAX N_COLS_MAX } {expr $N_ROWS_MAX * $N_COLS_MAX}
