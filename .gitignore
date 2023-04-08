@@ -1,14 +1,2 @@
-work/
-
 .vscode/
-.Xil/
-
-docs/build/*
-docs/source/_build
-
-*.log
-*.jou
-*.mp4
-*.str
-linux/.vscode-ctags
-linux/obsidian-ledcube-linux/.obsidian
+.hdl_checker/
