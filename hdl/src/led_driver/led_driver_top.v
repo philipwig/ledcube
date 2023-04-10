@@ -306,7 +306,8 @@ module led_driver_top #(
         // Write Port
         .w_clk(mem_wclk),
         .w_en(mem_wen),
-        .w_buffer(~mem_rbuffer),  // Which buffer of dual buffer to write
+        // .w_buffer(~mem_rbuffer),  // Which buffer of dual buffer to write
+        .w_buffer(ctrl_buffer),  // Which buffer of dual buffer to write
         .w_strb(mem_wstrb),
         .w_addr(mem_waddr),
         .w_din(mem_wdata),

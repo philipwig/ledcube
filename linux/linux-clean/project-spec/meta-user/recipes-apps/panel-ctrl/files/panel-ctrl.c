@@ -279,6 +279,8 @@ int main (int argc, char **argv)
 	// **********************************
 
 
+	int bright = 0;
+	int lsb_blank_len = 10;
 
 	while (1) {
 		// ctrl_base_addr[6] = 0;
@@ -288,10 +290,25 @@ int main (int argc, char **argv)
 		// fill_panel(0x000000FF);
 		// sleep(1);
 
-		ctrl_base_addr[6] = 0;
+		// ctrl_base_addr[6] = 0;
 		draw_rainbow();
-		ctrl_base_addr[6] = 1;
-		draw_rainbow();
+
+		ctrl_base_addr[4] = lsb_blank_len;
+
+		// if (bright >= 20) bright = 0;
+		// else bright++;
+		// sleep(1);
+
+		if (lsb_blank_len >= 100) lsb_blank_len = 10;
+		else lsb_blank_len += 10;
+		sleep(1);
+
+
+		// usleep(100000);
+		// sleep(1);
+
+		// ctrl_base_addr[6] = 1;
+		// draw_rainbow();
 
 
 	}

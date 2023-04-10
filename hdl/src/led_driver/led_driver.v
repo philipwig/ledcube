@@ -97,7 +97,8 @@ module led_driver #(
     // Take the value of ctrl buffer immediately
     // TODO: Make a way to sync arm cores to device
     always @(*) begin
-        cnt_buffer = ~ctrl_buffer;
+        // cnt_buffer = ~ctrl_buffer;
+        cnt_buffer = 1'b0;
     end
 
     always @(posedge clk) begin
@@ -141,11 +142,12 @@ module led_driver #(
                         cnt_bit <= 0;
 
                         // Increment row (FUTURE: implement ZIGZAG scanning)
-                        if (cnt_row < ctrl_n_rows - 1) begin
+                        if (cnt_row < ctrl_n_rows/2 - 1) begin
                             cnt_row <= cnt_row + 1;
                         end else begin
                             cnt_row <= 0;
                             // cnt_buffer <= ~ctrl_buffer;
+                            // cnt_buffer <= ~cnt_buffer;
                         end
                     end
 
