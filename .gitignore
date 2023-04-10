@@ -1,2 +1,4 @@
-.vscode/
-.hdl_checker/
+# .vscode/
+.hdl_checker
+.Xil
+vitis

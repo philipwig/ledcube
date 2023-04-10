@@ -3893,6 +3893,7 @@ CONFIG_Init-manager-sysvinit=y
 # apps 
 #
 CONFIG_lsuio=y
+CONFIG_panel-ctrl=y
 
 #
 # user packages 

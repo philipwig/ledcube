@@ -43,58 +43,81 @@ clean:
 
 # ******************************************************* Vivado Commands *******************************************************
 
-# VIVADO_PROJ_NAME = led_driver
-# VIVADO_PROJ_DIR = work
-# VIVADO_ARGS = -notrace -journal $(VIVADO_PROJ_DIR)/vivado.jou -log $(VIVADO_PROJ_DIR)/vivado.log
+VIVADO_PROJ_NAME = led_panel_driver
+VIVADO_PROJ_DIR = $(abspath hdl/work)
+
+VIVADO_IP_DIR = $(abspath hdl/src/led_driver)
+VIVADO_CONSTRAINTS_DIR = $(abspath hdl/src/constraints)
+VIVDAO_SCRIPTS_DIR = $(abspath hdl/scripts)
+VIVADO_HW_DIR = $(abspath hdl/hw-description)
+
+VIVADO_ARGS = -notrace -journal $(VIVADO_PROJ_DIR)/vivado.jou -log $(VIVADO_PROJ_DIR)/vivado.log
 
 # .PHONY: vivado-*
 
-# # Builds the project from tcl files. The project must not exist for this to succeed
-# vivado-build: scripts/block-design.tcl scripts/build-project.tcl
-# 	vivado -mode batch -source scripts/build-project.tcl $(VIVADO_ARGS) -tclargs $(VIVADO_PROJ_NAME) $(VIVADO_PROJ_DIR)
-# 	# touch vivado-build # Maybe add the possibility to track the rebuilding of the project
+# Builds the project from tcl files. The project must not exist for this to succeed
+vivado-build: $(VIVDAO_SCRIPTS_DIR)/block_design.tcl $(VIVDAO_SCRIPTS_DIR)/build_project.tcl
+	mkdir -p $(VIVADO_PROJ_DIR)
+	vivado -mode batch -source $(VIVDAO_SCRIPTS_DIR)/build_project.tcl $(VIVADO_ARGS) -tclargs $(VIVADO_PROJ_NAME) $(VIVADO_PROJ_DIR) $(VIVADO_IP_DIR) $(VIVADO_CONSTRAINTS_DIR) $(VIVDAO_SCRIPTS_DIR)
 
-# # Cleans and then rebuilds the project from tcl files
-# vivado-rebuild: scripts/block-design.tcl scripts/build-project.tcl vivado-remove vivado-build
+# Cleans and then rebuilds the project from tcl files
+vivado-rebuild: vivado-remove vivado-build
 
-# # Open the vivado project gui
-# vivado-gui:
-# 	vivado -mode gui -source $(VIVADO_ARGS) $(VIVADO_PROJ_DIR)/$(VIVADO_PROJ_NAME).xpr
+# Open the vivado project gui
+.PHONY: vivado-gui
+vivado-gui:
+	vivado -mode gui -source $(VIVADO_ARGS) $(VIVADO_PROJ_DIR)/$(VIVADO_PROJ_NAME).xpr
 
-# # Removes the project and all its files
-# vivado-remove:
-# 	rm -rf $(VIVADO_PROJ_DIR)/*
+# Generates the block diagram tcl script
+.PHONY: vivado-bd
+vivado-bd:
+	vivado -mode batch -source $(VIVDAO_SCRIPTS_DIR)/write_block_design.tcl $(VIVADO_ARGS) -tclargs $(VIVADO_PROJ_NAME) $(VIVADO_PROJ_DIR) $(VIVDAO_SCRIPTS_DIR)
 
-# # Cleans the vivado log and jou files
-# vivado-clean:
-# 	rm -f $(VIVADO_PROJ_DIR)/*.jou $(VIVADO_PROJ_DIR)/*.log
+# Generates hardware platform xsa file
+.PHONY: vivado-hw
+vivado-hw:
+	vivado -mode batch -source $(VIVDAO_SCRIPTS_DIR)/write_hw_platform.tcl $(VIVADO_ARGS) -tclargs $(VIVADO_PROJ_NAME) $(VIVADO_PROJ_DIR) $(VIVADO_HW_DIR)
 
-# # Generates the block diagram tcl script
-# vivado-bd:
-# 	vivado -mode batch -source scripts/write-block-design.tcl $(VIVADO_ARGS) -tclargs $(VIVADO_PROJ_NAME) $(VIVADO_PROJ_DIR)
+# Removes the project and all its files
+.PHONY: vivado-remove
+vivado-remove:
+	rm -rf $(VIVADO_PROJ_DIR)
+
+# Cleans the vivado log and jou files
+.PHONY: vivado-clean
+vivado-clean:
+	rm -f $(VIVADO_PROJ_DIR)/*.jou $(VIVADO_PROJ_DIR)/*.log
+
+
+
+
+vivado-non-project: $(VIVDAO_SCRIPTS_DIR)/block_design.tcl $(VIVDAO_SCRIPTS_DIR)/build_non_project.tcl
+	mkdir -p $(VIVADO_PROJ_DIR)/non_project
+	vivado -mode batch -source $(VIVDAO_SCRIPTS_DIR)/build_non_project.tcl $(VIVADO_ARGS) -tclargs $(VIVADO_PROJ_NAME) $(VIVADO_PROJ_DIR)/non_project $(VIVADO_IP_DIR) $(VIVADO_CONSTRAINTS_DIR) $(VIVDAO_SCRIPTS_DIR)
 
 
 # ****************************************************** Petalinux Commands *****************************************************
 
-# .PHONY: petalinux-*
+PETALINUX_DIR = linux/linux-clean
 
+.PHONY: petalinux-*
 
-# petalinux-build:
-# 	cd linux &&	petalinux-build
-# 	cd linux &&	petalinux-package --boot --fsbl --fpga --u-boot --force
+petalinux-build: 
+	cd $(PETALINUX_DIR); petalinux-build
+#   cd $(PETALINUX_DIR) &&	petalinux-package --boot --fsbl --fpga --u-boot --force
 
-# petalinux-clean:
-# 	cd linux &&	petalinux-build -x mrproper
+petalinux-clean:
+	cd $(PETALINUX_DIR); petalinux-build -x mrproper
 
-# petalinux-hw:
-# 	vivado -mode batch -source scripts/write-hw-platform.tcl $(VIVADO_ARGS) -tclargs $(VIVADO_PROJ_NAME) $(VIVADO_PROJ_DIR)
-# 	cd linux &&	petalinux-config --get-hw-description hw-description
+petalinux-hw: vivado-hw
+	cd $(PETALINUX_DIR); petalinux-config --get-hw-description $(VIVADO_HW_DIR)/$(VIVADO_PROJ_NAME).xsa --silentconfig
 
-# petalinux-copy:
-# 	sudo cp linux/images/linux/BOOT.BIN /media/philip/BOOT/ && sudo cp linux/images/linux/image.ub /media/philip/BOOT/ && sudo cp linux/images/linux/system.dtb /media/philip/BOOT/
-# 	sudo tar xvf linux/images/linux/rootfs.tar.gz -C /media/philip/rootfs/
+petalinux-copy:
+	sudo cp linux/images/linux/BOOT.BIN /media/philip/BOOT/ && sudo cp linux/images/linux/image.ub /media/philip/BOOT/ && sudo cp linux/images/linux/system.dtb /media/philip/BOOT/
+	sudo tar xvf linux/images/linux/rootfs.tar.gz -C /media/philip/rootfs/
 
-
+petalinux-jtag:
+	cd $(PETALINUX_DIR); petalinux-boot --jtag --kernel
 
 # ******************************************************** sled Commands ********************************************************
 
@@ -134,5 +157,7 @@ docs/docs-%:
 
 
 # ******************************************************** Other Commands *******************************************************
+.PHONY: gtkterm
 gtkterm:
-	sudo gtkterm -c snickerdoodle
+	gtkterm -p /dev/ttyACM0 -s 115200 &
+

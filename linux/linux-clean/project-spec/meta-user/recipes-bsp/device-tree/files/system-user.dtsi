@@ -103,29 +103,30 @@
 	};
 };
 
-// ******************************************
-// Example Generated AXI Entry for led driver
-// ******************************************
-// amba_pl {
-// 	#address-cells = <0x01>;
-// 	#size-cells = <0x01>;
-// 	compatible = "simple-bus";
-// 	ranges;
-// 	phandle = <0x36>;
-// 	led_driver_top@40000000 {
-// 		clock-names = "S_AXIL_ACLK\0S_AXIF_ACLK";
-// 		clocks = <0x01 0x0f 0x01 0x0f>;
-// 		compatible = "xlnx,led-driver-top-1.0";
-// 		reg = <0x40000000 0x10000 0x40010000 0x1000>;
-// 		xlnx,axil-addr-width = <0x05>;
-// 		xlnx,axil-data-width = <0x20>;
-// 		xlnx,s-axif-addr-width = <0x10>;
-// 		xlnx,s-axif-data-width = <0x20>;
-// 		xlnx,s-axif-id-width = <0x02>;
-// 		phandle = <0x37>;
-// 	};
-// };
 
-&led_driver_top_1 {
-	compatible = "generic-uio", "xlnx,led-driver-top-1.0";
+// Generated pl.dtsi from xsa file at path below
+// linux/linux-clean/components/plnx_workspace/device-tree/device-tree/pl.dtsi
+
+&amba_pl {
+
+	/delete-node/ led_driver_top@40000000;
+
+	led_driver_ctrl@40000000 {
+		clock-names = "S_AXIL_ACLK";
+		clocks = <&clkc 15>;
+		compatible = "generic-uio", "xlnx,led-driver-top-1.0";
+		reg = <0x40000000 0x2000>;
+		xlnx,axil-addr-width = <0x5>;
+		xlnx,axil-data-width = <0x20>;
+	};
+
+	led_driver_data@40010000 {
+		clock-names = "S_AXIF_ACLK";
+		clocks = <&clkc 15>;
+		compatible = "generic-uio", "xlnx,led-driver-top-1.0";
+		reg = <0x40010000 0x10000>;
+		xlnx,s-axif-addr-width = <0x10>;
+		xlnx,s-axif-data-width = <0x20>;
+		xlnx,s-axif-id-width = <0x2>;
+	};
 };

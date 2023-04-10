@@ -87,7 +87,7 @@ module axil_interface #(
         // }}}
 
         output reg [C_AXI_DATA_WIDTH-1:0] ctrl_display, ctrl_n_rows, ctrl_n_cols, ctrl_bitdepth, 
-                          ctrl_lsb_blank, ctrl_brightness
+                          ctrl_lsb_blank, ctrl_brightness, ctrl_buffer
 
     );
 
@@ -113,7 +113,7 @@ module axil_interface #(
     reg [C_AXI_DATA_WIDTH-1:0] axil_read_data;
     reg axil_read_valid;
 
-    wire [31:0] wskd_display, wskd_n_rows, wskd_n_cols, wskd_bitdepth, wskd_lsb_blank, wskd_brightness;
+    wire [31:0] wskd_display, wskd_n_rows, wskd_n_cols, wskd_bitdepth, wskd_lsb_blank, wskd_brightness, wskd_buffer;
 
     // }}}
     ////////////////////////////////////////////////////////////////////////
@@ -166,7 +166,7 @@ module axil_interface #(
             && (!S_AXI_BVALID || S_AXI_BREADY);
 
 
-    initial	axil_bvalid = 0;
+    initial axil_bvalid = 0;
     always @(posedge S_AXI_ACLK) begin
         if (i_reset)
             axil_bvalid <= 0;
@@ -176,8 +176,8 @@ module axil_interface #(
             axil_bvalid <= 0;
     end
 
-    assign	S_AXI_BVALID = axil_bvalid;
-    assign	S_AXI_BRESP = 2'b00;
+    assign S_AXI_BVALID = axil_bvalid;
+    assign S_AXI_BRESP = 2'b00;
     // }}}
 
     // Read signaling
@@ -198,11 +198,11 @@ module axil_interface #(
         .o_data(arskd_addr)
     );
 
-    assign	axil_read_ready = arskd_valid
+    assign axil_read_ready = arskd_valid
             && (!axil_read_valid || S_AXI_RREADY);
 
 
-    initial	axil_read_valid = 1'b0;
+    initial axil_read_valid = 1'b0;
     always @(posedge S_AXI_ACLK) begin
         if (i_reset)
             axil_read_valid <= 1'b0;
@@ -223,19 +223,21 @@ module axil_interface #(
     ////////////////////////////////////////////////////////////////////////
 
     // apply_wstrb(old_data, new_data, write_strobes)
-    assign	wskd_display = apply_wstrb(ctrl_display, wskd_data, wskd_strb);
-    assign	wskd_n_rows = apply_wstrb(ctrl_n_rows, wskd_data, wskd_strb);
-    assign	wskd_n_cols = apply_wstrb(ctrl_n_cols, wskd_data, wskd_strb);
-    assign	wskd_bitdepth = apply_wstrb(ctrl_bitdepth, wskd_data, wskd_strb);
-    assign	wskd_lsb_blank = apply_wstrb(ctrl_lsb_blank, wskd_data, wskd_strb);
-    assign	wskd_brightness = apply_wstrb(ctrl_brightness, wskd_data, wskd_strb);
+    assign wskd_display = apply_wstrb(ctrl_display, wskd_data, wskd_strb);
+    assign wskd_n_rows = apply_wstrb(ctrl_n_rows, wskd_data, wskd_strb);
+    assign wskd_n_cols = apply_wstrb(ctrl_n_cols, wskd_data, wskd_strb);
+    assign wskd_bitdepth = apply_wstrb(ctrl_bitdepth, wskd_data, wskd_strb);
+    assign wskd_lsb_blank = apply_wstrb(ctrl_lsb_blank, wskd_data, wskd_strb);
+    assign wskd_brightness = apply_wstrb(ctrl_brightness, wskd_data, wskd_strb);
+    assign wskd_buffer = apply_wstrb(ctrl_buffer, wskd_data, wskd_strb);
 
-    initial	ctrl_display = 32'h00000002;
-    initial	ctrl_n_rows = 64;
-    initial	ctrl_n_cols = 64;
-    initial	ctrl_bitdepth = 8;
-    initial	ctrl_lsb_blank = 20;
-    initial	ctrl_brightness = 0;
+    initial ctrl_display = 32'h00000002;
+    initial ctrl_n_rows = 64;
+    initial ctrl_n_cols = 64;
+    initial ctrl_bitdepth = 8;
+    initial ctrl_lsb_blank = 20;
+    initial ctrl_brightness = 0;
+    initial ctrl_buffer = 0;
     always @(posedge S_AXI_ACLK) begin
         if (i_reset) begin
             ctrl_display <= 32'h00000002;
@@ -246,12 +248,13 @@ module axil_interface #(
             ctrl_brightness <= 0;
         end else if (axil_write_ready) begin
             case(awskd_addr)
-                3'b000:	ctrl_display <= wskd_display;
-                3'b001:	ctrl_n_rows <= wskd_n_rows;
-                3'b010:	ctrl_n_cols <= wskd_n_cols;
-                3'b011:	ctrl_bitdepth <= wskd_bitdepth;
-                3'b100:	ctrl_lsb_blank <= wskd_lsb_blank;
-                3'b101:	ctrl_brightness <= wskd_brightness;
+                3'b000: ctrl_display <= wskd_display;
+                3'b001: ctrl_n_rows <= wskd_n_rows;
+                3'b010: ctrl_n_cols <= wskd_n_cols;
+                3'b011: ctrl_bitdepth <= wskd_bitdepth;
+                3'b100: ctrl_lsb_blank <= wskd_lsb_blank;
+                3'b101: ctrl_brightness <= wskd_brightness;
+                3'b110: ctrl_buffer <= wskd_buffer;
                 default: ;
             endcase
         end
@@ -263,12 +266,13 @@ module axil_interface #(
             axil_read_data <= 0;
         else if (!S_AXI_RVALID || S_AXI_RREADY) begin
             case(arskd_addr)
-                3'b000:	axil_read_data	<= ctrl_display;
-                3'b001:	axil_read_data	<= ctrl_n_rows;
-                3'b010:	axil_read_data	<= ctrl_n_cols;
-                3'b011:	axil_read_data	<= ctrl_bitdepth;
-                3'b100:	axil_read_data	<= ctrl_lsb_blank;
-                3'b101:	axil_read_data	<= ctrl_brightness;
+                3'b000: axil_read_data <= ctrl_display;
+                3'b001: axil_read_data <= ctrl_n_rows;
+                3'b010: axil_read_data <= ctrl_n_cols;
+                3'b011: axil_read_data <= ctrl_bitdepth;
+                3'b100: axil_read_data <= ctrl_lsb_blank;
+                3'b101: axil_read_data <= ctrl_brightness;
+                3'b110: axil_read_data <= ctrl_buffer;
                 default: ;
             endcase
 
@@ -277,12 +281,12 @@ module axil_interface #(
         end
     end
 
-    function [C_AXI_DATA_WIDTH-1:0]	apply_wstrb;
-        input	[C_AXI_DATA_WIDTH-1:0]		prior_data;
-        input	[C_AXI_DATA_WIDTH-1:0]		new_data;
-        input	[C_AXI_DATA_WIDTH/8-1:0]	wstrb;
+    function [C_AXI_DATA_WIDTH-1:0] apply_wstrb;
+        input [C_AXI_DATA_WIDTH-1:0] prior_data;
+        input [C_AXI_DATA_WIDTH-1:0] new_data;
+        input [C_AXI_DATA_WIDTH/8-1:0] wstrb;
 
-        integer	k;
+        integer k;
         for(k=0; k<C_AXI_DATA_WIDTH/8; k=k+1) begin
             apply_wstrb[k*8 +: 8] = wstrb[k] ? new_data[k*8 +: 8] : prior_data[k*8 +: 8];
         end
@@ -292,8 +296,8 @@ module axil_interface #(
     // Make Verilator happy
     // {{{
     // Verilator lint_off UNUSED
-    // wire	unused;
-    // assign	unused = &{ 1'b0, S_AXI_AWPROT, S_AXI_ARPROT,
+    // wire unused;
+    // assign unused = &{ 1'b0, S_AXI_AWPROT, S_AXI_ARPROT,
     //         S_AXI_ARADDR[ADDRLSB-1:0],
     //         S_AXI_AWADDR[ADDRLSB-1:0] };
     // Verilator lint_on  UNUSED

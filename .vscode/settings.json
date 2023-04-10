@@ -1,0 +1,26 @@
+{
+    "files.watcherExclude": {
+        "hdl/*/work/**": true,
+        "linux/*/build/**": true
+    },
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "verilog.linting.linter": "iverilog",
+    "verilog.linting.iverilog.includePath": [
+        "hdl/src/**"
+    ],
+    "verilog.linting.verilator.includePath": [
+        "hdl/src/**"
+    ],
+    "verilog.ctags.path": "/usr/bin/ctags",
+    "files.associations": {
+        "*.lwr": "yaml",
+        "*.profile": "yaml",
+        "*.ctrl": "spice",
+        "*.spice": "spice",
+        "uio_helper.h": "c",
+        "stdint.h": "c",
+        "string.h": "c",
+        "stat.h": "c",
+        "types.h": "c"
+    },
+}

@@ -1,6 +1,6 @@
 
 
-INCLUDE := ../src
+INCLUDE := ../src/led_driver
 BIN := ./bin
 TB := ./tb
 WAVES := ./waves

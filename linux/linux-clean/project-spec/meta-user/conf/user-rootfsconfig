@@ -15,3 +15,4 @@ CONFIG_wl18xx-fw
 CONFIG_wlconf
 CONFIG_wl18xx-calibrator
 CONFIG_wl18xx-target-scripts
+CONFIG_panel-ctrl

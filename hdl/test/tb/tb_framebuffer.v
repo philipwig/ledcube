@@ -5,7 +5,7 @@
 module tb_framebuffer;
     parameter N_ROWS_MAX = 64; // Total num rows on panel (64 for 64x64 panel)
     parameter N_COLS_MAX = 64*4; // Number of panels * number of cols per panel (256 for 4 64x64 panels)
-    parameter BITDEPTH_MAX = 8; // Bits per color (bpc), 8 gives 24 bits per pixel
+    parameter BITDEPTH_MAX = 10; // Bits per color (bpc), 8 gives 24 bits per pixel
 
     parameter CTRL_REG_WIDTH = 32; // Width of ctrl reg
 
@@ -20,6 +20,8 @@ module tb_framebuffer;
     reg [MEM_W_DATA_WIDTH/8-1:0] w_strb;
     reg [MEM_W_DATA_WIDTH-1:0] w_din;
 
+    reg [CTRL_REG_WIDTH-1:0] ctrl_n_rows;
+    reg [CTRL_REG_WIDTH-1:0] ctrl_n_cols;
     reg [CTRL_REG_WIDTH-1:0] ctrl_bitdepth;
 
     reg r_clk, r_en, r_buffer;
@@ -39,6 +41,8 @@ module tb_framebuffer;
         .w_addr,
         .w_strb,
         .w_din,
+        .ctrl_n_rows,
+        .ctrl_n_cols,
         .ctrl_bitdepth,
         .r_clk,
         .r_en,
@@ -65,13 +69,15 @@ module tb_framebuffer;
         // ********* Set initial values ***********
         w_clk = 1'b0;
         r_clk = 1'b0;
-        
+
         repeat (1) @(negedge w_clk);
         w_en <= 1'b0;
         w_buffer <= 1'b0;
         w_addr <= 0;
         w_strb <= 0;
         w_din <= 0;
+        ctrl_n_rows <= 64;
+        ctrl_n_cols <= 64;
         ctrl_bitdepth <= 8;
         // ****************************************
 
@@ -124,6 +130,76 @@ module tb_framebuffer;
         else $display("Result upper  failed");
         if ((result_upper == w_din)) $display("Result lower passed");
         else $display("Result lower  failed");
+        // ****************************************
+
+
+        repeat (5) @(negedge w_clk);
+        w_buffer <= 1'b1;
+
+
+        // ******** Write values into ram *********
+        // Write value to first pixel on panel
+        repeat (2) @(negedge w_clk);
+        w_en <= 1'b1;
+        w_addr <= 0;
+        w_strb <= 4'b1111;
+        w_din <= 24'hFF0022;
+
+        repeat (1) @(negedge w_clk);
+        w_en <= 1'b0;
+
+        // Write value to first pixel in bottom half
+        repeat (2) @(negedge w_clk);
+        w_en <= 1'b1;
+        w_addr <= 2048;
+        w_strb <= 4'b1111;
+        w_din <= 24'hFF0022;
+
+        repeat (1) @(negedge w_clk);
+        w_en <= 1'b0;
+        // ****************************************
+
+
+        // ******** Read values from ram **********
+        repeat (1) @(negedge w_clk);
+        r_addr <= 0;
+        r_buffer <= 1'b0;
+        r_en <= 1'b1;
+
+        for (integer i=0; i<8; i=i+1) begin
+            r_bit <= i;
+            repeat (1) @(negedge w_clk);
+            result_upper[8*2+i] <= r_dout[5];
+            result_upper[8*1+i] <= r_dout[4];
+            result_upper[8*0+i] <= r_dout[3];
+            result_lower[8*2+i] <= r_dout[2];
+            result_lower[8*1+i] <= r_dout[1];
+            result_lower[8*0+i] <= r_dout[0];
+        end
+
+        r_en <= 1'b0;
+        // ****************************************
+
+        repeat (4) @(negedge w_clk);
+
+        // ******** Read values from ram **********
+        repeat (1) @(negedge w_clk);
+        r_addr <= 0;
+        r_buffer <= 1'b1;
+        r_en <= 1'b1;
+
+        for (integer i=0; i<8; i=i+1) begin
+            r_bit <= i;
+            repeat (1) @(negedge w_clk);
+            result_upper[8*2+i] <= r_dout[5];
+            result_upper[8*1+i] <= r_dout[4];
+            result_upper[8*0+i] <= r_dout[3];
+            result_lower[8*2+i] <= r_dout[2];
+            result_lower[8*1+i] <= r_dout[1];
+            result_lower[8*0+i] <= r_dout[0];
+        end
+
+        r_en <= 1'b0;
         // ****************************************
 
 

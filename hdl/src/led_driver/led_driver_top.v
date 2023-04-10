@@ -15,7 +15,7 @@ module led_driver_top #(
     parameter BITDEPTH_MAX = 8, // Bits per color (bpc), 8 gives 24 bits per pixel, max of 10 with current axi data width
     parameter LSB_BLANK_MAX = 200,
 
-    parameter CTRL_NUM_REG = 6,
+    parameter CTRL_NUM_REG = 7,
 
     // ********** Calculated parameters **********
     parameter N_PIXELS = N_ROWS_MAX * N_COLS_MAX,
@@ -195,7 +195,8 @@ module led_driver_top #(
         .ctrl_n_cols(ctrl_n_cols),
         .ctrl_bitdepth(ctrl_bitdepth),
         .ctrl_lsb_blank(ctrl_lsb_blank),
-        .ctrl_brightness(ctrl_brightness)
+        .ctrl_brightness(ctrl_brightness),
+        .ctrl_buffer(ctrl_buffer)
     );
 
 
@@ -275,6 +276,7 @@ module led_driver_top #(
         .ctrl_bitdepth(ctrl_bitdepth),
         .ctrl_lsb_blank(ctrl_lsb_blank),
         .ctrl_brightness(ctrl_brightness),
+        .ctrl_buffer(ctrl_buffer),
 
         // BRAM interface
         .mem_clk(mem_rclk),
@@ -310,8 +312,10 @@ module led_driver_top #(
         .w_din(mem_wdata),
 
         // Read control
+        .ctrl_n_rows(ctrl_n_rows),
+        .ctrl_n_cols(ctrl_n_cols),
         .ctrl_bitdepth(ctrl_bitdepth),
-        
+
         // Read Port
         .r_clk(mem_rclk),
         .r_en(mem_ren),

@@ -1,34 +1,37 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Sun Mar 26 01:02:05 2023
+[*] Mon Apr 10 03:51:00 2023
 [*]
-[dumpfile] "/home/philip/ledcube/test/waveform.vcd"
-[dumpfile_mtime] "Sun Mar 26 00:55:57 2023"
-[dumpfile_size] 4464
-[savefile] "/home/philip/ledcube/test/savefile/tb_framebuffer.gtkw"
+[dumpfile] "/home/philip/ledcube/hdl/test/waves/tb_framebuffer.vcd"
+[dumpfile_mtime] "Mon Apr 10 03:44:33 2023"
+[dumpfile_size] 7558
+[savefile] "/home/philip/ledcube/hdl/test/config/tb_framebuffer.gtkw"
 [timestart] 0
-[size] 1425 929
-[pos] -1572 250
-*-13.618830 17560 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 2560 1355
+[pos] -1 -1
+*-13.618830 100000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_framebuffer.
 [treeopen] tb_framebuffer.dut.
 [sst_width] 233
 [signals_width] 288
 [sst_expanded] 1
-[sst_vpaned_height] 190
+[sst_vpaned_height] 537
 @200
 -Write Port
 @28
 tb_framebuffer.dut.w_clk
 tb_framebuffer.dut.w_en
 tb_framebuffer.dut.w_buffer
-@22
+@24
 tb_framebuffer.w_addr[13:0]
+@22
 tb_framebuffer.w_strb[3:0]
 tb_framebuffer.w_din[31:0]
 @200
 -
 @22
+tb_framebuffer.ctrl_n_rows[31:0]
+tb_framebuffer.ctrl_n_cols[31:0]
 tb_framebuffer.dut.ctrl_bitdepth[31:0]
 @200
 -
@@ -37,18 +40,38 @@ tb_framebuffer.dut.ctrl_bitdepth[31:0]
 tb_framebuffer.dut.r_clk
 tb_framebuffer.dut.r_en
 tb_framebuffer.dut.r_buffer
-@24
-tb_framebuffer.dut.r_bit[2:0]
+@22
+tb_framebuffer.dut.r_addr[12:0]
+tb_framebuffer.dut.r_bit[3:0]
 @28
 tb_framebuffer.dut.r_dout[5:0]
+@200
+-
+-Mem Lower
+-Data In
+@28
+tb_framebuffer.dut.mem_upper.a_en
+@24
+tb_framebuffer.dut.mem_upper.a_addr[13:0]
+@22
+tb_framebuffer.dut.mem_upper.a_we[3:0]
+tb_framebuffer.dut.mem_upper.a_din[31:0]
+@200
+-Data Out
+@28
+tb_framebuffer.dut.mem_upper.b_en
+@22
+tb_framebuffer.dut.mem_upper.b_addr[13:0]
+tb_framebuffer.dut.mem_upper.b_dout[31:0]
 @200
 -
 -Mem Upper
 -Data In
 @28
 tb_framebuffer.dut.mem_lower.a_en
-@22
+@24
 tb_framebuffer.dut.mem_lower.a_addr[13:0]
+@22
 tb_framebuffer.dut.mem_lower.a_we[3:0]
 tb_framebuffer.dut.mem_lower.a_din[31:0]
 @200
@@ -60,21 +83,13 @@ tb_framebuffer.dut.mem_lower.b_addr[13:0]
 tb_framebuffer.dut.mem_lower.b_dout[31:0]
 @200
 -
--Mem Lower
--Data In
+-Other
 @28
-tb_framebuffer.dut.mem_upper.a_en
+tb_framebuffer.dut.mem_en
 @22
-tb_framebuffer.dut.mem_upper.a_addr[13:0]
-tb_framebuffer.dut.mem_upper.a_we[3:0]
-tb_framebuffer.dut.mem_upper.a_din[31:0]
-@200
--Data Out
-@28
-tb_framebuffer.dut.mem_upper.b_en
-@22
-tb_framebuffer.dut.mem_upper.b_addr[13:0]
+tb_framebuffer.dut.r_upper_dout[31:0]
+tb_framebuffer.dut.r_lower_dout[31:0]
 @23
-tb_framebuffer.dut.mem_upper.b_dout[31:0]
+tb_framebuffer.dut.offset_addr[12:0]
 [pattern_trace] 1
 [pattern_trace] 0

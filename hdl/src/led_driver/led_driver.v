@@ -32,7 +32,7 @@ module led_driver #(
     parameter MEM_R_DATA_WIDTH = 6 // R0, G0, B0, R1, G1, G1 -> 6 total
 ) (
     input wire clk, // Global clock
-    
+
     (* mark_debug = "true" *) input wire ctrl_en, // Enable or disable module
     (* mark_debug = "true" *) input wire ctrl_rst, // Reset module
 
@@ -42,6 +42,8 @@ module led_driver #(
     (* mark_debug = "true" *) input wire [CTRL_REG_WIDTH-1:0] ctrl_bitdepth,
     (* mark_debug = "true" *) input wire [CTRL_REG_WIDTH-1:0] ctrl_lsb_blank, // Number of **Display** clock cycles to blank for
     (* mark_debug = "true" *) input wire [CTRL_REG_WIDTH-1:0] ctrl_brightness, // Number of clock cycles to subtract off lsb_blank length. Higher number is less bright
+    (* mark_debug = "true" *) input wire [CTRL_REG_WIDTH-1:0] ctrl_buffer, // Which buffer is being written to by linux
+
 
 
     // BRAM interface
@@ -82,7 +84,7 @@ module led_driver #(
         unlatch = 2,
         wait_reset = 3;
     (* mark_debug = "true" *) reg [MAIN_STATES-1:0] main_state;
-    
+
     (* mark_debug = "true" *) reg [$clog2(N_ROWS_MAX)-1:0] disp_row;
     assign disp_addr = disp_row;
 
@@ -90,6 +92,12 @@ module led_driver #(
 
     initial begin
         main_state <= startup;
+    end
+
+    // Take the value of ctrl buffer immediately
+    // TODO: Make a way to sync arm cores to device
+    always @(*) begin
+        cnt_buffer = ~ctrl_buffer;
     end
 
     always @(posedge clk) begin
@@ -100,7 +108,7 @@ module led_driver #(
                 startup: begin
                     main_state <= wait_reset;
 
-                    cnt_buffer <= 1'b0;
+                    // cnt_buffer <= ~ctrl_buffer;
                     cnt_row <= 0;
                     cnt_bit <= 0;
                     disp_row <= ctrl_n_rows - 1;
@@ -118,7 +126,7 @@ module led_driver #(
                     end
 
                 end
-                
+
                 unlatch: begin
                     main_state <= wait_reset;
 
@@ -137,7 +145,7 @@ module led_driver #(
                             cnt_row <= cnt_row + 1;
                         end else begin
                             cnt_row <= 0;
-                            cnt_buffer <= ~cnt_buffer;
+                            // cnt_buffer <= ~ctrl_buffer;
                         end
                     end
 

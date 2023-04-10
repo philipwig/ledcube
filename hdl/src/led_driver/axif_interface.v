@@ -88,14 +88,14 @@ module axif_interface #(
         //    this rule will cause this core to violate the AXI
         //    protocol standard, as this value is not registered within
         //    this core
-        output	reg o_we,
-        output	reg	[C_S_AXI_ADDR_WIDTH-LSB-1:0] o_waddr,
-        output	reg	[C_S_AXI_DATA_WIDTH-1:0] o_wdata,
-        output	reg	[C_S_AXI_DATA_WIDTH/8-1:0] o_wstrb,
+        output reg o_we,
+        output reg [C_S_AXI_ADDR_WIDTH-LSB-1:0] o_waddr,
+        output reg [C_S_AXI_DATA_WIDTH-1:0] o_wdata,
+        output reg [C_S_AXI_DATA_WIDTH/8-1:0] o_wstrb,
         //
-        output	reg o_rd,
-        output	reg	[C_S_AXI_ADDR_WIDTH-LSB-1:0] o_raddr,
-        input	wire [C_S_AXI_DATA_WIDTH-1:0] i_rdata,
+        output reg o_rd,
+        output reg [C_S_AXI_ADDR_WIDTH-LSB-1:0] o_raddr,
+        input wire [C_S_AXI_DATA_WIDTH-1:0] i_rdata,
         //
         // User ports ends
         // }}}

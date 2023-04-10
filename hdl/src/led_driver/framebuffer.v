@@ -25,16 +25,19 @@ module framebuffer #(
     parameter MEM_R_DATA_WIDTH = 6 // R0, G0, B0, R1, G1, G1 -> 6 total
 ) (
     // Write Port
-    input wire w_clk, w_en,
-    input wire w_buffer,  // Which buffer of dual buffer to write
+    input wire w_clk, 
+    (* mark_debug = "true" *) input wire w_en,
+    (* mark_debug = "true" *) input wire w_buffer,  // Which buffer of dual buffer to write
 
-    input wire [MEM_W_ADDR_WIDTH-1:0] w_addr,
-    input wire [MEM_W_DATA_WIDTH/8-1:0] w_strb,
-    input wire [MEM_W_DATA_WIDTH-1:0] w_din,
+    (* mark_debug = "true" *) input wire [MEM_W_ADDR_WIDTH-1:0] w_addr,
+    (* mark_debug = "true" *) input wire [MEM_W_DATA_WIDTH/8-1:0] w_strb,
+    (* mark_debug = "true" *) input wire [MEM_W_DATA_WIDTH-1:0] w_din,
 
     // Read control
+    input wire [CTRL_REG_WIDTH-1:0] ctrl_n_rows,
+    input wire [CTRL_REG_WIDTH-1:0] ctrl_n_cols,
     input wire [CTRL_REG_WIDTH-1:0] ctrl_bitdepth,
-    
+
     // Read Port
     input wire r_clk, r_en,
     input wire r_buffer, // Which buffer of dual buffer to read
@@ -56,7 +59,7 @@ module framebuffer #(
         Each 36Kb BRAM has 36864 cells
     **/
 
-    wire [MEM_W_DATA_WIDTH-1:0] r_upper_dout, r_lower_dout;
+    (* mark_debug = "true" *) wire [MEM_W_DATA_WIDTH-1:0] r_upper_dout, r_lower_dout;
 
     /**
         The upper and lower mem store half of the full frame.
@@ -71,13 +74,23 @@ module framebuffer #(
         When reading from framebuffer, think it is 2 64x32 arrays
     */
 
+    // wire mem_en = w_addr[$clog2(ctrl_n_rows * ctrl_n_cols)-1 +:1];
+
+    /**
+    if w_addr is top half
+        mem_en = 0
+    else if w_addr in bottom half
+        mem_en = 1
+    */
+    (* mark_debug = "true" *) wire mem_en = (w_addr < (ctrl_n_cols*ctrl_n_rows/2)) ? 1'b0 : 1'b1;
+
 
     dual_bram #(
         .ADDR_WIDTH(MEM_W_ADDR_WIDTH),
         .DATA_WIDTH(MEM_W_DATA_WIDTH)
     ) mem_upper (
         .a_clk(w_clk),
-        .a_en(~w_addr[MEM_W_ADDR_WIDTH-1] & w_en), // MSB bit of addr, invert to get enable
+        .a_en(~mem_en & w_en), // MSB bit of addr, invert to get enable
         .a_we(w_strb),
         .a_addr({w_buffer, w_addr[MEM_W_ADDR_WIDTH-2:0]}), // Rest of the bits
         .a_din(w_din),
@@ -88,14 +101,17 @@ module framebuffer #(
         .b_dout(r_upper_dout)
     );
 
+    // Offset write addr by half the panel
+    wire [MEM_W_ADDR_WIDTH-2:0] offset_addr = w_addr[MEM_W_ADDR_WIDTH-2:0] - ctrl_n_cols*ctrl_n_rows/2;
+
     dual_bram #(
         .ADDR_WIDTH(MEM_W_ADDR_WIDTH),
         .DATA_WIDTH(MEM_W_DATA_WIDTH)
     ) mem_lower (
         .a_clk(w_clk),
-        .a_en(w_addr[MEM_W_ADDR_WIDTH-1] & w_en), // MSB bit of addr, don't invert to get enable
+        .a_en(mem_en & w_en), // MSB bit of addr, don't invert to get enable
         .a_we(w_strb),
-        .a_addr({w_buffer, w_addr[MEM_W_ADDR_WIDTH-2:0]}), // Rest of the bits
+        .a_addr({w_buffer, offset_addr}), // Rest of the bits
         .a_din(w_din),
 
         .b_clk(r_clk),
@@ -103,7 +119,7 @@ module framebuffer #(
         .b_addr({r_buffer, r_addr}),
         .b_dout(r_lower_dout)
     );
-    
+
 
     assign r_dout = {
         r_upper_dout[(ctrl_bitdepth*2)+r_bit +:1], // R0
