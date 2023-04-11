@@ -1,21 +1,27 @@
-`include "led_driver.v"
+
+`ifndef DUMP_FILE_NAME
+`define DUMP_FILE_NAME "tb_led_driver.vcd"
+`endif
+
+`include "led_driver.sv"
 
 `timescale 1 ns / 10 ps
 
-module tb_led_driver;
-    parameter N_ROWS_MAX = 64; // Total num rows on panel (64 for 64x64 panel)
-    parameter N_COLS_MAX = 256; // Number of panels * number of cols per panel (256 for 4 64x64 panels)
-    parameter BITDEPTH_MAX = 8; // Bits per color (bpc), 8 gives 24 bits per pixel
-    parameter LSB_BLANK_MAX = 200;
 
-    parameter CTRL_REG_WIDTH = 32; // Width of ctrl reg
+module tb_led_driver;
+    parameter integer N_ROWS_MAX = 64; // Total num rows on panel (64 for 64x64 panel)
+    parameter integer N_COLS_MAX = 256; // Number of panels * number of cols per panel
+    parameter integer BITDEPTH_MAX = 8; // Bits per color (bpc), 8 gives 24 bits per pixel
+    parameter integer LSB_BLANK_MAX = 100;
+
+    parameter integer CTRL_REG_WIDTH = 32; // Width of ctrl reg
 
     // ******** Calculated parameters, DO NOT CHANGE ********
-    parameter MEM_R_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX) - 1; // Half of total frame width since top/bottom
-    parameter MEM_R_DATA_WIDTH = 6; // R0, G0, B0, R1, G1, G1 -> 6 total
+    parameter integer MEM_R_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX) - 1; // Half of total frame
+    parameter integer MEM_R_DATA_WIDTH = 6; // R0, G0, B0, R1, G1, G1 -> 6 total
 
     reg clk; // Global clock
-    
+
     reg ctrl_en; // Enable or disable module
     reg ctrl_rst; // Reset module
 
@@ -43,6 +49,8 @@ module tb_led_driver;
     wire disp_r0, disp_g0, disp_b0;
     wire disp_r1, disp_g1, disp_b1;
 
+    wire irq_disp_sync;
+
 
     led_driver #(
         .N_ROWS_MAX(N_ROWS_MAX),
@@ -51,7 +59,7 @@ module tb_led_driver;
         .CTRL_REG_WIDTH(CTRL_REG_WIDTH)
     ) dut (
         .clk, // Global clock
-    
+
         .ctrl_en, // Enable or disable module
         .ctrl_rst, // Reset module
 
@@ -76,13 +84,18 @@ module tb_led_driver;
         .disp_latch,
         .disp_addr,
         .disp_r0, .disp_g0, .disp_b0,
-        .disp_r1, .disp_g1, .disp_b1
+        .disp_r1, .disp_g1, .disp_b1,
+
+        .irq_disp_sync
     );
 
 
     // ******** Simulation ********
-    // localparam PERIOD = 1e9/(2*30e6); // disp_clk = 30Mhz, system clk = 60MHz
-    localparam PERIOD = 1e9/(2*25e6); // disp_clk = 25Mhz, system clk = 50MHz (fastest speed?)
+    // disp_clk = 30Mhz, system clk = 60MHz
+    // localparam PERIOD = 1e9/(2*30e6);
+
+    // disp_clk = 25Mhz, system clk = 50MHz (25MHz seems to be fastest speed)
+    localparam integer PERIOD = 1e9/(2*25e6);
 
     initial begin
         $dumpfile(`DUMP_FILE_NAME);
@@ -101,15 +114,15 @@ module tb_led_driver;
     initial begin
         // ********* Set initial values ***********
         clk = 1'b0;
-        
+
         repeat (1) @(negedge clk);
         ctrl_en <= 1'b0;
         ctrl_rst <= 1'b0;
 
-        ctrl_n_rows <= 5;
-        ctrl_n_cols <= 5;
+        ctrl_n_rows <= 20;
+        ctrl_n_cols <= 8;
         ctrl_bitdepth <= 4;
-        ctrl_lsb_blank <= 8;
+        ctrl_lsb_blank <= 6;
         ctrl_brightness <= 0; // Full brightness
 
         // ****************************************
@@ -147,23 +160,6 @@ module tb_led_driver;
         // repeat (5) @(negedge clk);
         $finish();
     end
-
-
-    // initial begin
-    //     clk = 1'b0;
-    //     forever begin
-    //         #1 clk = ~clk;
-    //     end
-    // end
-
-
-    // assign clk = clk;
-    // assign r_clk = clk;
-
-
-
-
-
 
 
 endmodule

@@ -4,3 +4,4 @@
 - [x] Set wifi stuff to be loadable kernel modules
 - [ ] check current kernel config against snickerdoodle config
 - [ ] Setup ubuntu rootfs
+- [ ] Increase AXI full clock speed (check if fclks are phase aligned)

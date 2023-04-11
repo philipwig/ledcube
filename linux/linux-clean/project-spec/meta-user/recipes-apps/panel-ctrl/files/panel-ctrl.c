@@ -42,6 +42,11 @@
 
 #include <signal.h>
 
+#include <poll.h>
+#include <time.h>
+#include <sys/time.h>
+
+
 #include "include/color.h"
 
 #define EXIT_FAILURE 1
@@ -148,15 +153,27 @@ int draw_rainbow() {
 
 
 	pos++;;
-	usleep(25000);
+	// usleep(25000);
 	return 0;
 }
+
+
+int fd_ctrl, fd_data;
+
 
 void termination_handler (int signum) {
 	if (ctrl_base_addr != NULL)
 		ctrl_base_addr[0] = 0;
 		ctrl_base_addr[0] = 2;
 		ctrl_base_addr[0] = 0;
+
+	if (fd_ctrl > 0) {
+		close(fd_ctrl);
+	}
+
+	if (fd_data > 0) {
+		close(fd_data);
+	}
 
 	printf("\nExiting program\n");
 	exit (0);
@@ -215,21 +232,21 @@ int main (int argc, char **argv)
 		p = p->next;
 	}
 
-	int fd;
+	// int fd;
 	char dev_name[16];
 
 
 
 	// ************** Map Ctrl ************
-	fd = open("/dev/uio0",O_RDWR);
-	if (fd < 0)
+	fd_ctrl = open("/dev/uio0",O_RDWR);
+	if (fd_ctrl < 0)
 		printf("ERROR: Unable to open ctrl uio");
 	else {
 		ctrl_base_addr = mmap( NULL,
 					uio_ctrl->maps[0].size,
 					PROT_READ|PROT_WRITE,
 					MAP_SHARED,
-					fd,
+					fd_ctrl,
 					0*getpagesize());
 
 		// close(fd);
@@ -241,15 +258,15 @@ int main (int argc, char **argv)
 
 
 	// ************** Map data ************
-	fd = open("/dev/uio1",O_RDWR);
-	if (fd < 0)
+	fd_data = open("/dev/uio1",O_RDWR);
+	if (fd_data < 0)
 		printf("ERROR: Unable to open data uio");
 	else {
 		data_base_addr = mmap( NULL,
 			       uio_data->maps[0].size,
 					PROT_READ|PROT_WRITE,
 			       MAP_SHARED,
-			       fd,
+			       fd_data,
 			       0*getpagesize());
 		// close(fd);	
 		printf("Opened data uio\n");
@@ -257,30 +274,44 @@ int main (int argc, char **argv)
 	// **********************************
 
 
-
 	// ************** Initialize panel ************
 	fprintf(stdout,"\nInitialize Panel\n");
-	ctrl_base_addr[0] = 2;
-	ctrl_base_addr[1] = 64;
-	ctrl_base_addr[2] = 64;
-	ctrl_base_addr[3] = 8;
-	ctrl_base_addr[4] = 20;
-	ctrl_base_addr[5] = 0;
-	ctrl_base_addr[6] = 0;
+	ctrl_base_addr[0] = 2;  // ctrl_display
+	ctrl_base_addr[1] = 64; // ctrl_n_rows
+	ctrl_base_addr[2] = 64; // ctrl_n_cols
+	ctrl_base_addr[3] = 8;  // ctrl_bitdepth
+	ctrl_base_addr[4] = 1; // ctrl_lsb_blank
+	ctrl_base_addr[5] = 0;  // ctrl_brightness
+	ctrl_base_addr[6] = 0;  // ctrl_buffer
 
 	ctrl_base_addr[0] = 1;
 
-	// *((int32_t *)(ctrl_base_addr + CONTROL_OFFSET)) = 0; // Clear control register
-	// *((int32_t *)(ctrl_base_addr + N_ROWS_OFFSET)) = 64; // Set to 64 for a 64x64 1:32 panel. It will output 2xRGB data for 32 rows
-	// *((int32_t *)(ctrl_base_addr + N_COLS_OFFSET)) = 64;
-	// *((int32_t *)(ctrl_base_addr + LSB_LENGTH_OFFSET)) = 20;
-	// *((int32_t *)(ctrl_base_addr + BRIGHTNESS_OFFSET)) = 0;
-	// *((int32_t *)(ctrl_base_addr + BUFFER_OFFSET)) = 0;
+                // 3'b000: axil_read_data <= ctrl_display;
+                // 3'b001: axil_read_data <= ctrl_n_rows;
+                // 3'b010: axil_read_data <= ctrl_n_cols;
+                // 3'b011: axil_read_data <= ctrl_bitdepth;
+                // 3'b100: axil_read_data <= ctrl_lsb_blank;
+                // 3'b101: axil_read_data <= ctrl_brightness;
+                // 3'b110: axil_read_data <= ctrl_buffer;
 	// **********************************
 
 
 	int bright = 0;
 	int lsb_blank_len = 10;
+
+	double time_spent = 0, time_waited = 0;
+	static struct timeval  tv1, tv2;
+
+	static struct timeval t1, t2;
+
+// 	clock_t begin = clock();
+
+// /****  code ****/
+
+// clock_t end = clock();
+// double time_spent = (double)(end - begin) //in microseconds
+
+	gettimeofday(&t1, NULL);
 
 	while (1) {
 		// ctrl_base_addr[6] = 0;
@@ -291,18 +322,36 @@ int main (int argc, char **argv)
 		// sleep(1);
 
 		// ctrl_base_addr[6] = 0;
-		draw_rainbow();
+		// draw_rainbow();
 
-		ctrl_base_addr[4] = lsb_blank_len;
 
 		// if (bright >= 20) bright = 0;
 		// else bright++;
 		// sleep(1);
 
-		if (lsb_blank_len >= 100) lsb_blank_len = 10;
-		else lsb_blank_len += 10;
-		sleep(1);
 
+
+
+		// gettimeofday(&t2, NULL);
+		// time_waited = (t2.tv_sec - t1.tv_sec);
+		// // printf("Waited %f us\n", time_waited);
+
+		// if (time_waited >= 1) {
+		// 	if (lsb_blank_len >= 20) lsb_blank_len = 1;
+		// 	else lsb_blank_len++;
+			
+		// 	ctrl_base_addr[4] = lsb_blank_len;
+		// 	printf("\n\n\t\t Changed LSB length \n\n");
+
+
+		// 	gettimeofday(&t1, NULL);
+		// }
+
+
+
+
+
+		// sleep(1);
 
 		// usleep(100000);
 		// sleep(1);
@@ -310,6 +359,116 @@ int main (int argc, char **argv)
 		// ctrl_base_addr[6] = 1;
 		// draw_rainbow();
 
+	/**
+	 * cat /proc/interrupts
+	 * 
+	 */
+
+
+		// uint32_t info = 1; /* unmask */
+
+        // ssize_t nb = write(fd_ctrl, &info, sizeof(info));
+        // if (nb != (ssize_t)sizeof(info)) {
+        //     perror("write");
+        //     close(fd_ctrl);
+        //     exit(EXIT_FAILURE);
+        // }
+
+        // struct pollfd fds = {
+        //     .fd = fd_ctrl,
+        //     .events = POLLIN,
+        // };
+
+
+        // int ret = poll(&fds, 1, -1);
+        // if (ret >= 1) {
+        //     nb = read(fd_ctrl, &info, sizeof(info));
+        //     if (nb == (ssize_t) sizeof(info)) {
+        //         /* Do something in response to the interrupt. */
+		// 		end = clock();
+		// 		time_spent = (double)(end - begin); //in microseconds
+        //         printf("Interrupt #%u!\n", info);
+        //         printf("Spent %f us\n", time_spent);
+        //         printf("nb: %zd\n", nb);
+		// 		begin = clock();
+        //     }
+        // } else {
+        //     perror("poll()");
+        //     close(fd_ctrl);
+        //     exit(EXIT_FAILURE);
+        // }
+
+		// uint32_t info = 1; /* unmask */
+
+        // ssize_t nb = write(fd_ctrl, &info, sizeof(info));
+        // if (nb != (ssize_t)sizeof(info)) {
+        //     perror("write");
+        //     close(fd_ctrl);
+        //     exit(EXIT_FAILURE);
+        // }
+
+        // /* Wait for interrupt */
+        // nb = read(fd_ctrl, &info, sizeof(info));
+        // if (nb == (ssize_t)sizeof(info)) {
+        //     /* Do something in response to the interrupt. */
+		// 		end = clock();
+		// 		time_spent = (double)(end - begin); //in microseconds
+		// 		begin = clock();
+		// 		// draw_rainbow();
+        //         printf("Interrupt #%u!\n", info);
+        //         printf("Spent %f us\n", time_spent);
+        //         printf("nb: %zd\n", nb);
+		// }
+
+
+		uint32_t info = 1; /* unmask */
+
+        ssize_t nb = write(fd_ctrl, &info, sizeof(info));
+        if (nb != (ssize_t)sizeof(info)) {
+            perror("write");
+            close(fd_ctrl);
+            exit(EXIT_FAILURE);
+        }
+
+        /* Wait for interrupt */
+        nb = read(fd_ctrl, &info, sizeof(info));
+        if (nb == (ssize_t)sizeof(info)) {
+            /* Do something in response to the interrupt. */
+				gettimeofday(&tv2, NULL);
+				// time_spent = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000; // + (double) (tv2.tv_sec - tv1.tv_sec);
+				time_spent = (double) (tv2.tv_usec - tv1.tv_usec); // + (double) (tv2.tv_sec - tv1.tv_sec);
+				gettimeofday(&tv1, NULL);
+				draw_rainbow();
+                // printf("Interrupt #%u!\t", info);
+                printf("Spent %f us\n", time_spent);
+		}
+
+		// gettimeofday(&tv2, NULL);
+		// // time_spent = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000; // + (double) (tv2.tv_sec - tv1.tv_sec);
+		// time_spent = (double) (tv2.tv_usec - tv1.tv_usec); // + (double) (tv2.tv_sec - tv1.tv_sec);
+		// gettimeofday(&tv1, NULL);
+		// draw_rainbow();
+		// printf("Spent %f us\n", time_spent);
+
+
+
+		// struct timeval  tv1, tv2;
+		// gettimeofday(&tv1, NULL);
+		// /* stuff to do! */
+		// gettimeofday(&tv2, NULL);
+
+		// printf ("Total time = %f seconds\n",
+		//          (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 +
+		//          (double) (tv2.tv_sec - tv1.tv_sec));
+		// draw_rainbow();
+
+
+
+		// end = clock();
+		// time_spent = (double)(end - begin); //in microseconds
+		// begin = clock();
+		// draw_rainbow();
+        // printf("Spent %f us\n", time_spent);
 
 	}
 

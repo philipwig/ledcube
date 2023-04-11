@@ -520,3 +520,5 @@ set_property PULLUP true [get_ports HUB75_1_disp_latch]
 #set_property IOSTANDARD     LVCMOS33    [get_ports {gpio3_tri_io[22]}]
 #set_property PULLUP         TRUE        [get_ports {gpio3_tri_io[22]}]
 
+
+

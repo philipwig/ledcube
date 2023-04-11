@@ -213,6 +213,12 @@ proc create_root_design { parentCell } {
 
   # Create instance: led_driver_top_0, and set properties
   set led_driver_top_0 [ create_bd_cell -type ip -vlnv user.org:user:led_driver_top:1.0 led_driver_top_0 ]
+  set_property -dict [list \
+    CONFIG.BITDEPTH_MAX {8} \
+    CONFIG.CTRL_NUM_REG {9} \
+    CONFIG.LSB_BLANK_MAX {20} \
+  ] $led_driver_top_0
+
 
   # Create instance: processing_system7_0, and set properties
   set processing_system7_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 processing_system7_0 ]
@@ -471,7 +477,7 @@ proc create_root_design { parentCell } {
     CONFIG.PCW_QSPI_GRP_SS1_ENABLE {0} \
     CONFIG.PCW_QSPI_PERIPHERAL_CLKSRC {IO PLL} \
     CONFIG.PCW_QSPI_PERIPHERAL_ENABLE {1} \
-    CONFIG.PCW_QSPI_PERIPHERAL_FREQMHZ {200.000000} \
+    CONFIG.PCW_QSPI_PERIPHERAL_FREQMHZ {200} \
     CONFIG.PCW_QSPI_QSPI_IO {MIO 1 .. 6} \
     CONFIG.PCW_SD0_GRP_CD_ENABLE {0} \
     CONFIG.PCW_SD0_GRP_POW_ENABLE {0} \
@@ -589,13 +595,14 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets axi_smc_M01_AXI] [get_bd_intf_pi
   connect_bd_intf_net -intf_net processing_system7_0_M_AXI_GP0 [get_bd_intf_pins axi_smc/S00_AXI] [get_bd_intf_pins processing_system7_0/M_AXI_GP0]
 
   # Create port connections
+  connect_bd_net -net led_driver_top_0_irq_disp_sync [get_bd_pins led_driver_top_0/irq_disp_sync] [get_bd_pins processing_system7_0/IRQ_F2P]
   connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins axi_smc/aclk] [get_bd_pins led_driver_top_0/S_AXIF_ACLK] [get_bd_pins led_driver_top_0/S_AXIL_ACLK] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins rst_ps7_0_49M/slowest_sync_clk] [get_bd_pins system_ila_0/clk]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_ps7_0_49M/ext_reset_in]
   connect_bd_net -net rst_ps7_0_49M_peripheral_aresetn [get_bd_pins axi_smc/aresetn] [get_bd_pins led_driver_top_0/S_AXIF_ARESETN] [get_bd_pins led_driver_top_0/S_AXIL_ARESETN] [get_bd_pins rst_ps7_0_49M/peripheral_aresetn] [get_bd_pins system_ila_0/resetn]
 
   # Create address segments
-  assign_bd_address -offset 0x40010000 -range 0x00010000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs led_driver_top_0/S_AXIF/reg0] -force
   assign_bd_address -offset 0x40000000 -range 0x00010000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs led_driver_top_0/S_AXIL/reg0] -force
+  assign_bd_address -offset 0x40100000 -range 0x00100000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs led_driver_top_0/S_AXIF/reg0] -force
 
 
   # Restore current instance

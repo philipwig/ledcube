@@ -115,7 +115,11 @@
 		clock-names = "S_AXIL_ACLK";
 		clocks = <&clkc 15>;
 		compatible = "generic-uio", "xlnx,led-driver-top-1.0";
-		reg = <0x40000000 0x2000>;
+		interrupt-names = "irq_disp_sync";
+		interrupt-parent = <&intc>;
+		// interrupts = <0 29 4>;
+		interrupts = <0 29 1>;
+		reg = <0x40000000 0x10000>;
 		xlnx,axil-addr-width = <0x5>;
 		xlnx,axil-data-width = <0x20>;
 	};
@@ -124,9 +128,32 @@
 		clock-names = "S_AXIF_ACLK";
 		clocks = <&clkc 15>;
 		compatible = "generic-uio", "xlnx,led-driver-top-1.0";
-		reg = <0x40010000 0x10000>;
+		reg = <0x40100000 0x100000>;
 		xlnx,s-axif-addr-width = <0x10>;
 		xlnx,s-axif-data-width = <0x20>;
-		xlnx,s-axif-id-width = <0x2>;
+		xlnx,s-axif-id-width = <0x0>;
 	};
 };
+
+
+
+	// amba_pl: amba_pl {
+	// 	#address-cells = <1>;
+	// 	#size-cells = <1>;
+	// 	compatible = "simple-bus";
+	// 	ranges ;
+	// 	led_driver_top_0: led_driver_top@40000000 {
+	// 		clock-names = "S_AXIL_ACLK", "S_AXIF_ACLK";
+	// 		clocks = <&clkc 15>, <&clkc 15>;
+	// 		compatible = "xlnx,led-driver-top-1.0";
+	// 		interrupt-names = "irq_disp_sync";
+	// 		interrupt-parent = <&intc>;
+	// 		interrupts = <0 29 4>;
+	// 		reg = <0x40000000 0x10000 0x40020000 0x20000>;
+	// 		xlnx,axil-addr-width = <0x5>;
+	// 		xlnx,axil-data-width = <0x20>;
+	// 		xlnx,s-axif-addr-width = <0x10>;
+	// 		xlnx,s-axif-data-width = <0x20>;
+	// 		xlnx,s-axif-id-width = <0x0>;
+	// 	};
+	// };

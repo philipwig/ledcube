@@ -7,17 +7,17 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "Component_Name"
   #Adding Page
   set Page_0 [ipgui::add_page $IPINST -name "Page 0"]
+  ipgui::add_param $IPINST -name "N_ROWS_MAX" -parent ${Page_0}
+  ipgui::add_param $IPINST -name "N_COLS_MAX" -parent ${Page_0}
   ipgui::add_param $IPINST -name "BITDEPTH_MAX" -parent ${Page_0}
+  ipgui::add_param $IPINST -name "LSB_BLANK_MAX" -parent ${Page_0}
+  ipgui::add_param $IPINST -name "N_PIXELS" -parent ${Page_0}
   ipgui::add_param $IPINST -name "CTRL_NUM_REG" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_AXIL_ADDR_WIDTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_AXIL_DATA_WIDTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_S_AXIF_ADDR_WIDTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_S_AXIF_DATA_WIDTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_S_AXIF_ID_WIDTH" -parent ${Page_0}
-  ipgui::add_param $IPINST -name "LSB_BLANK_MAX" -parent ${Page_0}
-  ipgui::add_param $IPINST -name "N_COLS_MAX" -parent ${Page_0}
-  ipgui::add_param $IPINST -name "N_PIXELS" -parent ${Page_0}
-  ipgui::add_param $IPINST -name "N_ROWS_MAX" -parent ${Page_0}
 
 
 }

@@ -35,7 +35,7 @@ tb_led_driver: $(WAVES)/tb_led_driver
 # 	rm -f $(BIN)/*
 # 	rm -f $(WAVES)/*
 
-$(BIN)/%.vvp: $(TB)/%.v $(INCLUDE)/*.v
+$(BIN)/%.vvp: $(TB)/%.sv $(INCLUDE)/*.sv
 	iverilog $< $(FLAGS) -D'DUMP_FILE_NAME="$(WAVES)/$(patsubst %.vvp,%.vcd,$(@F))"' -o $@ -I $(INCLUDE) 
 
 $(WAVES)/%: $(BIN)/%.vvp

@@ -1,4 +1,4 @@
-`include "framebuffer.v"
+`include "framebuffer.sv"
 
 `timescale 1 ns / 10 ps
 

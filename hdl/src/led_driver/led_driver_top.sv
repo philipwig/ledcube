@@ -1,33 +1,33 @@
 
 `default_nettype none
 
-`include "led_driver.v"
-`include "framebuffer.v"
-`include "axil_interface.v"
-`include "axif_interface.v"
+`include "led_driver.sv"
+`include "framebuffer.sv"
+`include "axil_interface.sv"
+`include "axif_interface.sv"
 
 `timescale 1 ns / 10 ps
 
 module led_driver_top #(
 
-    parameter N_ROWS_MAX = 64, // Total num rows on panel (64 for 64x64 panel)
-    parameter N_COLS_MAX = 64*4, // Number of panels * number of cols per panel (256 for 4 64x64 panels)
-    parameter BITDEPTH_MAX = 8, // Bits per color (bpc), 8 gives 24 bits per pixel, max of 10 with current axi data width
-    parameter LSB_BLANK_MAX = 200,
+    parameter integer N_ROWS_MAX = 64, // Total num rows on panel (64 for 64x64 panel)
+    parameter integer N_COLS_MAX = 64*4, // Number of panels * number of cols per panel
+    parameter integer BITDEPTH_MAX = 8, // Bits per color (bpc), 8 gives 24 bits per pixel, max 10
+    parameter integer LSB_BLANK_MAX = 20,
 
-    parameter CTRL_NUM_REG = 7,
+    parameter integer CTRL_NUM_REG = 7,
 
     // ********** Calculated parameters **********
-    parameter N_PIXELS = N_ROWS_MAX * N_COLS_MAX,
+    parameter integer N_PIXELS = N_ROWS_MAX * N_COLS_MAX,
 
     // AXI Lite Parameters
-    parameter C_AXIL_ADDR_WIDTH = $clog2(CTRL_NUM_REG) + 2, // plus two because byte addressed
-    parameter C_AXIL_DATA_WIDTH = 32,
+    parameter integer C_AXIL_ADDR_WIDTH = $clog2(CTRL_NUM_REG) + 2, // plus two for byte addressed
+    parameter integer C_AXIL_DATA_WIDTH = 32,
 
     // AXI Full Parameters
-    parameter C_S_AXIF_ID_WIDTH = 2,
-    parameter C_S_AXIF_DATA_WIDTH = 32, // Can do max of 10 bpc
-    parameter C_S_AXIF_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX) + 2 // plus two because byte addressed
+    parameter integer C_S_AXIF_ID_WIDTH = 2,
+    parameter integer C_S_AXIF_DATA_WIDTH = 32, // Can do max of 10 bpc
+    parameter integer C_S_AXIF_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX) + 2 // plus two for byte addressed
 
 ) (
 
@@ -57,8 +57,8 @@ module led_driver_top #(
 
     output wire S_AXIL_RVALID,
     input wire S_AXIL_RREADY,
-    output wire	[C_AXIL_DATA_WIDTH-1:0] S_AXIL_RDATA,
-    output wire	[1:0] S_AXIL_RRESP,
+    output wire [C_AXIL_DATA_WIDTH-1:0] S_AXIL_RDATA,
+    output wire [1:0] S_AXIL_RRESP,
     // }}}
 
 
@@ -118,28 +118,31 @@ module led_driver_top #(
     output wire disp_latch,
     output wire [4:0] disp_addr,
     output wire disp_r0, disp_g0, disp_b0,
-    output wire disp_r1, disp_g1, disp_b1
+    output wire disp_r1, disp_g1, disp_b1,
+
+    output wire irq_disp_sync
     // }}}
 );
     // ************ Calculated parameters ************
     // Write port parameters
-    localparam MEM_W_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX);
-    localparam MEM_W_DATA_WIDTH = C_S_AXIF_DATA_WIDTH; // Full number of bits per pixel, needs to be multiple of 8
+    localparam integer MEM_W_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX);
+    localparam integer MEM_W_DATA_WIDTH = C_S_AXIF_DATA_WIDTH; // Full number of bits per pixel, needs to be multiple of 8
 
     // Read port parameters
-    localparam MEM_R_ADDR_WIDTH = MEM_W_ADDR_WIDTH - 1; // Half of total frame width since top/bottom
-    localparam MEM_R_DATA_WIDTH = 6; // R0, G0, B0, R1, G1, G1 -> 6 total
+    localparam integer MEM_R_ADDR_WIDTH = MEM_W_ADDR_WIDTH - 1; // Half of total frame width since top/bottom
+    localparam integer MEM_R_DATA_WIDTH = 6; // R0, G0, B0, R1, G1, G1 -> 6 total
     // ***********************************************
 
 
     // ************** Connecting Wires ***************
     wire clk, ctrl_en, ctrl_rst;
-    wire [C_AXIL_DATA_WIDTH-1:0] ctrl_display, ctrl_n_rows, ctrl_n_cols, ctrl_bitdepth, ctrl_lsb_blank, ctrl_brightness;
+    wire [C_AXIL_DATA_WIDTH-1:0] ctrl_display, ctrl_n_rows, ctrl_n_cols,ctrl_bitdepth, ctrl_lsb_blank, ctrl_brightness;
 
     wire mem_wclk, mem_wen;
     wire [MEM_W_ADDR_WIDTH-1:0] mem_waddr;
     wire [MEM_W_DATA_WIDTH/8-1:0] mem_wstrb;
-    wire [MEM_W_DATA_WIDTH-1:0] mem_wdata;
+    wire [MEM_W_DATA_WIDTH-1:0] mem_wdin;
+    wire [MEM_W_DATA_WIDTH-1:0] mem_wdout;
 
     wire mem_rclk, mem_ren, mem_rbuffer;
     wire [MEM_R_ADDR_WIDTH-1:0] mem_raddr;
@@ -247,11 +250,11 @@ module led_driver_top #(
 
         .o_we(mem_wen),
         .o_waddr(mem_waddr),
-        .o_wdata(mem_wdata),
-        .o_wstrb(mem_wstrb),
-        .o_rd(1'b0),
-        .o_raddr(0),
-        .i_rdata(0)
+        .o_wdata(mem_wdin),
+        .o_wstrb(mem_wstrb)
+        // .o_rd(mem_wen),
+        // .o_raddr(mem_waddr),
+        // .i_rdata(mem_wdout)
     );
 
 
@@ -264,7 +267,7 @@ module led_driver_top #(
         .CTRL_REG_WIDTH(C_AXIL_DATA_WIDTH) // Width of ctrl reg
     ) driver (
         .clk(clk), // Global clock
-        
+
         .ctrl_en(ctrl_en), // Enable or disable module
         .ctrl_rst(ctrl_rst), // Reset module
         // .ctrl_en(1'b1), // Enable or disable module
@@ -292,7 +295,9 @@ module led_driver_top #(
         .disp_latch(disp_latch),
         .disp_addr(disp_addr),
         .disp_r0(disp_r0), .disp_g0(disp_g0), .disp_b0(disp_b0),
-        .disp_r1(disp_r1), .disp_g1(disp_g1), .disp_b1(disp_b1)
+        .disp_r1(disp_r1), .disp_g1(disp_g1), .disp_b1(disp_b1),
+
+        .irq_disp_sync(irq_disp_sync)
     );
 
 
@@ -310,7 +315,8 @@ module led_driver_top #(
         .w_buffer(ctrl_buffer),  // Which buffer of dual buffer to write
         .w_strb(mem_wstrb),
         .w_addr(mem_waddr),
-        .w_din(mem_wdata),
+        .w_din(mem_wdin),
+        .w_dout(mem_wdout),
 
         // Read control
         .ctrl_n_rows(ctrl_n_rows),

@@ -20,16 +20,16 @@
 
 `default_nettype none
 module led_driver #(
-    parameter N_ROWS_MAX = 64, // Total num rows on panel (64 for 64x64 panel)
-    parameter N_COLS_MAX = 256, // Number of panels * number of cols per panel (256 for 4 64x64 panels)
-    parameter BITDEPTH_MAX = 8, // Bits per color (bpc), 8 gives 24 bits per pixel
-    parameter LSB_BLANK_MAX = 200,
+    parameter integer N_ROWS_MAX = 64, // Total num rows on panel (64 for 64x64 panel)
+    parameter integer N_COLS_MAX = 256, // Number of panels * number of cols per panel (256 for 4 64x64 panels)
+    parameter integer BITDEPTH_MAX = 8, // Bits per color (bpc), 8 gives 24 bits per pixel
+    parameter integer LSB_BLANK_MAX = 200,
 
-    parameter CTRL_REG_WIDTH = 32, // Width of ctrl reg
-    
+    parameter integer CTRL_REG_WIDTH = 32, // Width of ctrl reg
+
     // ********** Calculated parameters **********
-    parameter MEM_R_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX) - 1, // Half of total frame width since top/bottom
-    parameter MEM_R_DATA_WIDTH = 6 // R0, G0, B0, R1, G1, G1 -> 6 total
+    parameter integer MEM_R_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX) - 1, // Half of total frame width since top/bottom
+    parameter integer MEM_R_DATA_WIDTH = 6 // R0, G0, B0, R1, G1, G1 -> 6 total
 ) (
     input wire clk, // Global clock
 
@@ -44,8 +44,6 @@ module led_driver #(
     (* mark_debug = "true" *) input wire [CTRL_REG_WIDTH-1:0] ctrl_brightness, // Number of clock cycles to subtract off lsb_blank length. Higher number is less bright
     (* mark_debug = "true" *) input wire [CTRL_REG_WIDTH-1:0] ctrl_buffer, // Which buffer is being written to by linux
 
-
-
     // BRAM interface
     (* mark_debug = "true" *) output wire mem_clk,
     (* mark_debug = "true" *) output wire mem_en,
@@ -54,13 +52,18 @@ module led_driver #(
     (* mark_debug = "true" *) output wire [$clog2(BITDEPTH_MAX)-1:0] mem_bit,
     (* mark_debug = "true" *) input wire [MEM_R_DATA_WIDTH-1:0] mem_din,
 
+
     // Display interface
     (* mark_debug = "true" *) output reg disp_clk,
     (* mark_debug = "true" *) output reg disp_blank,
     (* mark_debug = "true" *) output reg disp_latch,
     (* mark_debug = "true" *) output wire [4:0] disp_addr,
     (* mark_debug = "true" *) output wire disp_r0, disp_g0, disp_b0,
-    (* mark_debug = "true" *) output wire disp_r1, disp_g1, disp_b1
+    (* mark_debug = "true" *) output wire disp_r1, disp_g1, disp_b1,
+
+    // Display sync interrupt
+    (* mark_debug = "true" *) output reg irq_disp_sync
+
 );
 
     (* mark_debug = "true" *) reg cnt_buffer;
@@ -118,6 +121,8 @@ module led_driver #(
                     disp_latch <= 1'b0;
                     blank_en <= 1'b1; // Start blanking
                     bcm_en <= 1'b1; // Start bcm shifting
+
+                    irq_disp_sync <= 1'b0;
                 end
 
                 idle: begin
@@ -145,6 +150,8 @@ module led_driver #(
                         if (cnt_row < ctrl_n_rows/2 - 1) begin
                             cnt_row <= cnt_row + 1;
                         end else begin
+                            // Flip buffers and start scanning new panel
+                            irq_disp_sync <= 1'b1;
                             cnt_row <= 0;
                             // cnt_buffer <= ~ctrl_buffer;
                             // cnt_buffer <= ~cnt_buffer;
@@ -155,6 +162,8 @@ module led_driver #(
                 end
 
                 wait_reset: begin
+                    irq_disp_sync <= 1'b0;
+
                     if (!blank_rdy && !bcm_rdy) begin
                         main_state <= idle;
 
@@ -246,7 +255,7 @@ module led_driver #(
     // ************
     // * Blanking *
     // ************
-    localparam BLANK_MAX = 2 * (2**(BITDEPTH_MAX-1)) * LSB_BLANK_MAX;
+    localparam integer BLANK_MAX = 2 * (2**(BITDEPTH_MAX-1)) * LSB_BLANK_MAX;
     (* mark_debug = "true" *) reg [$clog2(BLANK_MAX):0] blank_counter;
 
     (* mark_debug = "true" *) reg [$clog2(BLANK_MAX):0] bright_counter; 

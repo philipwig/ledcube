@@ -61,7 +61,7 @@ vivado-build: $(VIVDAO_SCRIPTS_DIR)/block_design.tcl $(VIVDAO_SCRIPTS_DIR)/build
 	vivado -mode batch -source $(VIVDAO_SCRIPTS_DIR)/build_project.tcl $(VIVADO_ARGS) -tclargs $(VIVADO_PROJ_NAME) $(VIVADO_PROJ_DIR) $(VIVADO_IP_DIR) $(VIVADO_CONSTRAINTS_DIR) $(VIVDAO_SCRIPTS_DIR)
 
 # Cleans and then rebuilds the project from tcl files
-vivado-rebuild: vivado-remove vivado-build
+vivado-rebuild: vivado-remove vivado-build vivado-hw
 
 # Open the vivado project gui
 .PHONY: vivado-gui
@@ -131,6 +131,27 @@ petalinux-jtag:
 # .PHONY: sled-clean
 # sled-clean: sled/sled-clean
 
+# sled/sled-%:
+# 	$(MAKE) $(subst sled/sled-,,$@) -C sled $(SLED_ARGS)
+
+# sled-copy:
+# 	sudo cp sled/sled /media/philip/rootfs/home/root/sled
+# 	sudo cp -r sled/modules /media/philip/rootfs/home/root/modules
+
+
+
+# ******************************************************** panel ctrl Commands ********************************************************
+
+ZYNQ_CC = arm-linux-gnueabihf-gcc
+PANEL_CTRL_ARGS = CC=$(ZYNQ_CC)
+
+.PHONY: panel-ctrl
+panel-ctrl:
+	cd linux/linux-clean/project-spec/meta-user/recipes-apps/panel-ctrl/files; $(MAKE) $(PANEL_CTRL_ARGS)
+
+.PHONY: panel-ctrl-copy
+panel-ctrl-copy: panel-ctrl
+	cd linux/linux-clean/project-spec/meta-user/recipes-apps/panel-ctrl/files; scp panel-ctrl ledcube@10.42.0.251:.
 # sled/sled-%:
 # 	$(MAKE) $(subst sled/sled-,,$@) -C sled $(SLED_ARGS)
 

@@ -2,36 +2,37 @@
 
 // File: framebuffer.v
 
-// `default_nettype none
+`default_nettype none
 
-`include "dual_bram.v"
+`include "dual_bram.sv"
 
 `timescale 1 ns / 10 ps
 
 module framebuffer #(
-    parameter N_ROWS_MAX = 64, // Total num rows on panel (64 for 64x64 panel)
-    parameter N_COLS_MAX = 64*4, // Number of panels * number of cols per panel (256 for 4 64x64 panels)
-    parameter BITDEPTH_MAX = 8, // Bits per color (bpc), 8 gives 24 bits per pixel
-    
-    parameter CTRL_REG_WIDTH = 32, // Width of ctrl reg
+    parameter integer N_ROWS_MAX = 64, // Total num rows on panel (64 for 64x64 panel)
+    parameter integer N_COLS_MAX = 64*4, // Number of panels * number of cols per panel
+    parameter integer BITDEPTH_MAX = 8, // Bits per color (bpc), 8 gives 24 bits per pixel
+
+    parameter integer CTRL_REG_WIDTH = 32, // Width of ctrl reg
 
     // ********** Calculated parameters **********
     // Write port parameters
-    parameter MEM_W_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX),
-    parameter MEM_W_DATA_WIDTH = 32, // Full number of bits per pixel, needs to be multiple of 8
+    parameter integer MEM_W_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX),
+    parameter integer MEM_W_DATA_WIDTH = 32, // Full number of bits per pixel, multiple of 8
 
     // Read port parameters
-    parameter MEM_R_ADDR_WIDTH = MEM_W_ADDR_WIDTH - 1, // Half of total frame width since top/bottom
-    parameter MEM_R_DATA_WIDTH = 6 // R0, G0, B0, R1, G1, G1 -> 6 total
+    parameter integer MEM_R_ADDR_WIDTH = MEM_W_ADDR_WIDTH - 1, // Half of total frame
+    parameter integer MEM_R_DATA_WIDTH = 6 // R0, G0, B0, R1, G1, G1 -> 6 total
 ) (
     // Write Port
-    input wire w_clk, 
+    input wire w_clk,
     (* mark_debug = "true" *) input wire w_en,
     (* mark_debug = "true" *) input wire w_buffer,  // Which buffer of dual buffer to write
 
     (* mark_debug = "true" *) input wire [MEM_W_ADDR_WIDTH-1:0] w_addr,
     (* mark_debug = "true" *) input wire [MEM_W_DATA_WIDTH/8-1:0] w_strb,
     (* mark_debug = "true" *) input wire [MEM_W_DATA_WIDTH-1:0] w_din,
+    (* mark_debug = "true" *) output wire [MEM_W_DATA_WIDTH-1:0] w_dout,
 
     // Read control
     input wire [CTRL_REG_WIDTH-1:0] ctrl_n_rows,
@@ -84,6 +85,8 @@ module framebuffer #(
     */
     (* mark_debug = "true" *) wire mem_en = (w_addr < (ctrl_n_cols*ctrl_n_rows/2)) ? 1'b0 : 1'b1;
 
+    wire [MEM_W_DATA_WIDTH-1:0] a_dout, b_dout;
+    assign w_dout = mem_en ? a_dout : b_dout;
 
     dual_bram #(
         .ADDR_WIDTH(MEM_W_ADDR_WIDTH),
@@ -94,6 +97,7 @@ module framebuffer #(
         .a_we(w_strb),
         .a_addr({w_buffer, w_addr[MEM_W_ADDR_WIDTH-2:0]}), // Rest of the bits
         .a_din(w_din),
+        .a_dout(a_dout),
 
         .b_clk(r_clk),
         .b_en(r_en),
@@ -113,6 +117,7 @@ module framebuffer #(
         .a_we(w_strb),
         .a_addr({w_buffer, offset_addr}), // Rest of the bits
         .a_din(w_din),
+        .a_dout(b_dout),
 
         .b_clk(r_clk),
         .b_en(r_en),
@@ -131,21 +136,5 @@ module framebuffer #(
         r_lower_dout[(ctrl_bitdepth*0)+r_bit +:1]  // B1
     };
 
-    // // Read Port
-    // always @(posedge r_clk) begin
-    //     // if (r_en) begin
-    //         // index = ((ctrl_bitdepth*2)+r_bit + 1) - 1
-    //         r_dout <= {
-    //             r_upper_dout[(ctrl_bitdepth*2)+r_bit +:1], // R0
-    //             r_upper_dout[(ctrl_bitdepth*1)+r_bit +:1], // G0
-    //             r_upper_dout[(ctrl_bitdepth*0)+r_bit +:1], // B0
-
-    //             r_lower_dout[(ctrl_bitdepth*2)+r_bit +:1], // R1
-    //             r_lower_dout[(ctrl_bitdepth*1)+r_bit +:1], // G1
-    //             r_lower_dout[(ctrl_bitdepth*0)+r_bit +:1]  // B1
-    //         };
-    //     // end
-    // end
-    
 
 endmodule

@@ -41,11 +41,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 
-`include "axi_addr.v"
-`include "skidbuffer.v"
+`include "axi_addr.sv"
+`include "skidbuffer.sv"
 
 
-`default_nettype	none
+`default_nettype none
 // }}}
 module axif_interface #(
         // {{{

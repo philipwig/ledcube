@@ -6,7 +6,7 @@
     "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
     "verilog.linting.linter": "iverilog",
     "verilog.linting.iverilog.includePath": [
-        "hdl/src/**"
+        "${workspaceRoot}/hdl/src/led_driver"
     ],
     "verilog.linting.verilator.includePath": [
         "hdl/src/**"
@@ -23,4 +23,7 @@
         "stat.h": "c",
         "types.h": "c"
     },
+    "verilog.languageServer.veribleVerilogLs.enabled": true,
+    "verilog.formatting.veribleVerilogFormatter.arguments": "",
+    "verilog.languageServer.veribleVerilogLs.path": "verible-verilog-ls",
 }
