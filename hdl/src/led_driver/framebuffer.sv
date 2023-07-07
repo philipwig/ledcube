@@ -83,10 +83,16 @@ module framebuffer #(
     else if w_addr in bottom half
         mem_en = 1
     */
-    (* mark_debug = "true" *) wire mem_en = (w_addr < (ctrl_n_cols*ctrl_n_rows/2)) ? 1'b0 : 1'b1;
+    (* mark_debug = "true" *) wire mem_en = (w_addr < (ctrl_n_cols*ctrl_n_rows / 2)) ? 1'b0 : 1'b1;
 
     wire [MEM_W_DATA_WIDTH-1:0] a_dout, b_dout;
     assign w_dout = mem_en ? a_dout : b_dout;
+
+
+    // Offset write addr by half the panel
+    wire [MEM_W_ADDR_WIDTH-2:0] upper_addr = w_addr[MEM_W_ADDR_WIDTH-2:0];
+    wire [MEM_W_ADDR_WIDTH-2:0] offset_addr = w_addr[MEM_W_ADDR_WIDTH-2:0] - (ctrl_n_cols*ctrl_n_rows / 2);
+
 
     dual_bram #(
         .ADDR_WIDTH(MEM_W_ADDR_WIDTH),
@@ -95,7 +101,7 @@ module framebuffer #(
         .a_clk(w_clk),
         .a_en(~mem_en & w_en), // MSB bit of addr, invert to get enable
         .a_we(w_strb),
-        .a_addr({w_buffer, w_addr[MEM_W_ADDR_WIDTH-2:0]}), // Rest of the bits
+        .a_addr({w_buffer, upper_addr}), // Rest of the bits
         .a_din(w_din),
         .a_dout(a_dout),
 
@@ -104,9 +110,6 @@ module framebuffer #(
         .b_addr({r_buffer, r_addr}),
         .b_dout(r_upper_dout)
     );
-
-    // Offset write addr by half the panel
-    wire [MEM_W_ADDR_WIDTH-2:0] offset_addr = w_addr[MEM_W_ADDR_WIDTH-2:0] - ctrl_n_cols*ctrl_n_rows/2;
 
     dual_bram #(
         .ADDR_WIDTH(MEM_W_ADDR_WIDTH),

@@ -121,12 +121,17 @@ petalinux-jtag:
 
 # ******************************************************** sled Commands ********************************************************
 
-# ZYNQ_CC = arm-linux-gnueabihf-gcc
-# OUTMOD = zynq
-# SLED_ARGS = CC=$(ZYNQ_CC) DEFAULT_OUTMOD=$(OUTMOD) MARCH=
+ZYNQ_CC = arm-linux-gnueabihf-gcc
+OUTMOD = dummy
+SLED_ARGS = CC=$(ZYNQ_CC) DEFAULT_OUTMOD=$(OUTMOD)
 
-# .PHONY: sled
-# sled: sled/sled-all
+.PHONY: sled
+sled:
+	cd linux/linux-clean/project-spec/meta-user/recipes-apps/sled/files; $(MAKE) -j12 $(SLED_ARGS)
+
+.PHONY: sled-copy
+sled-copy: sled
+	cd linux/linux-clean/project-spec/meta-user/recipes-apps/sled/files; scp -r modules sled sledconf ledcube@10.42.0.251:~
 
 # .PHONY: sled-clean
 # sled-clean: sled/sled-clean
@@ -158,6 +163,7 @@ panel-ctrl-copy: panel-ctrl
 # sled-copy:
 # 	sudo cp sled/sled /media/philip/rootfs/home/root/sled
 # 	sudo cp -r sled/modules /media/philip/rootfs/home/root/modules
+
 
 
 

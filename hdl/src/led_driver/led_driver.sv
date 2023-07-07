@@ -16,6 +16,9 @@
 
 */
 
+
+`define ZIGZAG
+
 `timescale 1 ns / 10 ps
 
 `default_nettype none
@@ -68,7 +71,7 @@ module led_driver #(
 
     (* mark_debug = "true" *) reg cnt_buffer;
     (* mark_debug = "true" *) reg [$clog2(N_COLS_MAX)-1:0] cnt_col;
-    (* mark_debug = "true" *) reg [$clog2(N_ROWS_MAX)-1:0] cnt_row;
+    (* mark_debug = "true" *) reg [$clog2(N_ROWS_MAX/2)-1:0] cnt_row;
     (* mark_debug = "true" *) reg [$clog2(BITDEPTH_MAX)-1:0] cnt_bit;
 
 
@@ -88,10 +91,13 @@ module led_driver #(
         wait_reset = 3;
     (* mark_debug = "true" *) reg [MAIN_STATES-1:0] main_state;
 
-    (* mark_debug = "true" *) reg [$clog2(N_ROWS_MAX)-1:0] disp_row;
+    (* mark_debug = "true" *) reg [$clog2(N_ROWS_MAX/2)-1:0] disp_row;
     assign disp_addr = disp_row;
 
     (* mark_debug = "true" *) reg [$clog2(BITDEPTH_MAX):0] blank_bit;
+
+    (* mark_debug = "true" *) reg [$clog2(N_ROWS_MAX/2)-1:0] zig_row;
+
 
     initial begin
         main_state <= startup;
@@ -114,6 +120,7 @@ module led_driver #(
 
                     // cnt_buffer <= ~ctrl_buffer;
                     cnt_row <= 0;
+                    zig_row = 0;
                     cnt_bit <= 0;
                     disp_row <= ctrl_n_rows - 1;
                     blank_bit <= ctrl_bitdepth - 1;
@@ -146,6 +153,69 @@ module led_driver #(
                     end else begin
                         cnt_bit <= 0;
 
+                        `ifdef ZIGZAG
+                        if (zig_row < ctrl_n_rows/2 - 1) begin
+
+                            zig_row = zig_row + 1;
+
+                            if (~zig_row[0]) begin// Even
+                                cnt_row <= zig_row/2;
+                            end else begin
+                                cnt_row <= ctrl_n_rows/2 - zig_row/2 - 1;
+                            end
+
+
+
+                            // row <= ~(row + {LOG_N_ROWS{row[LOG_N_ROWS-1]}});
+                            /**
+
+
+                            if cnt even
+                                cnt_row = cnt / 2   // use bitshift
+                                cnt_row = cnt >> 1;
+                            if cnt odd
+                                cnt_row = ctrl_n_rows >> 1 - cnt >> 1 - 1;
+                                cnt_row = ctrl_n_rows / 2 - 1 - cnt / 2;
+                                cnt_row = 15 - cnt/2;
+
+                            cnt = cnt + 1;
+
+
+                            cnt_row = 0; cnt = 0;
+                            cnt_row = 15; cnt = 1;
+                            cnt_row = 1; cnt = 2;
+                            cnt_row = 14; cnt = 3;
+                            cnt_row = 2; cnt = 4;
+
+                            cnt_row = 13; cnt = 5;
+                            cnt_row = 3; cnt = 6;
+                            cnt_row = 12; cnt = 7;
+                            cnt_row = 4; cnt = 8;
+
+                            cnt_row = 11; cnt = 9;
+                            cnt_row = 5; cnt = 10;
+                            cnt_row = 10; cnt = 11;
+                            cnt_row = 6; cnt = 12;
+                            cnt_row = 9; cnt = 13;
+                            cnt_row = 7; cnt = 14;
+                            cnt_row = 8; cnt = 15;
+
+                            cnt_row + 1;
+
+                            if cnt_row odd
+                                cnt_row = ctrl_n_row/2 - cnt;
+                            else
+                                cnt_row = cnt
+                            */
+                        end else begin
+                            // Flip buffers and start scanning new panel
+                            irq_disp_sync <= 1'b1;
+                            cnt_row <= 0;
+                            zig_row = 0;
+                            // cnt_buffer <= ~ctrl_buffer;
+                            // cnt_buffer <= ~cnt_buffer;
+                        end
+                        `else
                         // Increment row (FUTURE: implement ZIGZAG scanning)
                         if (cnt_row < ctrl_n_rows/2 - 1) begin
                             cnt_row <= cnt_row + 1;
@@ -156,6 +226,7 @@ module led_driver #(
                             // cnt_buffer <= ~ctrl_buffer;
                             // cnt_buffer <= ~cnt_buffer;
                         end
+                        `endif
                     end
 
                     blank_bit <= cnt_bit;

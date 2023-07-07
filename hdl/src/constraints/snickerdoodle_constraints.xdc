@@ -522,3 +522,4 @@ set_property PULLUP true [get_ports HUB75_1_disp_latch]
 
 
 
+

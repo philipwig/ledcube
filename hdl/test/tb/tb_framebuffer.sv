@@ -1,19 +1,25 @@
+
+
+`ifndef DUMP_FILE_NAME
+`define DUMP_FILE_NAME "tb_led_driver.vcd"
+`endif
+
 `include "framebuffer.sv"
 
 `timescale 1 ns / 10 ps
 
 module tb_framebuffer;
-    parameter N_ROWS_MAX = 64; // Total num rows on panel (64 for 64x64 panel)
-    parameter N_COLS_MAX = 64*4; // Number of panels * number of cols per panel (256 for 4 64x64 panels)
-    parameter BITDEPTH_MAX = 10; // Bits per color (bpc), 8 gives 24 bits per pixel
+    parameter integer N_ROWS_MAX = 64; // Total num rows on panel (64 for 64x64 panel)
+    parameter integer N_COLS_MAX = 64*4; // Number of panels * number of cols per panel (256 for 4 64x64 panels)
+    parameter integer BITDEPTH_MAX = 10; // Bits per color (bpc), 8 gives 24 bits per pixel
 
-    parameter CTRL_REG_WIDTH = 32; // Width of ctrl reg
+    parameter integer CTRL_REG_WIDTH = 32; // Width of ctrl reg
 
     // ******** Calculated parameters, DO NOT CHANGE ********
-    parameter MEM_W_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX); // Full panel size
-    parameter MEM_W_DATA_WIDTH = 32; // Full number of bits per pixel
-    parameter MEM_R_ADDR_WIDTH = MEM_W_ADDR_WIDTH - 1; // Half of total frame width since top/bottom
-    parameter MEM_R_DATA_WIDTH = 6; // R0, G0, B0, R1, G1, G1 -> 6 total
+    parameter integer MEM_W_ADDR_WIDTH = $clog2(N_ROWS_MAX * N_COLS_MAX); // Full panel size
+    parameter integer MEM_W_DATA_WIDTH = 32; // Full number of bits per pixel
+    parameter integer MEM_R_ADDR_WIDTH = MEM_W_ADDR_WIDTH - 1; // Half of total frame width since top/bottom
+    parameter integer MEM_R_DATA_WIDTH = 6; // R0, G0, B0, R1, G1, G1 -> 6 total
 
     reg w_clk, w_en, w_buffer;
     reg [MEM_W_ADDR_WIDTH-1:0] w_addr;
@@ -28,7 +34,7 @@ module tb_framebuffer;
     reg [MEM_R_ADDR_WIDTH-1:0] r_addr;
     reg [$clog2(BITDEPTH_MAX)-1:0] r_bit;
     wire [MEM_R_DATA_WIDTH-1:0] r_dout;
-    
+
     framebuffer #(
         .N_ROWS_MAX(N_ROWS_MAX),
         .N_COLS_MAX(N_COLS_MAX),
@@ -53,7 +59,7 @@ module tb_framebuffer;
     );
 
     // ******** Simulation ********
-    localparam PERIOD = 2;
+    localparam integer PERIOD = 2;
 
     reg [MEM_W_DATA_WIDTH-1:0] result_upper, result_lower;
 
@@ -202,8 +208,103 @@ module tb_framebuffer;
         r_en <= 1'b0;
         // ****************************************
 
+        repeat (20) @(negedge w_clk);
 
-        // repeat (5) @(negedge w_clk);
+
+
+
+
+
+        w_buffer <= 1'b0;
+        r_buffer <= 1'b0;
+
+
+
+
+        // ******** Write values into ram *********
+        // Write value to first pixel on panel
+        repeat (2) @(negedge w_clk);
+        w_en <= 1'b1;
+        w_addr <= 0;
+        w_strb <= 4'b1111;
+        w_din <= 24'hFFFFFF;
+
+        repeat (1) @(negedge w_clk);
+        w_en <= 1'b0;
+
+        // Write value to first pixel in bottom half
+        repeat (2) @(negedge w_clk);
+        w_en <= 1'b1;
+        w_addr <= 64*32; // 2048
+        w_strb <= 4'b1111;
+        w_din <= 24'hFFFFFF;
+
+        repeat (1) @(negedge w_clk);
+        w_en <= 1'b0;
+
+        // Write value to second pixel in bottom half
+        repeat (2) @(negedge w_clk);
+        w_en <= 1'b1;
+        w_addr <= 1; // 2048
+        w_strb <= 4'b1111;
+        w_din <= 24'hAAAAAA;
+
+        repeat (1) @(negedge w_clk);
+        w_en <= 1'b0;
+
+        // Write value to second pixel in bottom half
+        repeat (2) @(negedge w_clk);
+        w_en <= 1'b1;
+        w_addr <= 64*32 + 1; // 2048
+        w_strb <= 4'b1111;
+        w_din <= 24'hAAAAAA;
+
+        repeat (1) @(negedge w_clk);
+        w_en <= 1'b0;
+        // ****************************************
+
+        repeat (4) @(negedge w_clk);
+
+        // ******** Read values from ram **********
+        repeat (1) @(negedge w_clk);
+        r_addr <= 0;
+        r_en <= 1'b1;
+
+        for (integer i=0; i<8; i=i+1) begin
+            r_bit <= i;
+            repeat (1) @(negedge w_clk);
+            result_upper[8*2+i] <= r_dout[5];
+            result_upper[8*1+i] <= r_dout[4];
+            result_upper[8*0+i] <= r_dout[3];
+            result_lower[8*2+i] <= r_dout[2];
+            result_lower[8*1+i] <= r_dout[1];
+            result_lower[8*0+i] <= r_dout[0];
+        end
+
+        repeat (1) @(negedge w_clk);
+        r_addr <= 1;
+        r_en <= 1'b1;
+
+        for (integer i=0; i<8; i=i+1) begin
+            r_bit <= i;
+            repeat (1) @(negedge w_clk);
+            result_upper[8*2+i] <= r_dout[5];
+            result_upper[8*1+i] <= r_dout[4];
+            result_upper[8*0+i] <= r_dout[3];
+            result_lower[8*2+i] <= r_dout[2];
+            result_lower[8*1+i] <= r_dout[1];
+            result_lower[8*0+i] <= r_dout[0];
+        end
+
+        r_en <= 1'b0;
+
+
+
+
+
+
+
+        repeat (5) @(negedge w_clk);
         $finish();
     end
 
@@ -218,10 +319,6 @@ module tb_framebuffer;
 
     // assign w_clk = clk;
     // assign r_clk = clk;
-
-
-
-
 
 
 

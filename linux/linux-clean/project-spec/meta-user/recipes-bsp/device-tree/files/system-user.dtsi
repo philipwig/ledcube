@@ -126,7 +126,7 @@
 
 	led_driver_data@40010000 {
 		clock-names = "S_AXIF_ACLK";
-		clocks = <&clkc 15>;
+		clocks = <&clkc 18>;
 		compatible = "generic-uio", "xlnx,led-driver-top-1.0";
 		reg = <0x40100000 0x100000>;
 		xlnx,s-axif-addr-width = <0x10>;

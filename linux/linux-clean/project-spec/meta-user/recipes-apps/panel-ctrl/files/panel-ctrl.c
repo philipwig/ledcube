@@ -108,22 +108,27 @@ int32_t *data_base_addr;
 
 
 void fill_panel(int32_t color) {
-	// int32_t buffer[64*64];
+	static int32_t buffer[64*64];
 
 	for(unsigned int j = 0; j < 64*64; j = j + 1) {
-		// buffer[j] = color;
-	    data_base_addr[j] = color; // Need to set to a hex 3 to enable the led_panel_driver
+		buffer[j] = color;
+	    // data_base_addr[j] = color; // Need to set to a hex 3 to enable the led_panel_driver
 	}
 
-	// memcpy(data_base_addr, buffer, sizeof(buffer));
+	memcpy(data_base_addr, buffer, sizeof(buffer));
 }
 
 
 void matrix_set(int x, int y, RGB color) {
+	static int32_t buffer[64*64];
+
 	if (x < 64 && y < 64 && x >= 0 && y >= 0) {
 	    // *((unsigned *)(data_base_addr + (x + y*64) * 4)) = (color.red << 8*2) | (color.green << 8*1) | (color.blue << 8*0); // Need to set to a hex 3 to enable the led_panel_driver
-		data_base_addr[x+y*64] = (color.red << 8*2) | (color.green << 8*1) | (color.blue << 8*0); // Need to set to a hex 3 to enable the led_panel_driver
+		// data_base_addr[x+y*64] = (color.red << 8*2) | (color.green << 8*1) | (color.blue << 8*0); // Need to set to a hex 3 to enable the led_panel_driver
+		buffer[x+y*64] = (color.red << 8*2) | (color.green << 8*1) | (color.blue << 8*0); // Need to set to a hex 3 to enable the led_panel_driver
 	}
+
+	memcpy(data_base_addr, buffer, sizeof(buffer));
 }
 
 #define FRAMES 255
@@ -136,12 +141,22 @@ static int buffer = 0;
 int draw_rainbow() {
 	int x;
 	int y;
+
+	static int32_t buffer[64*64];
+	static int32_t buffer2[64*64];
+
 	for (y = 0; y < 64; ++y) {
 		for (x = 0; x < 64; ++x) {
 			RGB color = HSV2RGB(HSV(pos + x, 255, 255));
-			matrix_set(x, y, color);
+			// matrix_set(x, y, color);
+			buffer[x+y*64] = (color.red << 8*2) | (color.green << 8*1) | (color.blue << 8*0); // Need to set to a hex 3 to enable the led_panel_driver
+			// data_base_addr[x+y*64] = (color.red << 8*2) | (color.green << 8*1) | (color.blue << 8*0); // Need to set to a hex 3 to enable the led_panel_driver
 		}
 	}
+
+	memcpy(data_base_addr, buffer, sizeof(buffer));
+	// memcpy(buffer2, buffer, sizeof(buffer));
+
 
 	if (frame >= FRAMES) {
 		frame = 0;
@@ -156,6 +171,40 @@ int draw_rainbow() {
 	// usleep(25000);
 	return 0;
 }
+
+
+
+int draw_x_line() {
+	static int x;
+	static int y;
+
+	static int32_t buffer[64*64];
+
+	for (y = 0; y < 64; ++y) {
+		for (x = 0; x < 64; ++x) {
+			if (x == pos) {
+				buffer[x+y*64] = 0xFFFFFFFF; // Need to set to a hex 3 to enable the led_panel_driver
+			}
+			else {
+				buffer[x+y*64] = 0; // Need to set to a hex 3 to enable the led_panel_driver
+			}
+		}
+	}
+
+	memcpy(data_base_addr, buffer, sizeof(buffer));
+	// memcpy(buffer2, buffer, sizeof(buffer));
+
+	if (pos > 64) {
+		pos = 0;
+	}
+	else {
+		pos++;
+
+	}
+	// usleep(25000);
+	return 0;
+}
+
 
 
 int fd_ctrl, fd_data;
@@ -249,7 +298,7 @@ int main (int argc, char **argv)
 					fd_ctrl,
 					0*getpagesize());
 
-		// close(fd);
+		close(fd_ctrl);
 		printf("Opened ctrl uio\n");
 	}
 
@@ -268,7 +317,7 @@ int main (int argc, char **argv)
 			       MAP_SHARED,
 			       fd_data,
 			       0*getpagesize());
-		// close(fd);	
+		close(fd_data);	
 		printf("Opened data uio\n");
 	}
 	// **********************************
@@ -280,7 +329,8 @@ int main (int argc, char **argv)
 	ctrl_base_addr[1] = 64; // ctrl_n_rows
 	ctrl_base_addr[2] = 64; // ctrl_n_cols
 	ctrl_base_addr[3] = 8;  // ctrl_bitdepth
-	ctrl_base_addr[4] = 1; // ctrl_lsb_blank
+	ctrl_base_addr[4] = 14; // ctrl_lsb_blank
+	// ctrl_base_addr[4] = 50; // ctrl_lsb_blank
 	ctrl_base_addr[5] = 0;  // ctrl_brightness
 	ctrl_base_addr[6] = 0;  // ctrl_buffer
 
@@ -311,7 +361,7 @@ int main (int argc, char **argv)
 // clock_t end = clock();
 // double time_spent = (double)(end - begin) //in microseconds
 
-	gettimeofday(&t1, NULL);
+	// gettimeofday(&t1, NULL);
 
 	while (1) {
 		// ctrl_base_addr[6] = 0;
@@ -421,33 +471,41 @@ int main (int argc, char **argv)
 		// }
 
 
-		uint32_t info = 1; /* unmask */
+		// uint32_t info = 1; /* unmask */
 
-        ssize_t nb = write(fd_ctrl, &info, sizeof(info));
-        if (nb != (ssize_t)sizeof(info)) {
-            perror("write");
-            close(fd_ctrl);
-            exit(EXIT_FAILURE);
-        }
+        // ssize_t nb = write(fd_ctrl, &info, sizeof(info));
+        // if (nb != (ssize_t)sizeof(info)) {
+        //     perror("write");
+        //     close(fd_ctrl);
+        //     exit(EXIT_FAILURE);
+        // }
 
-        /* Wait for interrupt */
-        nb = read(fd_ctrl, &info, sizeof(info));
-        if (nb == (ssize_t)sizeof(info)) {
-            /* Do something in response to the interrupt. */
-				gettimeofday(&tv2, NULL);
-				// time_spent = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000; // + (double) (tv2.tv_sec - tv1.tv_sec);
-				time_spent = (double) (tv2.tv_usec - tv1.tv_usec); // + (double) (tv2.tv_sec - tv1.tv_sec);
-				gettimeofday(&tv1, NULL);
-				draw_rainbow();
-                // printf("Interrupt #%u!\t", info);
-                printf("Spent %f us\n", time_spent);
-		}
+        // /* Wait for interrupt */
+        // nb = read(fd_ctrl, &info, sizeof(info));
+        // if (nb == (ssize_t)sizeof(info)) {
+        //     /* Do something in response to the interrupt. */
+		// 		// gettimeofday(&tv2, NULL);
+		// 		// time_spent = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000; // + (double) (tv2.tv_sec - tv1.tv_sec);
+		// 		// time_spent = (double) (tv2.tv_usec - tv1.tv_usec); // + (double) (tv2.tv_sec - tv1.tv_sec);
+		// 		// gettimeofday(&tv1, NULL);
+		// 		// draw_rainbow();
+		// 		draw_x_line();
+		// 		usleep(5000);
+
+
+        //         // printf("Interrupt #%u!\t", info);
+        //         // printf("Spent %f us\n", time_spent);
+		// }
+
+
+
 
 		// gettimeofday(&tv2, NULL);
-		// // time_spent = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000; // + (double) (tv2.tv_sec - tv1.tv_sec);
 		// time_spent = (double) (tv2.tv_usec - tv1.tv_usec); // + (double) (tv2.tv_sec - tv1.tv_sec);
 		// gettimeofday(&tv1, NULL);
-		// draw_rainbow();
+		draw_rainbow();
+		// fill_panel(20);
+		// draw_x_line();
 		// printf("Spent %f us\n", time_spent);
 
 
